@@ -12,7 +12,7 @@ end
 repeat wait() until game.Players.LocalPlayer
 wait(0.25)
 _G.AutoExecuter = true
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/Slap_Battles.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/main/Slap_Battles.lua"))()
     ]])
 else
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot auto execute",Icon = "rbxassetid://7733658504",Duration = 5})
@@ -21,7 +21,7 @@ end
 
 game:GetService("GuiService"):ClearError()
 
-local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Giangplay/Script/main/Orion_Library_PE_V2.lua")))()
+local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Playgiang/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
@@ -62,6 +62,27 @@ _G.GetPotion = {
 	["Antitoxin"] = {"Blue Crystal","Glowing Mushroom","Plane Flower","Plane Flower","Elder Wood"},
 	["Corrupted Vine"] = {"Wild Vine","Wild Vine","Wild Vine","Blood Rose","Dark Root","Elder Wood","Jade Stone"},
 	["Field"] = {"Hazel Lily","Plane Flower","Plane Flower"}
+}
+
+_G.AllGetPotion = {
+	[1] = {"Mushroom"},
+	[2] = {"Dark Root","Dark Root","Dark Root"},
+	[3] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
+	[4] = {"Dire Flower","Red Crystal","Wild Vine"},
+	[5] = {"Plane Flower","Plane Flower"},
+	[6] = {"Autumn Sprout","Jade Stone"},
+	[7] = {"Hazel Lily","Hazel Lily","Blue Crystal"},
+	[8] = {"Red Crystal","Fire Flower","Fire Flower"},
+	[9] = {"Elder Wood","Mushroom","Mushroom"},
+	[10] = {"Dark Root","Dark Root","Blood Rose","Red Crystal"},
+	[11] = {"Winter Rose","Winter Rose","Wild Vine","Blue Crystal","Glowing Mushroom"},
+	[12] = {"Mushroom","Hazel Lily"},
+	[13] = {"Mushroom","Mushroom","Plane Flower","Hazel Lily","Blue Crystal"},
+	[14] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
+	[15] = {"Mushroom","Mushroom","Blue Crystal","Blue Crystal","Jade Stone","Plane Flower"},
+	[16] = {"Blue Crystal","Glowing Mushroom","Plane Flower","Plane Flower","Elder Wood"},
+	[17] = {"Wild Vine","Wild Vine","Wild Vine","Blood Rose","Dark Root","Elder Wood","Jade Stone"},
+	[18] = {"Hazel Lily","Plane Flower","Plane Flower"}
 }
 
 ---GetSome---
@@ -916,65 +937,9 @@ Tab:AddParagraph("[ Script Giang ]","This script was created by Giang, but there
 Tab:AddLabel("------------------------------[ End ]------------------------------")
 
 Tab1:AddButton({
-	Name = "Synapse X [ PE Delta ]",
+	Name = "Execute | Ui Library",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/delta-hydro/secret-host-haha/main/syn_ui_new.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Codex [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Codex.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Kiwi [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kiwi-Ui.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Krypton [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Krypton.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Krnl [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Knrl.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Animation [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Arceus x [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Arceus_X_V3.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Execute | Ui Library [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Execute%20%7C%20UI%20Library.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Kill Player [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kill%20player"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/Execute.lua"))()
   	end    
 })
 
@@ -982,13 +947,6 @@ Tab1:AddButton({
 	Name = "Keyboard",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Rejoin Gui",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Rejoin.lua"))()
   	end    
 })
 
@@ -1014,20 +972,6 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
-	Name = "Slap battles new R2O",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Games/6403373529.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Auto Farm Bob",
-	Callback = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Slap_Battles/main/File/Farm%20Bob.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
 	Name = "CherryUi's SB GUI",
 	Callback = function()
       		loadstring(game:HttpGet("https://raw.githubusercontent.com/RandomScriptr3/gggggggg/main/lolez.txt", true))()
@@ -1037,14 +981,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Position Gui",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Position_Gui.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Fe Fly V3",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/Position_Gui.lua", true))()
   	end    
 })
 
@@ -1077,23 +1014,9 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
-	Name = "TP gui player",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/TP_Player.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Turies Spy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Reamsrpy.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
 	Name = "Simple Spy",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/RemoteSpy-V2.lua", true))()
   	end    
 })
 
@@ -3179,7 +3102,7 @@ else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena",Image = "rbxassetid://7733658504",Time = 5})
 end
 elseif _G.PlayerChoose == "Random" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players[PlayerKick].Character:FindFirstChild("entered") and game.Players[PlayerKick].Character:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Recall" and game.Players.LocalPlayer.Character:FindFirstChild("Recall") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 v.CanTouch = false
@@ -3386,17 +3309,17 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
 repeat task.wait()
+if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 end
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
 repeat task.wait()
+if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 end
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value == "Default" then
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -3406,11 +3329,11 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
 repeat task.wait()
+if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 end
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
 fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
 wait(0.07)
@@ -3422,11 +3345,11 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.05)
-if game.Workspace.Blackhole_Particles ~= nil and game.Workspace.Blackhole_Particles.BlackHole ~= nil then
 repeat task.wait()
+if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 end
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 end
   	end    
 })
@@ -3723,6 +3646,32 @@ end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
+end
+  	end    
+})
+
+Tab14:AddButton({
+	Name = "Get All Potions",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+_G.AutoPo = 1
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+for o = 1, #_G.AllGetPotion do
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+for i = 1, #_G.AllGetPotion[_G.AutoPo] do
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"AddItem", _G.AllGetPotion[_G.AutoPo][i]}))
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.AllGetPotion[_G.AutoPo][i]}))
+end
+game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+_G.AutoPo = _G.AutoPo + 1
+task.wait()
+end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -5657,19 +5606,6 @@ end
   	end 
 })
 
-Tab7:AddSlider({
-	Name = "HipHeight AutoFarm Slap",
-	Min = 0,
-	Max = 20,
-	Default = 0,
-	Color = Color3.fromRGB(255,255,255),
-	Increment = 1,
-	ValueName = "Hip",
-	Callback = function(Value)
-		_G.HipAutoFarmSlap = Value
-	end    
-})
-
 Tab7:AddToggle({
 	Name = "AutoFarm Slap",
 	Default = false,
@@ -5681,7 +5617,7 @@ if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirs
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false then
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 if _G.AutoFarmSlap == true then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,_G.HipAutoFarmSlap,0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,5,0)
 task.wait(0.5)
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
 task.wait(0.43)
