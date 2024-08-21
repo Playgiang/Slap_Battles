@@ -44,7 +44,6 @@ local bypass;
 
 _G.GetPotion = {
 	["Grug"] = {"Mushroom"},
-	["idIot"] = {"Cake Mix"},
 	["Nightmare"] = {"Dark Root","Dark Root","Dark Root"},
 	["Confusion"] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
 	["Power"] = {"Dire Flower","Red Crystal","Wild Vine"},
@@ -1230,15 +1229,14 @@ for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
 local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
 if Magnitude <= _G.ClosestMagnitude then
-if v.Character:FindFirstChild("entered") == nil or v.Character.Humanoid.Health == 0 then
-_G.ClosestMagnitude = 999999
-RandomPlayer = nil
-else
 _G.ClosestMagnitude = Magnitude
 RandomPlayer = v
 end
 end
 end
+if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 then
+_G.ClosestMagnitude = 999999
+RandomPlayer = nil
 end
 if RandomPlayer and _G.ClosestMagnitude ~= 999999 then
 if RandomPlayer ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character then
@@ -1271,18 +1269,18 @@ Tab3:AddButton({
 	Name = "Get Glove Plank",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
-OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 97, 4)
-wait(0.2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+OldPo = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 200, 0)
 wait(0.3)
 game:GetService("ReplicatedStorage").Fortlol:FireServer()
-wait(3.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-wait(0.1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 106, -6)
-wait(0.5)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+wait(1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldPo
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "Part" then
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+end
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Fort equipped, or you have owner badge [ Don't turn on shiftlock ]",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -2475,7 +2473,7 @@ RojoAbility = Value
 })
 
 Tab14:AddToggle({
-	Name = "Auto Spam Rojo [ All Glove ]",
+	Name = "Auto Spam Rojo",
 	Default = false,
 	Callback = function(Value)
 if Person == nil then
@@ -6115,6 +6113,10 @@ game:GetService("ReplicatedStorage").Events.BeachBall:FireServer(workspace.Balls
 end
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Water" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("default")
+task.wait()
+end
 	end    
 })
 
@@ -6172,6 +6174,7 @@ _G.ClosestMagnitude = nil
 end
 end
 while _G.AutoFarmKill do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Killstreak" then
 for _, v in pairs(game.Players:GetPlayers()) do
 if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
 local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
@@ -6192,6 +6195,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Charac
 wait(0.19)
 game.ReplicatedStorage.KSHit:FireServer(RandomPlayer.Character:WaitForChild("Head"))
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+end
 end
 end
 end
@@ -6475,7 +6479,7 @@ Tab7:AddDropdown({
 	Default = "Fight",
 	Options = {"Fight", "Not Fight"},
 	Callback = function(Value)
-SlapAuraFriend = Value
+_G.SlapAuraFriend = Value
 	end    
 })
 
@@ -6502,8 +6506,9 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		SlapAura = Value
+while SlapAura do
 if _G.SlapAuraChoose == "Normal" then
-while SlapAura and SlapAuraFriend == "Fight" and _G.SlapAuraChoose == "Normal" do
+if _G.SlapAuraFriend == "Fight" then
 pcall(function()
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
@@ -6544,9 +6549,7 @@ end
 end
 end
 end)
-task.wait(.1)
-end
-while SlapAura and SlapAuraFriend == "Not Fight" and _G.SlapAuraChoose == "Normal" do
+elseif _G.SlapAuraFriend == "Not Fight" then
 pcall(function()
 for i, v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
@@ -6587,10 +6590,7 @@ end
 end
 end
 end)
-task.wait(.1)
-end
 elseif _G.SlapAuraChoose == "Reverse" then
-while SlapAura and _G.SlapAuraChoose == "Reverse" do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
@@ -6603,8 +6603,9 @@ end
 end
 end
                 end
-task.wait()
 end
+end
+task.wait(.1)
 end
 	end    
 })
@@ -6627,7 +6628,7 @@ Tab7:AddDropdown({
 	Default = "Fight",
 	Options = {"Fight", "Not Fight"},
 	Callback = function(Value)
-ShukuchiFriend = Value
+_G.ShukuchiFriend = Value
 	end    
 })
 
@@ -6636,9 +6637,9 @@ AutoShukuchi = Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
          _G.AutoShukuchi = Value
-if ShukuchiFriend == "Fight" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
-                while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Fight" do
+                while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" do
+if _G.ShukuchiFriend == "Fight" then
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character:FindFirstChild("Mirage") == nil then
@@ -6651,16 +6652,7 @@ end
 end
 end
                  end
-task.wait()
-end
-elseif _G.AutoShukuchi == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
-wait(0.05)
-AutoShukuchi:Set(false)
-end
-elseif ShukuchiFriend == "Not Fight" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" then
-                while _G.AutoShukuchi and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shukuchi" and ShukuchiFriend == "Not Fight" do
+elseif _G.ShukuchiFriend == "Not Fight" then
 for i,v in pairs(game.Players:GetPlayers()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Head:FindFirstChild("RedEye") == nil and v.Character:FindFirstChild("Mirage") == nil then
@@ -6673,13 +6665,13 @@ end
 end
 end
                  end
+end
 task.wait()
 end
 elseif _G.AutoShukuchi == true then
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Shukuchi equipped.",Image = "rbxassetid://7733658504",Time = 5})
 wait(0.05)
 AutoShukuchi:Set(false)
-end
 end
 	end    
 })
@@ -7329,6 +7321,24 @@ end
 	end    
 })
 
+AntiWater = Tab2:AddToggle({
+	Name = "Anti Water",
+	Default = false,
+	Callback = function(Value)
+_G.AntiWater = Value
+while _G.AntiWater do
+if game.Workspace:FindFirstChild("puddles") then
+   for i,v in pairs(game.Workspace.puddles:GetChildren()) do
+          if v.Name == "puddle" then
+             v.CanTouch = false
+         end
+    end
+end
+task.wait()
+end
+	end    
+})
+
 AntiMittenBl = Tab2:AddToggle({
 	Name = "Anti Mitten Blind",
 	Default = false,
@@ -7588,6 +7598,38 @@ AntiZa = Tab2:AddToggle({
                 end
 task.wait()
             end
+	end    
+})
+
+Antibob = Tab2:AddToggle({
+	Name = "Anti Bob",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiBob = Value
+while _G.AntiBob do
+for i, v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "ÅBOB_") then
+if v:FindFirstChild("Target") and v.Target.Value == game.Players.LocalPlayer.Name then
+if OldTelepo == nil then
+OldTelepo = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame * CFrame.new(0,30,0)
+end
+end
+else
+if OldTelepo then
+for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+if v.ClassName == "Part" and v.Name ~= "Humanoid" then
+v.CFrame = OldTelepo
+end
+end
+OldTelepo = nil
+end
+end
+end
+task.wait()
+end
 	end    
 })
 
@@ -7913,6 +7955,10 @@ AntiBallBaller:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+AntiWater:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiAttackPlank:Set(game.Workspace.NoChanged.Value)
 end)
 
@@ -7978,6 +8024,10 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiReda:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
+Antibob:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -8430,65 +8480,9 @@ Tab:AddParagraph("[ Script Giang ]","This script was created by Giang, but there
 Tab:AddLabel("------------------------------[ End ]------------------------------")
 
 Tab1:AddButton({
-	Name = "Synapse X [ PE Delta ]",
+	Name = "Execute | Ui Library",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/delta-hydro/secret-host-haha/main/syn_ui_new.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Codex [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Codex.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Kiwi [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kiwi-Ui.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Krypton [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Krypton.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Krnl [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Knrl.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Animation [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet('https://raw.githubusercontent.com/IlikeyocutgHAH12/EGEGESGGH/main/FE%20Animation%20GUI.txt'))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Arceus x [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Arceus_X_V3.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Execute | Ui Library [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Execute%20%7C%20UI%20Library.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Kill Player [ PE ]",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Kill%20player"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/Execute.lua"))()
   	end    
 })
 
@@ -8530,14 +8524,7 @@ Tab1:AddButton({
 Tab1:AddButton({
 	Name = "Position Gui",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Position_Gui.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Fe Fly V3",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/Position_Gui.lua", true))()
   	end    
 })
 
@@ -8570,23 +8557,9 @@ Tab1:AddButton({
 })
 
 Tab1:AddButton({
-	Name = "TP gui player",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/TP_Player.lua"))()
-  	end    
-})
-
-Tab1:AddButton({
-	Name = "Turies Spy",
-	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Reamsrpy.lua", true))()
-  	end    
-})
-
-Tab1:AddButton({
 	Name = "Simple Spy",
 	Callback = function()
-      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/RemoteSpy-V2.lua", true))()
   	end    
 })
 
@@ -8603,11 +8576,11 @@ webImport("ui/main")
   	end    
 })
 
-Tab1:AddButton({
+Tab3:AddButton({
 	Name = "Teleport SafeBox",
 	Callback = function()
 	if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-      		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+     	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
     end
   	end    
 })
@@ -9294,27 +9267,28 @@ Tab7:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		SlapAura = Value
-while SlapAura and SlapAuraFriend == "Fight" do
+while SlapAura do
+if SlapAuraFriend == "Fight" then
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Ragdolled.Value == false and v.Character.Torso.Anchored ~= false and v.Character:FindFirstChild("Mirage") == nil then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
-game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+game:GetService("ReplicatedStorage").KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+
                 end
 end
 end
 end
-task.wait(0.2)
-end
-while SlapAura and SlapAuraFriend == "Not Fight" do
+elseif SlapAuraFriend == "Not Fight" then
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false and v.Character.Torso.Anchored ~= false and v.Character:FindFirstChild("Mirage") == nil then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(v.UserId) and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
-game.ReplicatedStorage.KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+game:GetService("ReplicatedStorage").KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
                     end
+end
 end
 end
 end
@@ -9770,6 +9744,22 @@ end
 	end    
 })
 
+AntiAbilityKill = Tab2:AddToggle({
+	Name = "Anti Ability 250 kill",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiAbility = Value
+while _G.AntiAbility do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Part" then
+v.CanTouch = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
 AntiAdmin = Tab2:AddToggle({
 	Name = "Anti Mod | Admin",
 	Default = false,
@@ -9974,6 +9964,10 @@ AntiAdmin:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
+AntiAbilityKill:Set(game.Workspace.NoChanged.Value)
+end)
+
+game.Workspace.NoChanged.Changed:Connect(function()
 AntiKick:Set(game.Workspace.NoChanged.Value)
 end)
 
@@ -9982,7 +9976,7 @@ AntiAfk:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
-AntiNullSet(game.Workspace.NoChanged.Value)
+AntiNull:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
@@ -12836,6 +12830,7 @@ gloveHits = {
     ["Demolition"] = game.ReplicatedStorage.GeneralHit,
     ["Shotgun"] = game.ReplicatedStorage.GeneralHit,
     ["Beachball"] = game.ReplicatedStorage.GeneralHit,
+    ["Water"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
