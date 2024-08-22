@@ -1270,7 +1270,7 @@ Tab3:AddButton({
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
 OldPo = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 200, 0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-25875, 3013, -662)
 wait(0.3)
 game:GetService("ReplicatedStorage").Fortlol:FireServer()
 wait(1)
@@ -3136,8 +3136,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" or game.Players.L
 for i,v in pairs(game.Players:GetChildren()) do
          if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
               if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
-                 v.Character.HumanoidRootPart.CanCollide = false
-                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.stevebody.CFrame
+                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.stevebody.CFrame * CFrame.new(0,8,0)
               end
           end
      end
@@ -6590,6 +6589,7 @@ end
 end
 end
 end)
+end
 elseif _G.SlapAuraChoose == "Reverse" then
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
@@ -6603,7 +6603,6 @@ end
 end
 end
                 end
-end
 end
 task.wait(.1)
 end
@@ -7238,24 +7237,6 @@ end
 	end    
 })
 
-AntiSbeve = Tab2:AddToggle({
-	Name = "Anti Sbeve",
-	Default = false,
-	Callback = function(Value)
-		_G.AntiSbeve = Value
-while _G.AntiSbeve do
-for _,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character:FindFirstChild("stevebody") then
-                        v.Character:FindFirstChild("stevebody").CanTouch = false
-                        v.Character:FindFirstChild("stevebody").CanQuery = false
-                        v.Character:FindFirstChild("stevebody").CanCollide = false
-                    end
-                end
-task.wait()
-end
-	end    
-})
-
 AntiBallBaller = Tab2:AddToggle({
 	Name = "Anti Ball Baller",
 	Default = false,
@@ -7619,11 +7600,10 @@ end
 end
 else
 if OldTelepo then
-for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-if v.ClassName == "Part" and v.Name ~= "Humanoid" then
-v.CFrame = OldTelepo
-end
-end
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldTelepo
+wait(1.3)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 OldTelepo = nil
 end
 end
@@ -7944,10 +7924,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiRock:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiSbeve:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
