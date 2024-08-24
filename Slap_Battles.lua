@@ -3089,7 +3089,7 @@ end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(0.25)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.7)
+wait(2.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerKickRecall].Character.HumanoidRootPart.CFrame
 task.wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
@@ -3108,7 +3108,7 @@ end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-725,310,-2)
 task.wait(0.25)
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.7)
+wait(2.2)
 local players = game.Players:GetChildren()
 local randomPlayer = players[math.random(1, #players)]
 repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
@@ -3470,7 +3470,7 @@ if _G.TeleportOldPlace == "Yes" then
 OLG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 game:GetService("ReplicatedStorage").Recall:InvokeServer(game:GetService("Players").LocalPlayer.Character.Recall)
-wait(2.75)
+wait(2.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTeleport].Character.Head.CFrame
 task.wait(0.5)
 if _G.TeleportOldPlace == "Yes" then
@@ -3651,6 +3651,10 @@ Tab14:AddButton({
 	Name = "Get All Potions",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+for b = 1, _G.GivePotion do
 _G.AutoPo = 1
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
@@ -3665,7 +3669,8 @@ game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixIte
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 _G.AutoPo = _G.AutoPo + 1
-task.wait()
+end
+task.wait(0.1)
 end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Alchemist equipped",Image = "rbxassetid://7733658504",Time = 5})
@@ -6103,8 +6108,6 @@ end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Beachball" do
 if workspace.Balls:FindFirstChild(game.Players.LocalPlayer.Name.."'s Ball") == nil then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-elseif workspace.Balls:FindFirstChild(game.Players.LocalPlayer.Name.."'s Ball").Position < -10 then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 wait(0.2)
 if workspace.Balls:FindFirstChild(game.Players.LocalPlayer.Name.."'s Ball") then
@@ -6114,6 +6117,10 @@ task.wait()
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Water" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("default")
+task.wait()
+end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "64" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.Head.CFrame * CFrame.new(0, -2, 0) * CFrame.Angles(3.1415927410125732, -1.2705316543579102, 3.1415927410125732))
 task.wait()
 end
 	end    
@@ -7007,7 +7014,7 @@ end
 Tab2:AddDropdown({
 	Name = "Anti Void",
 	Default = "Normal",
-	Options = {"Normal","Retro","Water","Psycho","Bob"},
+	Options = {"Normal","Retro","Water","Psycho","Bob","Fall"},
 	Callback = function(Value)
 if _G.AntiVoid == true then
 AntiVoid:Set(false)
@@ -7114,6 +7121,13 @@ game.Workspace["BobWalk1"].Transparency = 1
 for i,v in pairs(game.Workspace.BobWalk1:GetChildren()) do
 v.Transparency = 1
 end
+end
+elseif _G.AntiVoidChoose == "Fall" then
+while _G.AntiVoid do
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y < -30 then
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(game.Workspace.Origo.CFrame * CFrame.new(0,-5,0))
+end
+task.wait()
 end
 end
 	end    
@@ -12024,7 +12038,7 @@ if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:Fin
 game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(9e9,9e9,9e9)
 game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
 game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
-game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = game.Workspace.CurrentCamera.CoordinateFrame
 game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
 if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
 game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
@@ -12807,6 +12821,7 @@ gloveHits = {
     ["Shotgun"] = game.ReplicatedStorage.GeneralHit,
     ["Beachball"] = game.ReplicatedStorage.GeneralHit,
     ["Water"] = game.ReplicatedStorage.GeneralHit,
+    ["64"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
