@@ -5,11 +5,11 @@ end
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 if not _G.Setting then
 _G.Setting = {
-   Teleport = "SafeSpotBox 2.0",
+   Teleport = "SafeSpotBox 1.0",
    ChooseWillEnd = "Reset",
-   ResetLoop = false,
-   Slap = 70,
-   Time = 3
+   ResetLoop = true,
+   Slap = 50,
+   Time = 5
 }
 end
 
@@ -166,7 +166,7 @@ end
 end
                  end
 end
-wait(0.05)
+wait(0.12)
 end
 wait(3)
 if _G.Setting.ChooseWillEnd == "Reset" then
@@ -191,6 +191,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("HumanoidDied"):FireServer(gam
 end
 wait(3.75)
 fireclickdetector(workspace.Lobby.Reverse.ClickDetector)
+wait(0.3)
 if _G.Setting.ResetLoop == true then
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/main/File/Farm_Slap_Ramke.lua"))()
 end
