@@ -5,11 +5,11 @@ end
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 if not _G.Setting then
 _G.Setting = {
-   Teleport = "SafeSpotBox 1.0",
+   Teleport = "SafeSpotBox 2.0",
    ChooseWillEnd = "Reset",
-   ResetLoop = true,
-   Slap = 50,
-   Time = 5
+   ResetLoop = false,
+   Slap = 70,
+   Time = 3
 }
 end
 
@@ -162,7 +162,6 @@ for i = 1, _G.Setting.Slap do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character.Humanoid.Health ~= 0 then
 game:GetService("ReplicatedStorage").b:FireServer(v:WaitForChild("Head"))
 end
-task.wait()
 end
 end
                  end
