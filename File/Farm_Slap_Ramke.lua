@@ -5,10 +5,10 @@ end
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 if not _G.Setting then
 _G.Setting = {
-   Teleport = "SafeSpotBox 1.0",
+   Teleport = "SafeSpotBox 2.0",
    ChooseWillEnd = "Reset",
-   ResetLoop = true,
-   Slap = 50,
+   ResetLoop = false,
+   Slap = 100,
    Time = 5
 }
 end
