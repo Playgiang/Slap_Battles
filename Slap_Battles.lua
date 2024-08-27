@@ -28,6 +28,7 @@ local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon =
 
 ---Bypass----
 
+if hookmetamethod then
 local bypass;
     bypass = hookmetamethod(game, "__namecall", function(method, ...) 
         if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
@@ -39,6 +40,9 @@ local bypass;
         end
         return bypass(method, ...)
     end)
+ else
+OrionLib:MakeNotification({Name = "Error",Content = "You need to be careful, You are using executor [ "..identifyexecutor().." ] There is no bypass",Image = "rbxassetid://7733658504",Time = 5})
+end
 
 ---Potion---
 
@@ -824,6 +828,15 @@ CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.Serve
 ServerPlayer = Tab:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
 TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
 TimeNow = Tab:AddLabel("Now Time [ "..os.date("%X").." ]")
+if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
+AlarmTime = Tab:AddLabel("Good Morning [ "..tonumber(os.date("%H")).." Hour ]")
+elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
+AlarmTime = Tab:AddLabel("Good Afternoon [ "..tonumber(os.date("%H")).." Hour ]")
+elseif tonumber(os.date("%H")) >= 17 and tonumber(os.date("%H")) < 21 then
+AlarmTime = Tab:AddLabel("Good Evening [ "..tonumber(os.date("%H")).." Hour ]")
+else
+AlarmTime = Tab:AddLabel("Good Night [ "..tonumber(os.date("%H")).." Hour ]")
+end
 AgeAccYou = Tab:AddLabel("You Account Age [ "..game.Players.LocalPlayer.AccountAge.." ]")
 ViewAgeServer = Tab:AddLabel("Server's Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]")
 if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
@@ -850,6 +863,7 @@ end
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
+Tab:AddParagraph("Check Slap Battles","Update [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated, 1, 10).." ] | Create [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Created, 1, 10).." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 local InfoServer = Tab:AddSection({Name = "Local Player"})
 if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
@@ -917,6 +931,15 @@ if not game.Workspace:FindFirstChild("SiphonOrb") then
 SiphonOrbSpawn:Set("Spawn Siphon Orb [ No ]")
 else
 SiphonOrbSpawn:Set("Spawn Siphon Orb [ Yes ]")
+end
+if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
+AlarmTime:Set("Good Morning [ "..tonumber(os.date("%H")).." Hour ]")
+elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
+AlarmTime:Set("Good Afternoon [ "..tonumber(os.date("%H")).." Hour ]")
+elseif tonumber(os.date("%H")) >= 17 and tonumber(os.date("%H")) < 21 then
+AlarmTime:Set("Good Evening [ "..tonumber(os.date("%H")).." Hour ]")
+else
+AlarmTime:Set("Good Night [ "..tonumber(os.date("%H")).." Hour ]")
 end
 elseif _G.AutoSetInfo == false then
 AutoSetInfoServer:Disconnect()
@@ -1055,22 +1078,36 @@ Tab3:AddDropdown({
 if Value == "Get Badge" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.FinishDoor_Retro.Part.CFrame
 elseif Value == "Show All" then
+if game.ReplicatedStorage.Assets:FindFirstChild("Retro") then
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
+end
 elseif Value == "Off Show All" then
+if game.ReplicatedStorage.Assets:FindFirstChild("Retro") == nil then
 game.Workspace.Retro.Parent = game.ReplicatedStorage.Assets
+end
 elseif Value == "Teleport Spawn 1" then
+if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") and game.Workspace.Retro.Map:FindFirstChild("RetroObbyMap") and game.Workspace.Retro.Map.RetroObbyMap:FindFirstChild("Spawn") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retro.Map.RetroObbyMap.Spawn.CFrame
+end
 elseif Value == "Teleport Spawn 2" then
+if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") and game.Workspace.Retro.Map:FindFirstChild("RetroObbyMap") and game.Workspace.Retro.Map.RetroObbyMap:FindFirstChild("Spawn_stage2") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retro.Map.RetroObbyMap.Spawn_stage2.CFrame
+end
 elseif Value == "Teleport Spawn 3" then
+if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") and game.Workspace.Retro.Map:FindFirstChild("RetroObbyMap") and game.Workspace.Retro.Map.RetroObbyMap:FindFirstChild("Spawn_stage3") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Retro.Map.RetroObbyMap.Spawn_stage3.CFrame
+end
 elseif Value == "Click Button" then
-if game:GetService("ReplicatedStorage").Assets.Retro then
-game.ReplicatedStorage.Assets.Retro.Parent = workspace
+if game.ReplicatedStorage:FindFirstChild("Assets") and game.ReplicatedStorage.Assets:FindFirstChild("Retro") then
+game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
 wait(1.5)
+if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") then
 fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+end
 else
+if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") then
 fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+end
 end
 end
 	end    
@@ -1082,17 +1119,29 @@ Tab3:AddDropdown({
 	Options = {"Show All","Off Show All","Teleport Enter","Teleport Portal","Teleport Bob Plushie","Click Bob Plushie [ Quests Hitman ]"},
 	Callback = function(Value)
 if Value == "Show All" then
+if game.ReplicatedStorage:FindFirstChild("RepressedMemoriesMap") then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
+end
 elseif Value == "Off Show All" then
+if game.ReplicatedStorage:FindFirstChild("RepressedMemoriesMap") == nil then
 game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
+end
 elseif Value == "Teleport Enter" then
+if game.Workspace:FindFirstChild("RepressedMemoriesMap") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.Limbo.CFrame * CFrame.new(0,-5,0)
+end
 elseif Value == "Teleport Portal" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories.SimonSaysGate.Portal.CFrame
 elseif Value == "Teleport Bob Plushie" then
+if game.Workspace:FindFirstChild("RepressedMemoriesMap") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
+elseif game.ReplicatedStorage:FindFirstChild("RepressedMemoriesMap") then
+game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
+wait(1.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
+end
 elseif Value == "Click Bob Plushie [ Quests Hitman ]" then
-if game:GetService("ReplicatedStorage").RepressedMemoriesMap then
+if game.ReplicatedStorage:FindFirstChild("RepressedMemoriesMap") then
 game.ReplicatedStorage.RepressedMemoriesMap.Parent = game.Workspace
 wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
@@ -1100,7 +1149,7 @@ wait(0.5)
 fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
 wait(2)
 game.Workspace.RepressedMemoriesMap.Parent = game.ReplicatedStorage
-else
+elseif game.Workspace:FindFirstChild("RepressedMemoriesMap") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.RepressedMemories._ugcQuestObjectBobPlushie.Handle.CFrame
 wait(0.7)
 fireclickdetector(workspace.RepressedMemories._ugcQuestObjectBobPlushie.ClickDetector)
@@ -5455,7 +5504,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 fireclickdetector(game.Workspace.Lobby.woah.ClickDetector)
 wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.CFrame
-task.wait(.2)
+wait(0.3)
 game:GetService("ReplicatedStorage").VineThud:FireServer()
 task.wait(1)
 fireclickdetector(game.Workspace.Lobby["Home Run"].ClickDetector)
@@ -6190,7 +6239,7 @@ RandomPlayer = v
 end
 end
 end
-if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 or RandomPlayer.Character:FindFirstChild("Torso") and RandomPlayer.Character.Torso.Anchored == true then
+if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 then
 _G.ClosestMagnitude = 999999
 RandomPlayer = nil
 end
@@ -7292,8 +7341,7 @@ AntiLure = Tab2:AddToggle({
 while _G.AntiLure do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if string.find(v.Name, "_lure") and v:FindFirstChild("Root") and v:FindFirstChild("watercircle") then
-                        v.Root.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                        v.watercircle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v:FindFirstChild("watercircle").CFrame
                     end
                 end
 task.wait()
@@ -7603,22 +7651,15 @@ Antibob = Tab2:AddToggle({
 	_G.AntiBob = Value
 while _G.AntiBob do
 for i, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "ÅBOB_") then
+if string.find(v.Name, "ÅBOB_") and v:FindFirstChild("HumanoidRootPart") then
 if v:FindFirstChild("Target") and v.Target.Value == game.Players.LocalPlayer.Name then
-if OldTelepo == nil then
-OldTelepo = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-end
-if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
+if game.Workspace.Arena.CubeOfDeathArea:FindFirstChild("BlackArea") then
+game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
+game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CanTouch = false
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame * CFrame.new(0,30,0)
-end
-end
 else
-if OldTelepo then
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldTelepo
-wait(1.3)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-OldTelepo = nil
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(game.Workspace.Origo.CFrame * CFrame.new(0,-5,0))
+end
 end
 end
 end
@@ -8066,6 +8107,7 @@ end)
 elseif game.PlaceId == 11520107397 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - Killstreak Only"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
+if hookmetamethod then
 local bypass;
     bypass = hookmetamethod(game, "__namecall", function(method, ...) 
         if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Ban then
@@ -8077,6 +8119,9 @@ local bypass;
         end
         return bypass(method, ...)
     end)
+ else
+OrionLib:MakeNotification({Name = "Error",Content = "You need to be careful, You are using executor [ "..identifyexecutor().." ] There is no bypass",Image = "rbxassetid://7733658504",Time = 5})
+end
 
 if game.Workspace:FindFirstChild("NametagChanged") == nil then
 local NametagChanged = Instance.new("StringValue", workspace)
@@ -9443,7 +9488,7 @@ RandomPlayer = v
 end
 end
 end
-if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 or RandomPlayer.Character:FindFirstChild("Torso") and RandomPlayer.Character.Torso.Anchored == true then
+if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 then
 _G.ClosestMagnitude = 999999
 RandomPlayer = nil
 end
@@ -10634,6 +10679,7 @@ end
 elseif game.PlaceId == 9431156611 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
+if hookmetamethod then
 local bypass;
      bypass = hookmetamethod(game, "__namecall", function(method, ...) 
          if getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.Events.Ban then
@@ -10647,6 +10693,9 @@ local bypass;
        end
           return bypass(method, ...)
      end)
+ else
+OrionLib:MakeNotification({Name = "Error",Content = "You need to be careful, You are using executor [ "..identifyexecutor().." ] There is no bypass",Image = "rbxassetid://7733658504",Time = 5})
+end
 
 if workspace:FindFirstChild("AntiLava") == nil then
 local AntiLava = Instance.new("Part", workspace)
@@ -12114,18 +12163,29 @@ end
 
 local InfoServer = Tab:AddSection({Name = "Misc"})
 
-Tab:AddButton({
-	Name = "Teleport Enter Final Room",
-	Callback = function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(502, 76, 59)
-task.wait(4)
-if getconnections then
+AntiAfk = Tab:AddToggle({
+	Name = "Anti Afk",
+	Default = false,
+	Callback = function(Value)
+	_G.AntiAfk = Value
 for i,v in next, getconnections(game.Players.LocalPlayer.Idled) do
-v:Disable() 
+if _G.AntiAfk then
+v:Disable()
+else
+v:Enable()
 end
 end
-OrionLib:MakeNotification({Name = "Error",Content = "Turned on Anti Afk",Image = "rbxassetid://7733658504",Time = 3})
-OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour, or you have view Info.",Image = "rbxassetid://7733658504",Time = 5})
+	end    
+})
+
+Tab:AddButton({
+	Name = "Enter Final Room",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.TPVEnt.FOG:FindFirstChild("START").CFrame
+wait(6)
+if AntiAfk and _G.AntiAfk == false then
+AntiAfk:Set(true)
+end
   	end    
 })
 
