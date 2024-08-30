@@ -12723,6 +12723,67 @@ game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
 end
   	end 
 })
+elseif game.PlaceId == 7234087065 then
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4370318685",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "Teleport Clown",
+	Callback = function()
+if game.Workspace.NPCS:FindFirstChild("Pablo Pinkypoo") and game.Workspace.NPCS["Pablo Pinkypoo"]:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.NPCS["Pablo Pinkypoo"].HumanoidRootPart.CFrame * CFrame.new(0,0,5)
+wait(0.4)
+for i,v in ipairs(game.Workspace.DialoguePrompts:GetChildren()) do
+            if v.Name == "PabloPinkyPoo" and v:FindFirstChild("ProximityPrompt") then
+                fireproximityprompt(v.ProximityPrompt)
+            end
+        end
+end
+  	end 
+})
+
+Tab:AddButton({
+	Name = "Teleport Key + Unlock ogg",
+	Callback = function()
+if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.QuestStuff.Key.CFrame
+wait(0.35)
+for i,v in ipairs(game.Workspace.QuestStuff:GetChildren()) do
+            if v.Name == "Key" and v:FindFirstChild("ClickDetector") then
+                   fireclickdetector(v.ClickDetector, 0)
+                   fireclickdetector(v.ClickDetector, 1)
+            end
+        end
+wait(2.89)
+if game.Workspace.Buildings:FindFirstChild("oog's cage") and game.Workspace.Buildings["oog's cage"]:FindFirstChild("Door") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Buildings["oog's cage"].Door.Door.CFrame * CFrame.new(-3,0,0)
+wait(0.35)
+for i,v in ipairs(game.Workspace.Buildings["oog's cage"]:GetChildren()) do
+            if v.Name == "Door" and v:FindFirstChild("ClickDetector") then
+                   fireclickdetector(v.ClickDetector, 0)
+                   fireclickdetector(v.ClickDetector, 1)
+            end
+        end
+end
+wait(2.5)
+if game.Workspace.NPCS:FindFirstChild("Pablo Pinkypoo") and game.Workspace.NPCS["Pablo Pinkypoo"]:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.NPCS["Pablo Pinkypoo"].HumanoidRootPart.CFrame * CFrame.new(0,0,5)
+wait(0.4)
+for i,v in ipairs(game.Workspace.DialoguePrompts:GetChildren()) do
+            if v.Name == "PabloPinkyPoo" and v:FindFirstChild("ProximityPrompt") then
+                fireproximityprompt(v.ProximityPrompt)
+            end
+        end
+end
+end
+  	end 
+})
+
 end
 --------------------------------------------------------
 if gethui():FindFirstChild("Orion") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") == nil then
