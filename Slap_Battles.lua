@@ -24,7 +24,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Playgiang/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass----
 
@@ -6406,13 +6406,13 @@ Tab7:AddButton({
 	Callback = function()
 if _G.GloveEquipHehe == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(game.Workspace.Lobby[_G.GloveEquipHehe].ClickDetector)
+fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You aren't in the lobby.",Image = "rbxassetid://7733658504",Time = 5})
 end
 elseif _G.GloveEquipHehe == "Tournament" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(game.Workspace.Lobby[_G.GloveEquipHehe].ClickDetector)
+fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
@@ -8105,7 +8105,7 @@ game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 elseif game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - Killstreak Only"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - Killstreak Only"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if hookmetamethod then
 local bypass;
@@ -8434,6 +8434,7 @@ else
 KillstreakLabel = Tab:AddLabel("Kill [ Menu Not Slow ]")
 end
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
+Tab:AddParagraph("Check Slap Battles","Update [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated, 1, 10).." ] | Create [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Created, 1, 10).." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 local InfoServer = Tab:AddSection({Name = "Local Player"})
 if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
@@ -10030,7 +10031,7 @@ game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 elseif game.PlaceId == 11828384869 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." / Server Elude"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." / Server Elude"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab
 local Tab = Window:MakeTab({
@@ -10043,6 +10044,7 @@ Tab:AddLabel("Owner Credits Script By [ Giang ]")
 Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 local Fps = Tab:AddSection({Name = "Fps You"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+Tab:AddParagraph("Check Slap Battles","Update [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated, 1, 10).." ] | Create [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Created, 1, 10).." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
 AutoSetInfo = Tab:AddToggle({
@@ -10377,7 +10379,7 @@ end
   	end 
 })
 elseif game.PlaceId == 13833961666 then
-local Window = OrionLib:MakeWindow({IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
@@ -10408,6 +10410,7 @@ CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 CheckHealth = Tab:AddLabel("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
+Tab:AddParagraph("Check Slap Battles","Update [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated, 1, 10).." ] | Create [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Created, 1, 10).." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
 AutoSetInfo = Tab:AddToggle({
@@ -10483,7 +10486,7 @@ GloveSlap = Value
 })
 
 Tab:AddToggle({
-	Name = "Slap Aura Bob Clone [ Test... ]",
+	Name = "Auto Slap Bob Clone",
 	Default = false,
 	Callback = function(Value)
 		_G.SlapBobClone = Value
@@ -10509,30 +10512,20 @@ end
 })
 
 Tab:AddButton({
-	Name = "Slap Aura Bob",
+	Name = "Slap Bob Clone",
 	Callback = function()
+if game.Workspace:FindFirstChild("BobClone") then
+for _, v in pairs(workspace:GetChildren()) do
+if v.Name == "BobClone" then
 if GloveSlap == "Killstreak" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").KSHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
-end
-end
 elseif GloveSlap == "Reaper" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").ReaperHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
-end
-end
 elseif GloveSlap == "God's Hand" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").Godshand:FireServer(v:FindFirstChild("HumanoidRootPart"))
-end
-end
 elseif GloveSlap == "Tycoon" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
 end
 end
 end
@@ -10677,7 +10670,7 @@ end
 	end    
 })
 elseif game.PlaceId == 9431156611 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if hookmetamethod then
 local bypass;
@@ -11654,7 +11647,7 @@ task.wait()
 	end    
 })
 elseif game.PlaceId == 14422118326 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -11804,7 +11797,7 @@ end
   	end 
 })
 elseif game.PlaceId == 15507333474 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if workspace:FindFirstChild("AntiVoid") == nil then
 local Anti = Instance.new("Part", workspace)
@@ -12131,7 +12124,7 @@ end
   	end 
 })
 elseif game.PlaceId == 16034567693 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -12145,6 +12138,7 @@ local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
 TimeServer = Tab:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+Tab:AddParagraph("Check Slap Battles","Update [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated, 1, 10).." ] | Create [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Created, 1, 10).." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
 AutoSetInfo = Tab:AddToggle({
@@ -12199,7 +12193,7 @@ end
   	end 
 })
 elseif game.PlaceId == 17290438723 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Main",
@@ -12210,6 +12204,7 @@ local Tab = Window:MakeTab({
 Tab:AddLabel("Owner Credits Script By [ Giang ]")
 Tab:AddLabel("DonjoSx Shared Script Me, GoodLuck")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
+Tab:AddParagraph("Check Slap Battles","Update [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Updated, 1, 10).." ] | Create [ "..string.sub(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Created, 1, 10).." ]")
 local InfoServer = Tab:AddSection({Name = "Misc"})
 
 Tab:AddButton({
@@ -12237,7 +12232,7 @@ end
   	end 
 })
 elseif game.PlaceId == 18550498098 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if game.Workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
@@ -12660,7 +12655,7 @@ task.wait()
 	end    
 })
 elseif game.PlaceId == 18698003301 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
