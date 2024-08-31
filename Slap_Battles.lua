@@ -6172,6 +6172,10 @@ while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "64" 
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.Head.CFrame * CFrame.new(0, -2, 0) * CFrame.Angles(3.1415927410125732, -1.2705316543579102, 3.1415927410125732))
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Fan" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
 	end    
 })
 
@@ -12733,7 +12737,7 @@ local Tab = Window:MakeTab({
 })
 
 Tab:AddButton({
-	Name = "Teleport Clown",
+	Name = "Teleport Pablo",
 	Callback = function()
 if game.Workspace.NPCS:FindFirstChild("Pablo Pinkypoo") and game.Workspace.NPCS["Pablo Pinkypoo"]:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.NPCS["Pablo Pinkypoo"].HumanoidRootPart.CFrame * CFrame.new(0,0,5)
@@ -12748,7 +12752,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "Teleport Key + Unlock ogg",
+	Name = "Teleport Key + Unlock oog",
 	Callback = function()
 if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 0 then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.QuestStuff.Key.CFrame
@@ -12938,6 +12942,7 @@ gloveHits = {
     ["Beachball"] = game.ReplicatedStorage.GeneralHit,
     ["Water"] = game.ReplicatedStorage.GeneralHit,
     ["64"] = game.ReplicatedStorage.GeneralHit,
+    ["Fan"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
