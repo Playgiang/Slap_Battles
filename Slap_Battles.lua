@@ -182,7 +182,9 @@ if _G.GetTeleport == "Up To You" then
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 while ReplicaBallerBlinkFarm do
+if _G.GetTeleport == "Up To You" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+end
 wait(0.25)
 game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
 fireclickdetector(workspace.Lobby.Baller.ClickDetector)
@@ -217,7 +219,14 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
+if _G.GetTeleport == "Up To You" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
+elseif _G.GetTeleport == "SafeSpotBox 1.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
+elseif _G.GetTeleport == "SafeSpotBox 2.0" then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+end
+wait(0.25)
 game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game.ReplicatedStorage.HumanoidDied:FireServer(game.Players.LocalPlayer.Character,false)
@@ -1050,7 +1059,7 @@ game.ReplicatedStorage.AbyssAssets.Abyss.Parent = game.Workspace
 elseif Value == "Off Show All" then
 game.Workspace.Abyss.Parent = game.ReplicatedStorage.AbyssAssets
 elseif Value == "Teleport Enter" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(194, 35, -12671)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Abyss.Spawn.CFrame * CFrame.new(0,10,0)
 end
 	end    
 })
@@ -1098,7 +1107,36 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Win Obby Pyscho",
+	Name = "Win Kraken",
+	Callback = function()
+if game.Workspace:FindFirstChild("Abyss") ~= nil then
+repeat task.wait()
+if game.Workspace:FindFirstChild("Abyss") and game.Workspace.Abyss:FindFirstChild("Ship") and game.Workspace.Abyss.Ship:FindFirstChild("Ghost_Ship") and game.Workspace.Abyss.Ship.Ghost_Ship:FindFirstChild("Wall") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Abyss.Ship.Ghost_Ship.Wall.CFrame * CFrame.new(0,10,0)
+else
+break
+end
+if game.Workspace:FindFirstChild("kraken_hurtbox") then
+if game.Players.LocalPlayer.Character:FindFirstChild("Squid") then
+game.Players.LocalPlayer.Character:FindFirstChild("Squid"):Activate()
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Squid") then
+game.Players.LocalPlayer.Backpack:FindFirstChild("Squid").Parent = game.Players.LocalPlayer.Character
+end
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "kraken_hurtbox" then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+end
+end
+until game.Workspace:FindFirstChild("Abyss") == nil
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have enter Map Abyss [ don't show all, not work ]",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab3:AddButton({
+	Name = "Win Obby Psycho",
 	Callback = function()
 if game.Workspace:FindFirstChild("RepressedMemoriesMap") ~= nil then
 OGL = game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StartPsychoEvent.CFrame
@@ -1111,6 +1149,51 @@ wait(2.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 wait(2.5)
 game.Workspace.RepressedMemoriesMap.Psychokinesis.Triggers.StopPsychoEvent.CFrame = OGL1
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You have enter limbo [ don't show all, not work ]",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab3:AddButton({
+	Name = "Answer Recall",
+	Callback = function()
+if game.Workspace:FindFirstChild("RepressedMemories") and game.Workspace.RepressedMemories:FindFirstChild("RepressedMemoriesNPC") then
+if Answer == nil then
+Glove = {}
+for i,v in pairs(game.Workspace.Lobby.GloveStands:GetChildren()) do
+if v.Name ~= "Unknown" then
+table.insert(Glove, v)
+end
+end
+Answer = {
+    ["Server"] = tostring(#game.Players:GetPlayers()),
+    ["TheLastThing"] = "Yes",
+    ["DoYouKnowWhoIAm"] = "A forgotten memory",
+    ["Glitch"] = "01010010 01010101 01001110",
+    ["GamePublishDate"] = "16/2/2021",
+    ["EludeQuestion"] = "Elude",
+    ["BobReplica"] = "1/7500",
+    ["AgeQuestion"] = tostring(game.Players.LocalPlayer.AccountAge),
+    ["TrickQuestion"] = "Yes",
+    ["Owner"] = "Tencelll",
+    ["NumberOfGloveStands"] = tostring(#Glove),
+    ["TrickMathQuestion"] = "3",
+    ["HowManySlaps"] = tostring(game.Players.LocalPlayer.leaderstats.Slaps.Value),
+    ["GloveReq"] = "Coil",
+}
+end
+if game.Workspace:FindFirstChild("RepressedMemories") and game.Workspace.RepressedMemories:FindFirstChild("RepressedMemoriesNPC") then
+for i, v in pairs(game.Workspace.RepressedMemories.RepressedMemoriesNPC.Head.Dialog:GetChildren()) do
+        if v:IsA("DialogChoice") then
+            if Answer[v.Name] then
+                OrionLib:MakeNotification({Name = "Error",Content = "Answer Question [ "..Answer[v.Name].." ]",Image = "rbxassetid://7733658504",Time = 5})
+                else
+                OrionLib:MakeNotification({Name = "Error",Content = "No question found for you",Image = "rbxassetid://7733658504",Time = 5})
+            end
+        end
+    end
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You have enter limbo [ don't show all, not work ]",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -10116,6 +10199,11 @@ local InfoServer = Tab:AddSection({Name = "Info"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CheckSlap = Tab:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 CheckHealth = Tab:AddLabel("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
+if game.Workspace:FindFirstChild("BossFolder") and game.Workspace.BossFolder:FindFirstChild("Health") then
+CheckHealthBoss = Tab:AddLabel("Check Health Boss [ "..game.Workspace.BossFolder.Health.Value.." ]")
+else
+CheckHealthBoss = Tab:AddLabel("Check Health Boss [ Not Started Yet ]")
+end
 Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
@@ -10128,6 +10216,11 @@ while _G.AutoSetInfo do
 CanYouFps:Set("Can You Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 CheckHealth:Set("Check Health [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
+if game.Workspace:FindFirstChild("BossFolder") and game.Workspace.BossFolder:FindFirstChild("Health") then
+CheckHealthBoss:Set("Check Health Boss [ "..game.Workspace.BossFolder.Health.Value.." ]")
+else
+CheckHealthBoss:Set("Check Health Boss [ Not Started Yet ]")
+end
 task.wait()
 end
 	end    
@@ -10192,7 +10285,7 @@ GloveSlap = Value
 })
 
 Tab:AddToggle({
-	Name = "Slap Aura Bob Clone [ Test... ]",
+	Name = "Slap Aura Bob Clone",
 	Default = false,
 	Callback = function(Value)
 		_G.SlapBobClone = Value
@@ -10220,28 +10313,18 @@ end
 Tab:AddButton({
 	Name = "Slap Aura Bob",
 	Callback = function()
+if game.Workspace:FindFirstChild("BobClone") then
+for _, v in pairs(workspace:GetChildren()) do
+if v.Name == "BobClone" then
 if GloveSlap == "Killstreak" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").KSHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
-end
-end
 elseif GloveSlap == "Reaper" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").ReaperHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
-end
-end
 elseif GloveSlap == "God's Hand" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").Godshand:FireServer(v:FindFirstChild("HumanoidRootPart"))
-end
-end
 elseif GloveSlap == "Tycoon" then
-for _, v in ipairs(workspace:GetDescendants()) do
-if v.Name == "BobClone" then
 game:GetService("ReplicatedStorage").GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
 end
 end
 end
