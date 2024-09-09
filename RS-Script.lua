@@ -829,14 +829,11 @@ end
 end)
 	end    
 })
-
 local InfoServer = Tab:AddSection({Name = "Notification"})
 Tab:AddLabel("------------------------------[ Warning ]------------------------------")
 Tab:AddParagraph("[ Admin ]","[ Banned Hackers which node is not good ]")
 Tab:AddParagraph("[ Record ]","[ When someone records it, you got a 90% ban ]")
 Tab:AddParagraph("[ Lucky ]","[ If you are lucky enough to survive the banned then you are lucky ]")
-Tab:AddParagraph("[ Tired ]","I'm Very Tired of Script and Script Update is slow. Please forgive me because I update slowly")
-Tab:AddParagraph("[ Script Giang ]","This script was created by Giang, but there is a problem when creating a feature but no one testing no one can help me see if it works | I'm really sorry that I couldn't do the feature and it all failed and didn't work | I hope everyone understands me")
 Tab:AddLabel("------------------------------[ End ]------------------------------")
 
 Tab1:AddButton({
@@ -1277,7 +1274,6 @@ v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 end
 until game.Workspace:FindFirstChild("BusModel") == nil
-end
 end
 task.wait(3.5)
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
