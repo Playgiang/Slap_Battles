@@ -24,7 +24,7 @@ game:GetService("GuiService"):ClearError()
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Playgiang/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - ".." Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 ---Bypass----
 
@@ -1227,54 +1227,6 @@ end
 })
 
 Tab3:AddButton({
-	Name = "Get Glove Warp",
-	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Swapper" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124914780) then
-if _G.ClosestMagnitude == nil then
-_G.ClosestMagnitude = 999999
-end
-repeat
-for _, v in pairs(game.Players:GetPlayers()) do
-if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
-local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-if Magnitude <= _G.ClosestMagnitude then
-_G.ClosestMagnitude = Magnitude
-RandomPlayer = v
-end
-end
-end
-if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 then
-_G.ClosestMagnitude = 999999
-RandomPlayer = nil
-end
-if RandomPlayer and _G.ClosestMagnitude ~= 999999 then
-if RandomPlayer ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character.Ragdolled.Value == false then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character:FindFirstChild("Head").CFrame
-wait(0.17)
-game.ReplicatedStorage.HitSwapper:FireServer(RandomPlayer.Character:WaitForChild("Head"))
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-end
-end
-end
-task.wait(0.15)
-until RandomPlayer.Character.HumanoidRootPart.Position.Y < -10
-wait(0.2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame * CFrame.new(0,10,0)
-wait(0.15)
-game:GetService("ReplicatedStorage").SLOC:FireServer()
-wait(0.2)
-if _G.ClosestMagnitude and RandomPlayer then
-_G.ClosestMagnitude = nil
-RandomPlayer = nil
-end
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Swapper equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
-end
-  	end    
-})
-
-Tab3:AddButton({
 	Name = "Get Glove Plank",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
@@ -1284,12 +1236,14 @@ wait(0.3)
 game:GetService("ReplicatedStorage").Fortlol:FireServer()
 wait(1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldPo
+repeat task.wait()
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "Part" then
 firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
 firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
 end
 end
+until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872)
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Fort equipped, or you have owner badge [ Don't turn on shiftlock ]",Image = "rbxassetid://7733658504",Time = 5})
 end
@@ -1317,14 +1271,13 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 wait(1.5)
 game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = 0,["Direction"] = Vector3.new(0,0.01,0)})
 wait(0.8)
-for i = 1,50 do
+repeat task.wait()
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "BusModel" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 end
-task.wait()
-end
+until game.Workspace:FindFirstChild("BusModel") == nil
 end
 task.wait(3.5)
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
@@ -5740,15 +5693,17 @@ end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Boogie" do
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Boogie") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Boogie)
-end
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Boogie") == nil then
 game:GetService("ReplicatedStorage").BoogieBall:FireServer(game.Players.LocalPlayer.Character.Boogie, game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+end
 task.wait()
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Balloony" do
 if game.Players.LocalPlayer.Backpack:FindFirstChild("Balloony") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Balloony)
-end
+elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Balloony") == nil then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game:GetService("Players").LocalPlayer.Character.Balloony)
+end
 task.wait()
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Phase" do
@@ -6254,21 +6209,23 @@ Tab7:AddToggle({
 	Callback = function(Value)		
         _G.AutoEnter = Value
 while _G.AutoEnter and AutoEnter == "Arena" do
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 0)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 1)
+end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 task.wait()
 end
 while _G.AutoEnter and AutoEnter == "Arena Default" do
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport2, 0)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport2, 1)
+end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 task.wait()
@@ -7864,7 +7821,7 @@ game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 elseif game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - Killstreak Only"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - ".." Killstreak Only".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if hookmetamethod then
 local bypass;
@@ -9789,7 +9746,7 @@ game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 elseif game.PlaceId == 11828384869 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." / Server Elude"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." / Server Elude"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab
 local Tab = Window:MakeTab({
@@ -10136,7 +10093,7 @@ end
   	end 
 })
 elseif game.PlaceId == 13833961666 then
-local Window = OrionLib:MakeWindow({IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
@@ -10436,7 +10393,7 @@ end
 	end    
 })
 elseif game.PlaceId == 9431156611 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if hookmetamethod then
 local bypass;
@@ -11413,7 +11370,7 @@ task.wait()
 	end    
 })
 elseif game.PlaceId == 14422118326 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -11563,7 +11520,7 @@ end
   	end 
 })
 elseif game.PlaceId == 15507333474 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if workspace:FindFirstChild("AntiVoid") == nil then
 local Anti = Instance.new("Part", workspace)
@@ -11890,7 +11847,7 @@ end
   	end 
 })
 elseif game.PlaceId == 16034567693 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -11947,7 +11904,7 @@ end
   	end 
 })
 elseif game.PlaceId == 17290438723 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Main",
@@ -11985,7 +11942,7 @@ end
   	end 
 })
 elseif game.PlaceId == 18550498098 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if game.Workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
@@ -12408,7 +12365,7 @@ task.wait()
 	end    
 })
 elseif game.PlaceId == 18698003301 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -12477,7 +12434,7 @@ end
   	end 
 })
 elseif game.PlaceId == 7234087065 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("AmongUs × Giang Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -12563,8 +12520,8 @@ while true do
 end
 end)
 TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
-if gethui():FindFirstChild("Orion") then
-for i,v in pairs(gethui():GetChildren()) do
+if game.CoreGui:FindFirstChild("Orion") then
+for _, v in pairs(game.CoreGui:GetChildren()) do
 if v.Name == "Orion" then
 v.Enabled = not v.Enabled
 end
@@ -12574,8 +12531,8 @@ end)
 TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
 end 
 ------------------------------------------------------------------------
-if gethui():FindFirstChild("Orion") then
-for _, i in pairs(gethui():GetChildren()) do
+if game.CoreGui:FindFirstChild("Orion") then
+for _, i in pairs(game.CoreGui:GetChildren()) do
 if i.Name == "Orion" then
 for i,v in pairs(i:GetDescendants()) do
                     if v.ClassName == "Frame" and v.BackgroundTransparency < 0.3 then
@@ -12584,6 +12541,39 @@ v.BackgroundTransparency = 0.2
                 end
             end
         end
+local function RainbowStroke(b)
+    if b:IsA("Frame") or b:IsA("ImageLabel") then
+        if b.Transparency < 1 then
+local Stroke = Instance.new("UIStroke", b)
+Stroke.Color = Color3.fromRGB(255, 255, 255)
+Stroke.Thickness = 2
+Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+            
+local uiGradient = Instance.new("UIGradient", b)
+uiGradient.Rotation = 25
+uiGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 105, 148)),
+    ColorSequenceKeypoint.new(0.2, Color3.fromRGB(0, 168, 255)),
+    ColorSequenceKeypoint.new(0.4, Color3.fromRGB(64, 224, 208)),
+    ColorSequenceKeypoint.new(0.6, Color3.fromRGB(0, 255, 255)),
+    ColorSequenceKeypoint.new(0.8, Color3.fromRGB(135, 206, 250)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(224, 255, 255))
+})
+        end
+    end
+end
+
+if game.CoreGui:FindFirstChild("Orion") then
+for _, i in pairs(game.CoreGui:GetChildren()) do
+if i.Name == "Orion" then
+for _, v in pairs(i:GetChildren()) do
+            if not v:IsA("ScreenGui") then
+                RainbowStroke(v)
+            end
+        end
+end
+end
+end
 if AutoSetInfo then
 AutoSetInfo:Set(true)
 end
@@ -12692,6 +12682,7 @@ gloveHits = {
     ["64"] = game.ReplicatedStorage.GeneralHit,
     ["Fan"] = game.ReplicatedStorage.GeneralHit,
     ["Shackle"] = game.ReplicatedStorage.GeneralHit,
+    ["Titan"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
@@ -12719,7 +12710,7 @@ gloveHits = {
     ["Reaper"] = game.ReplicatedStorage.ReaperHit,
     ["Replica"] = game.ReplicatedStorage.ReplicaHit,
     ["Defense"] = game.ReplicatedStorage.DefenseHit,
-    ["Killstreak"] = game.ReplicatedStorage.KSHitl,
+    ["Killstreak"] = game.ReplicatedStorage.KSHit,
     ["Reverse"] = game.ReplicatedStorage.ReverseHit,
     ["Shukuchi"] = game.ReplicatedStorage.ShukuchiHit,
     ["Duelist"] = game.ReplicatedStorage.DuelistHit,
