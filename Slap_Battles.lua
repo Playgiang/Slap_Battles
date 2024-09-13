@@ -6288,7 +6288,11 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
+if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boxer" then
+game:GetService("ReplicatedStorage").Events.Boxing:FireServer(v, false)
+end
                 end
 end
 end
@@ -6300,7 +6304,11 @@ for _, c in pairs(workspace:GetChildren()) do
 if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
 Magnitude1 = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude1 then
+if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitForChild(SlapAuraCharacter),true)
+elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boxer" then
+game:GetService("ReplicatedStorage").Events.Boxing:FireServer(c, false)
+end
                     end
 end
                     end
@@ -6329,7 +6337,11 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
+if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boxer" then
+game:GetService("ReplicatedStorage").Events.Boxing:FireServer(v, false)
+end
                     end
 end
 end
@@ -6341,7 +6353,11 @@ for i, c in pairs(workspace:GetChildren()) do
 if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
 Magnitude1 = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude1 then
+if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitForChild(SlapAuraCharacter),true)
+elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boxer" then
+game:GetService("ReplicatedStorage").Events.Boxing:FireServer(c, false)
+end
                     end
 end
                     end
@@ -9026,7 +9042,6 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         if _G.ReachSlapArua >= Magnitude then
 game:GetService("ReplicatedStorage").KSHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
-
                 end
 end
 end
@@ -12443,7 +12458,7 @@ local Tab = Window:MakeTab({
 })
 
 Tab:AddButton({
-	Name = "Teleport Pablo",
+	Name = "Click Pablo",
 	Callback = function()
 if game.Workspace.NPCS:FindFirstChild("Pablo Pinkypoo") and game.Workspace.NPCS["Pablo Pinkypoo"]:FindFirstChild("HumanoidRootPart") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.NPCS["Pablo Pinkypoo"].HumanoidRootPart.CFrame * CFrame.new(0,0,5)
@@ -12458,7 +12473,7 @@ end
 })
 
 Tab:AddButton({
-	Name = "Teleport Key + Unlock oog",
+	Name = "Get Key + Unlock oog",
 	Callback = function()
 if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 0 then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.QuestStuff.Key.CFrame
@@ -12489,6 +12504,29 @@ for i,v in ipairs(game.Workspace.DialoguePrompts:GetChildren()) do
                 fireproximityprompt(v.ProximityPrompt)
             end
         end
+end
+end
+  	end 
+})
+
+Tab:AddButton({
+	Name = "Click Boxer",
+	Callback = function()
+if game.Workspace:FindFirstChild("BoxingGloves") == nil then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Buildings.house:FindFirstChild("TP").CFrame * CFrame.new(0,10,0)
+wait(0.54)
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "BoxingGloves" and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector, 0)
+fireclickdetector(v.ClickDetector, 1)
+end
+end
+else
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "BoxingGloves" and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector, 0)
+fireclickdetector(v.ClickDetector, 1)
+end
 end
 end
   	end 
