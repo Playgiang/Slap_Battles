@@ -4253,9 +4253,11 @@ function Library:CreateWindow(...)
     
         Library:MakeDraggable(ToggleUIOuter);
 
-        ToggleUIButton.MouseButton1Down:Connect(function()
-    task.spawn(Library.Toggle)
-    ToggleUIButton.Text = Outer.Visible and "Hide" or "Show"
+        ToggleUIButton.MouseButton1Click:Connect(function()
+    task.spawn(function()
+        Library.Toggled = not Library.Toggled  -- Đảo ngược giá trị Toggled
+        ToggleUIButton.Text = Library.Toggled and "Show" or "Hide"  -- Cập nhật văn bản dựa trên giá trị mới
+    end)
 end)
 
     -- Lock
