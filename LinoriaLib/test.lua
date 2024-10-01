@@ -4256,7 +4256,6 @@ function Library:CreateWindow(...)
         ToggleUIButton.MouseButton1Click:Connect(function()
         Library.Toggled = not Library.Toggled
         ToggleUIButton.Text = Library.Toggled and "Show" or "Hide"
-    end)
 end)
 
     -- Lock
