@@ -3617,14 +3617,15 @@ function Library:CreateWindow(...)
         });
         
         local TabImage = Library:Create('ImageLabel', {
-    BackgroundColor3 = Color3.new(1, 1, 1);
-    BorderColor3 = Color3.new(0, 0, 0);
-    Size = UDim2.new(0, 30, 0, 30);
-    Position = UDim2.new(0, -5, 0, 0);
-    Image = Image or "";
-    ZIndex = 1;
-    Parent = TabButton;
-})
+            BackgroundColor3 = Color3.new(1, 1, 1);
+            BackgroundTransparency = 0,                
+            BorderColor3 = Color3.new(0, 0, 0);
+            Size = UDim2.new(0, 10, 0, 10);
+            Position = UDim2.new(0, -5, 0, 0);
+            Image = Image or "";
+            ZIndex = 1;
+            Parent = TabButton;
+        });
 
         local Blocker = Library:Create('Frame', {
             BackgroundColor3 = Library.MainColor;
