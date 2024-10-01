@@ -3617,11 +3617,9 @@ function Library:CreateWindow(...)
         });
         
         local TabImage = Library:Create('ImageLabel', {
-            BackgroundColor3 = Color3.new(1, 1, 1);
-            BackgroundTransparency = 1;                
-            BorderColor3 = Color3.new(0, 0, 0);
+            BackgroundTransparency = 1,
             Size = UDim2.new(0, 12, 0, 12);
-            Position = UDim2.new(0, 0, 0, 5);
+            Position = UDim2.new(0, 1, 0, 5);
             Image = Image or "";
             ZIndex = 1;
             Parent = TabButton;
