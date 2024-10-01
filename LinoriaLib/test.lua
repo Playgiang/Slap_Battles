@@ -4254,7 +4254,7 @@ function Library:CreateWindow(...)
         Library:MakeDraggable(ToggleUIOuter);
 
         ToggleUIButton.MouseButton1Click:Connect(function()
-        Library.Toggled = not Library.Toggled
+        task.spawn(Library.Toggle)
         ToggleUIButton.Text = Library.Toggled and "Show" or "Hide"
 end)
 
