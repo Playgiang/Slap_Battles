@@ -4255,7 +4255,7 @@ function Library:CreateWindow(...)
 
         ToggleUIButton.MouseButton1Click:Connect(function()
         task.spawn(Library.Toggle)
-        ToggleUIButton.Text = Library.Toggled and "Show" or "Hide"
+        ToggleUIButton.Text = Library.Toggled and "Hide" or "Show"
 end)
 
     -- Lock
