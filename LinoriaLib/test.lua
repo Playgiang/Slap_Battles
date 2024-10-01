@@ -3620,8 +3620,8 @@ function Library:CreateWindow(...)
             BackgroundColor3 = Color3.new(1, 1, 1);
             BackgroundTransparency = 1,                
             BorderColor3 = Color3.new(0, 0, 0);
-            Size = UDim2.new(0, 10, 0, 10);
-            Position = UDim2.new(0, -5, 0, 5);
+            Size = UDim2.new(0, 12, 0, 12);
+            Position = UDim2.new(0, , 0, 5);
             Image = Image or "";
             ZIndex = 1;
             Parent = TabButton;
