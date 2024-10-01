@@ -4242,7 +4242,7 @@ function Library:CreateWindow(...)
             Size = UDim2.new(1, -4, 1, 0);
             BackgroundTransparency = 1;
             Font = Library.Font;
-            Text = "Toggle UI";
+            Text = "Hide";
             TextColor3 = Library.FontColor;
             TextSize = 14;
             TextXAlignment = Enum.TextXAlignment.Left;
@@ -4254,8 +4254,9 @@ function Library:CreateWindow(...)
         Library:MakeDraggable(ToggleUIOuter);
 
         ToggleUIButton.MouseButton1Down:Connect(function()
-            task.spawn(Library.Toggle)
-        end)
+    task.spawn(Library.Toggle)
+    ToggleUIButton.Text = Outer.Visible and "Hide" or "Show"
+end)
 
     -- Lock
     local LockUIOuter = Library:Create('Frame', {
@@ -4312,7 +4313,7 @@ function Library:CreateWindow(...)
             Size = UDim2.new(1, -4, 1, 0);
             BackgroundTransparency = 1;
             Font = Library.Font;
-            Text = "Lock UI";
+            Text = "Lock Gui";
             TextColor3 = Library.FontColor;
             TextSize = 14;
             TextXAlignment = Enum.TextXAlignment.Left;
@@ -4324,9 +4325,9 @@ function Library:CreateWindow(...)
         Library:MakeDraggable(LockUIOuter);
         
         LockUIButton.MouseButton1Down:Connect(function()
-            Library.CantDragForced = not Library.CantDragForced;
-        end)
-    end;
+    Library.CantDragForced = not Library.CantDragForced
+    LockUIButton.Text = Library.CantDragForced and "Lock Gui" or "Unlock Gui"
+end)
 
     if Config.AutoShow then task.spawn(Library.Toggle) end
 
