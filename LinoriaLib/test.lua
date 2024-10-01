@@ -4330,6 +4330,7 @@ end)
     Library.CantDragForced = not Library.CantDragForced
     LockUIButton.Text = Library.CantDragForced and "Lock Gui" or "Unlock Gui"
 end)
+        end;
 
     if Config.AutoShow then task.spawn(Library.Toggle) end
 
