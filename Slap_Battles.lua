@@ -12485,9 +12485,9 @@ AutoSetInfo:Set(true)
 end
 elseif _G.LibraryGui == "LinoriaLib" then
 -----// Fix \\-----
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/Library.lua"))()
-local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/addons/ThemeManager.lua"))()
-local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/addons/SaveManager.lua"))()
+local Library = loadstring(game:HttpGet("https://github.com/Playgiang/Slap_Battles/blob/main/LinoriaLib/test.lua"))()
+local ThemeManager = loadstring(game:HttpGet("https://github.com/Playgiang/Slap_Battles/blob/main/LinoriaLib/addons/ThemeManager.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://github.com/Playgiang/Slap_Battles/blob/main/LinoriaLib/addons/SaveManager.lua"))()
 local Options = getgenv().Linoria.Options
 local Toggles = getgenv().Linoria.Toggles
 
