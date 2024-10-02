@@ -12485,9 +12485,10 @@ AutoSetInfo:Set(true)
 end
 elseif _G.LibraryGui == "LinoriaLib" then
 -----// Fix \\-----
-local Library = loadstring(game:HttpGet("https://github.com/Playgiang/Slap_Battles/blob/main/LinoriaLib/test.lua"))()
-local ThemeManager = loadstring(game:HttpGet("https://github.com/Playgiang/Slap_Battles/blob/main/LinoriaLib/addons/ThemeManager.lua"))()
-local SaveManager = loadstring(game:HttpGet("https://github.com/Playgiang/Slap_Battles/blob/main/LinoriaLib/addons/SaveManager.lua"))()
+local repo = 'https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/'
+local Library = loadstring(game:HttpGet(repo .. 'test.lua'))()
+local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
+local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 local Options = getgenv().Linoria.Options
 local Toggles = getgenv().Linoria.Toggles
 
@@ -12514,13 +12515,13 @@ if _G.NotificationSound then
     end
     
 local Tabs = {
-    Tab1 = Window:AddTab("Script"),
-    Tab2 = Window:AddTab("Anti"),
-    Tab3 = Window:AddTab("Badges"),
-    Tab4 = Window:AddTab("Local"),
-    Tab5 = Window:AddTab("Misc"),
-    Tab6 = Window:AddTab("Gloves Optional"),
-	["UI Settings"] = Window:AddTab("UI Settings")
+    Tab1 = Window:AddTab("Script", "rbxassetid://8997387937"),
+    Tab2 = Window:AddTab("Anti", "rbxassetid://7734056608"),
+    Tab3 = Window:AddTab("Badges", "rbxassetid://7733673987"),
+    Tab4 = Window:AddTab("Local", "rbxassetid://4335489011"),
+    Tab5 = Window:AddTab("Misc", "rbxassetid://4370318685"),
+    Tab6 = Window:AddTab("Gloves Optional", "rbxassetid://7733955740"),
+	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
 local Script1Group = Tabs.Tab1:AddLeftGroupbox("Script Basic")
