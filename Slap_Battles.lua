@@ -5416,7 +5416,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(4.1)
 end
-while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "" do
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.Head.CFrame * CFrame.new(0, -2, -10))
 wait(3.1)
 end
