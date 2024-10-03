@@ -38,9 +38,9 @@ local bypass;
         end
         return bypass(method, ...)
     end)
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Bypass Success ðŸ¤‘",Icon = "rbxassetid://7733658504",Duration = 5})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Bypass Success",Icon = "rbxassetid://7733658504",Duration = 5})
 else
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot bypass, you must be careful ðŸ¥¹",Icon = "rbxassetid://7733658504",Duration = 5})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot bypass, you must be careful",Icon = "rbxassetid://7733658504",Duration = 5})
 end
 
 ---Potion---
@@ -676,10 +676,11 @@ AntiAcid.CanCollide = false
 end
 end
 
+if _G.LibraryGui == "Orion" then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Playgiang/Script/main/Orion_Library_PE_V2.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - ".." Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles ", IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - ".." Slap Battles ".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab1 - 15
 local Tab = Window:MakeTab({
@@ -736,7 +737,7 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bạn muốn vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo đó | [ Discord ]: If you want to join the Server hack slap battles group, go to the credits section ] | Good Luck")
+Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bn mun vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo ó | [ Discord ]: If you want to join the Server hack slap battles group, go to the credits section ] | Good Luck")
 local InfoServer = Tab:AddSection({Name = "Info Server"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -5416,7 +5417,7 @@ game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(4.1)
 end
-while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "🗿" do
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players.LocalPlayer.Character.Head.CFrame * CFrame.new(0, -2, -10))
 wait(3.1)
 end
@@ -7557,11 +7558,11 @@ end
 	end    
 })
 
-Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
-Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt")
-Tab15:AddParagraph("Deputy Group Zalo","[ Tấn Lộc ( Owner ) ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
-Tab15:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
-Tab15:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt hoặc Tiếng Anh")
+Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
+Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bn Phi Nhn Tin Zalo Bng Ting Vit")
+Tab15:AddParagraph("Deputy Group Zalo","[ Tn Lc ( Owner ) ] or [ Giang ] or [ Tin ] or [ Hoàng Kha ]")
+Tab15:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
+Tab15:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bn Phi Nhn Tin Zalo Bng Ting Vit hoc Ting Anh")
 Tab15:AddLabel("Owner Credits Script By Giang")
 
 Tab15:AddButton({
@@ -8047,7 +8048,7 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bạn muốn vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo đó | [ Discord ]: If you want to join the Server hack slap battles group, go to the credits section ] | Good Luck")
+Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bn mun vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo ó | [ Discord ]: If you want to join the Server hack slap battles group, go to the credits section ] | Good Luck")
 local InfoServer = Tab:AddSection({Name = "Info Server"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -9569,11 +9570,11 @@ end
 	end    
 })
 
-Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
-Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt")
-Tab15:AddParagraph("Deputy Group Zalo","[ Tấn Lộc ( Owner ) ] or [ Giang ] or [ Tiến ] or [ Hoàng Kha ]")
-Tab15:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhắn Tin Tất Cả Mọi Người Hoặc Bạn Bè")
-Tab15:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bạn Phải Nhắn Tin Zalo Bằng Tiếng Việt hoặc Tiếng Anh")
+Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
+Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bn Phi Nhn Tin Zalo Bng Ting Vit")
+Tab15:AddParagraph("Deputy Group Zalo","[ Tn Lc ( Owner ) ] or [ Giang ] or [ Tin ] or [ Hoàng Kha ]")
+Tab15:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
+Tab15:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bn Phi Nhn Tin Zalo Bng Ting Vit hoc Ting Anh")
 Tab15:AddLabel("Owner Credits Script By Giang")
 
 Tab15:AddButton({
@@ -12483,12 +12484,12 @@ end
 if AutoSetInfo then
 AutoSetInfo:Set(true)
 end
+end
 elseif _G.LibraryGui == "LinoriaLib" then
 -----// Fix \\-----
-local repo = 'https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/'
-local Library = loadstring(game:HttpGet(repo .. 'test.lua'))()
-local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
-local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/test.lua"))()
+local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/addons/ThemeManager.lua"))()
+local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/addons/SaveManager.lua"))()
 local Options = getgenv().Linoria.Options
 local Toggles = getgenv().Linoria.Toggles
 
@@ -13188,7 +13189,7 @@ Anti2Group:AddToggle("Anti Bob", {
 _G.AntiBob = Value
 while _G.AntiBob do
 for i, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "Ã…BOB_") then
+if string.find(v.Name, "ÅBOB_") then
 if v:FindFirstChild("Target") and v.Target.Value == game.Players.LocalPlayer.Name then
 if game.Workspace.Arena.CubeOfDeathArea:FindFirstChild("the cube of death(i heard it kills)", 1) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame * CFrame.new(0,30,0)
@@ -13259,7 +13260,7 @@ Anti2Group:AddToggle("Anti Defend", {
 _G.NoclipBarrier = Value
 if _G.NoclipBarrier == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if string.find(v.Name, "Ã…Barrier") then
+                    if string.find(v.Name, "ÅBarrier") then
                         if v.CanCollide == false then
                             v.CanCollide = true
                          end
@@ -13268,7 +13269,7 @@ for i,v in pairs(game.Workspace:GetChildren()) do
            end
 while _G.NoclipBarrier do
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if string.find(v.Name, "Ã…Barrier") then
+                    if string.find(v.Name, "ÅBarrier") then
                         if v.CanCollide == true then
                             v.CanCollide = false
                          end
@@ -14560,17 +14561,342 @@ game.Workspace.Gravity = Value
     end
 })
 
+local Glove1Group = Tabs.Tab5:AddLeftGroupbox("Glove")
+local Glove2Group = Tabs.Tab5:AddRightGroupbox("Misc Glove")
+
+Glove1Group:AddDropdown("Prop", {
+    Text = "Prop Ability",
+    Values = {"Barrel", "Bench", "Brick", "Bush 1", "Bush 2", "Cauldron", "Diamond", "Frenzy Bot", "Gift", "GoldenSlapple", "Imp", "Jet Orb", "Larry", "MEGAROCK", "Moai Head", "Obby 1", "Obby 2", "Obby 3", "Obby 4", "Obby 5", "Orange", "Oven", "Phase Heart", "Phase Orb", "Rock 1", "Rock 2", "Rock 3", "Sentry", "Slapple", "Snow Peep", "Snow Turret", "bob", "rob","Sbeve"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+PropAbility = Value
+    end
+})
+
+Glove1Group:AddToggle("Spam Prop", {
+    Text = "Auto Ability Prop",
+    Default = false, 
+    Callback = function(Value) 
+_G.PropSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Prop" then
+while _G.PropSpam do
+if game.Workspace:FindFirstChild("PropModel_"..game.Players.LocalPlayer.Name) == nil then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(PropAbility)
+end
+task.wait()
+end
+elseif _G.PropSpam == true then
+Notification("You don't have Prop equipped", 5)
+wait(0.05)
+Toggles["Spam Prop"]:SetValue(false)
+end
+    end
+})
+
+Glove1Group:AddDropdown("Santa", {
+    Text = "Santa Ability",
+    Values = {"Bob Plush", "Snow Peep", "Milk"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+SantaAbility = Value
+    end
+})
+
+Glove1Group:AddToggle("Spam Santa", {
+    Text = "Auto Ability Santa",
+    Default = false, 
+    Callback = function(Value) 
+SantaSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Santa" then
+while SantaSpam do
+if SantaAbility == "Bob Plush" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("bobplush")
+elseif SantaAbility == "Snow Peep" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("snowpeep")
+elseif SantaAbility == "Milk" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("milk")
+end
+task.wait()
+end
+elseif SantaSpam == true then
+Notification("You don't have Santa equipped", 5)
+wait(0.05)
+Toggles["Spam Santa"]:SetValue(false)
+end
+    end
+})
+
+Glove1Group:AddDropdown("AdminAbility", {
+    Text = "Admin Ability",
+    Values = {"Fling", "Anvil", "Invisibility"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+AbilityAdmin = Value
+    end
+})
+
+Glove1Group:AddToggle("Spam Admin", {
+    Text = "Auto Ability Admin",
+    Default = false, 
+    Callback = function(Value) 
+AdminSpam = Value
+while AdminSpam do
+game:GetService("ReplicatedStorage").AdminAbility:FireServer(AbilityAdmin)
+task.wait()
+end
+    end
+})
+
+Glove1Group:AddDropdown("RetroAbility", {
+    Text = "Retro Ability",
+    Values = {"Rocket Launcher", "Ban Hammer", "Bomb"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+RetroAbility = Value
+    end
+})
+
+Glove1Group:AddToggle("Spam Retro", {
+    Text = "Auto Ability Retro",
+    Default = false, 
+    Callback = function(Value) 
+RetroSpam = Value
+while RetroSpam do
+game:GetService("ReplicatedStorage").RetroAbility:FireServer(RetroAbility)
+task.wait()
+end
+    end
+})
+
+Glove1Group:AddDropdown("SlapStickAbility", {
+    Text = "SlapStick Ability",
+    Values = {"runeffect", "fullcharged", "dash", "addarm","charge","cancelrun","discharge"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+SlapstickAbility = Value
+    end
+})
+
+Glove1Group:AddButton({
+    Text = "Spam Ability Slapstick",
+    Func = function()
+if SlapstickAbility == "runeffect" then
+OldSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+game:GetService("ReplicatedStorage").slapstick:FireServer("runeffect")
+wait(5)
+game:GetService("ReplicatedStorage").slapstick:FireServer("fullcharged")
+wait(1)
+Notification("Started RUN Now.", 5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 70
+wait(25)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = OldSpeed
+game:GetService("ReplicatedStorage").slapstick:FireServer("cancelrun")
+elseif SlapstickAbility == "dash" then
+game:GetService("ReplicatedStorage").slapstick:FireServer("addarm")
+game:GetService("ReplicatedStorage").slapstick:FireServer("dash")
+end
+    end
+})
+
+Glove1Group:AddToggle("Spam Slapstick", {
+    Text = "Auto Ability Slapstick",
+    Default = false, 
+    Callback = function(Value) 
+SlapstickSpam = Value
+if SlapstickSpam == true then
+game:GetService("ReplicatedStorage").slapstick:FireServer("addarm")
+end
+while SlapstickSpam do
+game:GetService("ReplicatedStorage").slapstick:FireServer(SlapstickAbility)
+task.wait()
+end
+    end
+})
+
+Glove1Group:AddInput("Players", {
+    Default = "",
+    Numeric = false,
+    Text = "",
+    Finished = true,
+    Placeholder = "Username",
+    Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+SaveThePlayer = game.Players.LocalPlayer.Name
+else
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+SaveThePlayer = targetPlayer.Name
+Notification("Found Player [ "..SaveThePlayer.." ]", 5)
+else
+Notification("Can't find player", 5)
+end
+end
+    end
+})
+
+Glove1Group:AddToggle("Godmobe Player", {
+    Text = "Auto Godmobe Player",
+    Default = false, 
+    Callback = function(Value) 
+if SaveThePlayer == nil then
+SaveThePlayer = game.Players.LocalPlayer.Name
+end
+GuardianAngelSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" then
+while GuardianAngelSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Guardian Angel" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[SaveThePlayer])
+task.wait()
+end
+elseif GuardianAngelSpam == true then
+Notification("You don't have Guardian Angel equipped.", 5)
+wait(0.05)
+Toggles["Godmobe Player"]:SetValue(false)
+end
+    end
+})
+
+Glove1Group:AddInput("Players", {
+    Default = "",
+    Numeric = false,
+    Text = "",
+    Finished = true,
+    Placeholder = "Username",
+    Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+Person = game.Players.LocalPlayer.Name
+else
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+Person = targetPlayer.Name
+Notification("Found Player [ "..Person.." ]", 5)
+else
+Notification("Can't find player", 5)
+end
+end
+    end
+})
+
+Glove1Group:AddDropdown("RojoAbility", {
+    Text = "Rojo Ability",
+    Values = {"Normal", "Down"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+SlapstickAbility = Value
+    end
+})
+
+Glove1Group:AddToggle("RojoAbility", {
+    Text = "Auto Ability Rojo",
+    Default = false, 
+    Callback = function(Value) 
+if Person == nil then
+Person = game.Players.LocalPlayer.Name
+end
+_G.RojoSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Rojo" then
+while _G.RojoSpam do
+if RojoAbility == "Normal" then
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
+elseif RojoAbility == "Down" then
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame * CFrame.Angles(-1.5, -9.99999993922529e-09, -0.5663706660270691)})
+end
+task.wait()
+end
+elseif _G.RojoSpam == true then
+Notification("Can't find player", 5)
+wait(0.05)
+Toggles.RojoAbility:SetValue(false)
+end
+    end
+})
+
+Glove1Group:AddInput("Players", {
+    Default = "",
+    Numeric = false,
+    Text = "",
+    Finished = true,
+    Placeholder = "Username",
+    Callback = function(Value)
+if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
+DivebombExplosion = game.Players.LocalPlayer.Name
+else
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+DivebombExplosion = targetPlayer.Name
+Notification("Found Player [ "..DivebombExplosion.." ]", 5)
+else
+Notification("Can't find player", 5)
+end
+end
+    end
+})
+
+Glove1Group:AddSlider("ChargeExplosion", {
+    Text = "Charge Explosion",
+    Default = 20,
+    Min = 20,
+    Max = 100,
+    Rounding = 1,
+    Compact = false,
+    Callback = function(Value)
+_G.ChargeExplosion = Value
+    end
+})
+
+Glove1Group:AddToggle("Ability Divebomb", {
+    Text = "Auto Ability Divebomb",
+    Default = false, 
+    Callback = function(Value) 
+if DivebombExplosion == nil then
+DivebombExplosion = game.Players.LocalPlayer.Name
+end
+_G.DivebombSpam = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Divebomb" then
+while _G.DivebombSpam and game.Players.LocalPlayer.leaderstats.Glove.Value == "Divebomb" do
+game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["chargeAlpha"] = 99.7833333881571889,["rocketJump"] = true})
+game:GetService("ReplicatedStorage").RocketJump:InvokeServer({["position"] = game.Players[DivebombExplosion].Character.HumanoidRootPart.Position,["explosion"] = true,["explosionAlpha"] = _G.ChargeExplosion})
+task.wait()
+end
+elseif _G.DivebombSpam == true then
+Notification("You don't have Divebomb equipped.", 5)
+wait(0.05)
+Toggles["Ability Divebomb"]:SetValue(false)
+end
+    end
+})
+
 -----// Create Script \\------
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
 local CreditsGroup = Tabs["UI Settings"]:AddRightGroupbox("Credits")
-
-MenuGroup:AddToggle("KeybindMenuOpen", {
-     Text = "Open Keybind Menu",
-     Default = false,
-     Callback = function(Value) 
-Library.KeybindFrame.Visible = Value
-    end
-})
 
 MenuGroup:AddToggle("ShowCustomCursor", {
     Text = "Custom Cursor",
@@ -14598,10 +14924,7 @@ MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {
 MenuGroup:AddButton("Join Discord Server", function()
     local Inviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Discord%20Inviter/Source.lua"))()
 	Inviter.Join("https://discord.com/invite/VXP4d5n5")
-	Inviter.Prompt({
-		name = "Article Hub",
-		invite = "https://discord.com/invite/VXP4d5n5",
-	})
+	Inviter.Prompt({name = "Article Hub", invite = "https://discord.com/invite/VXP4d5n5"})
 end)
 MenuGroup:AddButton("Unload", function() 
     Library:Unload() 
@@ -14609,7 +14932,6 @@ end)
 
 CreditsGroup:AddLabel("AmongUs - Python / Dex / Script")
 CreditsGroup:AddLabel("Giang Hub - Script / Dex")
-CreditsGroup:AddLabel("Library Gui [ mspaint v2 / Door ]")
 
 Library.ToggleKeybind = Options.MenuKeybind
 
@@ -14618,8 +14940,8 @@ SaveManager:SetLibrary(Library)
 
 SaveManager:IgnoreThemeSettings()
 
-ThemeManager:SetFolder("AmongUs Ã— Giang Hub")
-SaveManager:SetFolder("AmongUs Ã— Giang Hub / Slap Battles ðŸ‘")
+ThemeManager:SetFolder("AmongUs × Giang Hub")
+SaveManager:SetFolder("AmongUs × Giang Hub / Slap Battles")
 
 SaveManager:BuildConfigSection(Tabs["UI Settings"])
 
@@ -14808,7 +15130,7 @@ gloveHits = {
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
     ["Killerfish"] = game.ReplicatedStorage.GeneralHit,
-    ["🗿"] = game.ReplicatedStorage.GeneralHit,
+    [""] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
