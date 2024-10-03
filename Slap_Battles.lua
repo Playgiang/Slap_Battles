@@ -737,7 +737,6 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bn mun vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo ó | [ Discord ]: If you want to join the Server hack slap battles group, go to the credits section ] | Good Luck")
 local InfoServer = Tab:AddSection({Name = "Info Server"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -7558,13 +7557,6 @@ end
 	end    
 })
 
-Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
-Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bn Phi Nhn Tin Zalo Bng Ting Vit")
-Tab15:AddParagraph("Deputy Group Zalo","[ Tn Lc ( Owner ) ] or [ Giang ] or [ Tin ] or [ Hoàng Kha ]")
-Tab15:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
-Tab15:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bn Phi Nhn Tin Zalo Bng Ting Vit hoc Ting Anh")
-Tab15:AddLabel("Owner Credits Script By Giang")
-
 Tab15:AddButton({
 	Name = "Copy Join Zalo",
 	Callback = function()
@@ -8048,7 +8040,6 @@ local Tab15 = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddParagraph("Zalo | Discord"," [ Zalo ]: Bn mun vào nhóm Zalo thì vào Credit nhé có link nhóm Zalo ó | [ Discord ]: If you want to join the Server hack slap battles group, go to the credits section ] | Good Luck")
 local InfoServer = Tab:AddSection({Name = "Info Server"})
 CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
 CanYouPing = Tab:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
@@ -9569,13 +9560,6 @@ task.wait()
 end
 	end    
 })
-
-Tab15:AddParagraph("Share Link Zalo","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
-Tab15:AddParagraph("Message Zalo","You Have To Message Zalo In VietNamese | Bn Phi Nhn Tin Zalo Bng Ting Vit")
-Tab15:AddParagraph("Deputy Group Zalo","[ Tn Lc ( Owner ) ] or [ Giang ] or [ Tin ] or [ Hoàng Kha ]")
-Tab15:AddParagraph("Share Link Slap Battles Group","Join Link Zalo Message All People Or Friend | Tham Gia Link Zalo Nhn Tin Tt C Mi Ngi Hoc Bn Bè")
-Tab15:AddParagraph("Message Slap Battles Group","You Have To Message Zalo In VietNamese Or English | Bn Phi Nhn Tin Zalo Bng Ting Vit hoc Ting Anh")
-Tab15:AddLabel("Owner Credits Script By Giang")
 
 Tab15:AddButton({
 	Name = "Copy Join Zalo",
@@ -15130,7 +15114,7 @@ gloveHits = {
     ["Snowball"] = game.ReplicatedStorage.GeneralHit,
     ["fish"] = game.ReplicatedStorage.GeneralHit,
     ["Killerfish"] = game.ReplicatedStorage.GeneralHit,
-    [""] = game.ReplicatedStorage.GeneralHit,
+    ["🗿"] = game.ReplicatedStorage.GeneralHit,
     ["Obby"] = game.ReplicatedStorage.GeneralHit,
     ["Voodoo"] = game.ReplicatedStorage.GeneralHit,
     ["Leash"] = game.ReplicatedStorage.GeneralHit,
