@@ -749,6 +749,12 @@ end
 				Name = "Ico",
 				ZIndex = 2,
 			}), "Text"),
+			AddThemeObject(SetProps(MakeElement("Frame"), {
+				Position = UDim2.new(0, 0, 0, 0),
+				Size = UDim2.new(1, 0, 0, 30),
+				Name = "Background",
+				ZIndex = 1,
+			}), "Frame"),
 			AddThemeObject(SetProps(MakeElement("Label", TabConfig.Name, 14), {
 				Size = UDim2.new(1, -35, 1, 0),
 				Position = UDim2.new(0, 35, 0, 0),
@@ -794,6 +800,7 @@ local gradient = CreateWhiteToBlackGradient()
 				if Tab:IsA("TextButton") then
 					Tab.Title.Font = Enum.Font.FredokaOne
 					TweenService:Create(Tab.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0.4}):Play()
+					TweenService:Create(Tab.Background, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0.4}):Play()
 					TweenService:Create(Tab.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {TextTransparency = 0.4}):Play()
 				end    
 			end
@@ -803,7 +810,7 @@ local gradient = CreateWhiteToBlackGradient()
 				end    
 			end  
 			TweenService:Create(TabFrame.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
-			TweenService:Create(TabFrame.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+			TweenService:Create(TabFrame.Background, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 			TweenService:Create(TabFrame.TabMainButton, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 			TabFrame.Title.Font = Enum.Font.FredokaOne
 			Container.Visible = true   
