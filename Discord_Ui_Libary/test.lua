@@ -689,7 +689,7 @@ EditBtnCorner.CornerRadius = UDim.new(0, 3)
 	EditBtnCorner.Name = "EditBtnCorner"
 	EditBtnCorner.Parent = newInsert
 	
-	BlackFramel.Name = "BlackFrame"
+	BlackFramel.Name = "BlackFramel"
 	BlackFramel.Parent = UserPanelUserIcon
 	BlackFramel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	BlackFramel.BackgroundTransparency = 0.400
