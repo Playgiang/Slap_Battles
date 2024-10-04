@@ -751,6 +751,7 @@ end
 			}), "Text"),
 			AddThemeObject(SetProps(MakeElement("Frame"), {
 				Position = UDim2.new(0, 0, 0, 0),
+				BackgroundColor3 = Color3.new(1, 1, 1),
 				Size = UDim2.new(1, 0, 0, 30),
 				Name = "Background",
 				ZIndex = 1,
