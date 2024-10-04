@@ -676,7 +676,7 @@ newTag.Size = UDim2.new(0, 65, 0, 19)
 local newButton = Instance.new("TextButton")
 newButton.Name = "NewEditBtn"
 newButton.Parent = newInsert
-newButton.BackgroundColor3 = Color3.fromRGB(116, 127, 141)
+newButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 newButton.Position = UDim2.new(0.797671914, 0, 0.232142866, 0)
 newButton.Size = UDim2.new(0, 55, 0, 30)
 newButton.Font = Enum.Font.Gotham
@@ -689,24 +689,14 @@ EditBtnCorner.CornerRadius = UDim.new(0, 3)
 	EditBtnCorner.Name = "EditBtnCorner"
 	EditBtnCorner.Parent = newInsert
 	
-	BlackFramel.Name = "BlackFramel"
-	BlackFramel.Parent = UserPanelUserIcon
-	BlackFramel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-	BlackFramel.BackgroundTransparency = 0.400
-	BlackFramel.BorderSizePixel = 0
-	BlackFramel.Size = UDim2.new(0, 71, 0, 71)
-	BlackFramel.Visible = false
-
-	BlackFrameCorner.CornerRadius = UDim.new(1, 8)
-	BlackFrameCorner.Name = "BlackFrameCorner"
-	BlackFrameCorner.Parent = BlackFramel
+	
 
 	BlackFrame.Name = "BlackFrame"
 	BlackFrame.Parent = UserPanelUserIcon
 	BlackFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	BlackFrame.BackgroundTransparency = 0.400
 	BlackFrame.BorderSizePixel = 0
-	BlackFrame.Size = UDim2.new(0, 71, 0, 71)
+	BlackFrame.Size = UDim2.new(0, 71, 0, 150)
 	BlackFrame.Visible = false
 
 	BlackFrameCorner.CornerRadius = UDim.new(1, 8)
