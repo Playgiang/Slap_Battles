@@ -736,6 +736,7 @@ end
 		TabConfig.PremiumOnly = TabConfig.PremiumOnly or false
 
 		local TabFrame = SetChildren(SetProps(MakeElement("Button"), {
+			Name = "TabMainButton",
 			Size = UDim2.new(1, 0, 0, 30),
 			ZIndex = 1,
 			Parent = TabHolder
@@ -745,7 +746,7 @@ end
 				Size = UDim2.new(0, 18, 0, 18),
 				Position = UDim2.new(0, 10, 0.5, 0),
 				ImageTransparency = 0.4,
-				Name = "Ico"
+				Name = "Ico",
 				ZIndex = 2,
 			}), "Text"),
 			AddThemeObject(SetProps(MakeElement("Label", TabConfig.Name, 14), {
@@ -753,7 +754,7 @@ end
 				Position = UDim2.new(0, 35, 0, 0),
 				Font = Enum.Font.FredokaOne,
 				TextTransparency = 0.4,
-				Name = "Title"
+				Name = "Title",
 				ZIndex = 2,
 			}), "Text")
 		})
@@ -793,7 +794,7 @@ local gradient = CreateWhiteToBlackGradient()
 				if Tab:IsA("TextButton") then
 					Tab.Title.Font = Enum.Font.FredokaOne
 					TweenService:Create(Tab.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0.4}):Play()
-					TweenService:Create(TabFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
+					TweenService:Create(Tab.TabMainButton, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 1}):Play()
 					TweenService:Create(Tab.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {TextTransparency = 0.4}):Play()
 				end    
 			end
@@ -804,7 +805,7 @@ local gradient = CreateWhiteToBlackGradient()
 			end  
 			TweenService:Create(TabFrame.Ico, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {ImageTransparency = 0}):Play()
 			TweenService:Create(TabFrame.Title, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
-			TweenService:Create(TabFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
+			TweenService:Create(TabFrame.TabMainButton, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundTransparency = 0}):Play()
 			TabFrame.Title.Font = Enum.Font.FredokaOne
 			Container.Visible = true   
 		end)
