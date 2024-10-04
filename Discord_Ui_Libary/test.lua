@@ -685,6 +685,22 @@ newButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 newButton.TextSize = 14.000
 newButton.AutoButtonColor = false
 
+EditBtnCorner.CornerRadius = UDim.new(0, 3)
+	EditBtnCorner.Name = "EditBtnCorner"
+	EditBtnCorner.Parent = newInsert
+	
+	BlackFramel.Name = "BlackFrame"
+	BlackFramel.Parent = UserPanelUserIcon
+	BlackFramel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	BlackFramel.BackgroundTransparency = 0.400
+	BlackFramel.BorderSizePixel = 0
+	BlackFramel.Size = UDim2.new(0, 71, 0, 71)
+	BlackFramel.Visible = false
+
+	BlackFrameCorner.CornerRadius = UDim.new(1, 8)
+	BlackFrameCorner.Name = "BlackFrameCorner"
+	BlackFrameCorner.Parent = BlackFramel
+
 	BlackFrame.Name = "BlackFrame"
 	BlackFrame.Parent = UserPanelUserIcon
 	BlackFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
