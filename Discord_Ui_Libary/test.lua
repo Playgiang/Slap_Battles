@@ -535,7 +535,7 @@ function DiscordLib:Window(text)
 	UserSettingsPad.Parent = UserPanel
 	UserSettingsPad.BackgroundColor3 = Color3.fromRGB(54, 57, 63)
 	UserSettingsPad.Position = UDim2.new(0.0331491716, 0, 0.568140388, 0)
-	UserSettingsPad.Size = UDim2.new(0, 337, 0, 176)
+	UserSettingsPad.Size = UDim2.new(0, 337, 0, 270)
 
 	UserSettingsPadCorner.Name = "UserSettingsPadCorner"
 	UserSettingsPadCorner.Parent = UserSettingsPad
