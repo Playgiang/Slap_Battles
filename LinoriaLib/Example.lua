@@ -123,12 +123,34 @@ local MyButton2 = MyButton:AddButton({
 
 -- Groupbox:AddLabel
 -- Arguments: Text, DoesWrap
-LeftGroupBox:AddLabel('This is a label')
+local Label = LeftGroupBox:AddLabel('This is a label')
 LeftGroupBox:AddLabel('This is a label\n\nwhich wraps its text!', true)
-
+LeftGroupBox:AddLabel([[This is a label
+which wraps its text!]], true)
 -- Groupbox:AddDivider
 -- Arguments: None
 LeftGroupBox:AddDivider()
+-- local:SetText
+-- Arguments: Text
+Label:SetText('This is a label, wait second!')
+
+--[[
+    SetText: {
+       IDK, IT WORKING???,
+       NOTIFICATION ME,
+       THANKS YOU!?,
+       THIS I FOUND IT,
+       TESTING NOW BRO
+    }
+
+SetText, when you record and want to change something else, just set it.
+You can set the text as you want.
+
+especially you must have your local in label and name it, then take the name and put it in your text set
+For example [ Label:SetText('Bruh') ] -- Label is local That is the name just set in local and SetText but must have ':' in working
+
+get the name right, otherwise it won't work
+]]
 
 --[[
     Groupbox:AddSlider
