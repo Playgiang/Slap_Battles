@@ -677,7 +677,7 @@ end
 end
 
 if _G.LibraryGui == "Orion" then
-local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Playgiang/Script/main/Orion_Library_PE_V2.lua")))()
+local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Playgiang/Script/refs/heads/main/OrionLib/Testing.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 local Window = OrionLib:MakeWindow({IntroText = "Slap Battles ", IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - ".." Slap Battles ".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
