@@ -4193,6 +4193,7 @@ function Library:CreateWindow(...)
             Position = UDim2.new(0.008, 0, 0.018, 0);
             Size = UDim2.new(0, 77, 0, 30);
             ZIndex = 200;
+            Draggable = true;
             Visible = true;
             Parent = ScreenGui;
         });
@@ -4245,12 +4246,12 @@ function Library:CreateWindow(...)
             Text = "Hide";
             TextColor3 = Library.FontColor;
             TextSize = 14;
-            Draggable = true;
             TextXAlignment = Enum.TextXAlignment.Left;
             TextStrokeTransparency = 0;
             ZIndex = 203;
             Parent = ToggleUIInnerFrame;
         });
+
         ToggleUIButton.MouseButton1Click:Connect(function()
         task.spawn(Library.Toggle)
         ToggleUIButton.Text = Library.Toggled and "Hide" or "Show"
@@ -4263,6 +4264,7 @@ end)
             Size = UDim2.new(0, 77, 0, 30);
             ZIndex = 200;
             Visible = true;
+            Draggable = true;
             Parent = ScreenGui;
         });
     
@@ -4314,13 +4316,13 @@ end)
             Text = "Lock Gui";
             TextColor3 = Library.FontColor;
             TextSize = 14;
-            Draggable = true;
             TextXAlignment = Enum.TextXAlignment.Left;
             TextStrokeTransparency = 0;
             ZIndex = 203;
             Parent = LockUIInnerFrame;
         });
-    LockUIButton.MouseButton1Down:Connect(function()
+        
+        LockUIButton.MouseButton1Down:Connect(function()
     Library.CantDragForced = not Library.CantDragForced
     LockUIButton.Text = Library.CantDragForced and "Unlock Gui" or "Lock Gui"
 end)
