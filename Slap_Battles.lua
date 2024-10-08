@@ -12385,8 +12385,6 @@ end
   	end 
 })
 end
---------------------------------------------------------
-print("done")
 ------------------------------------------------------------------------
 if game.CoreGui:FindFirstChild("Orion") then
 for _, i in pairs(game.CoreGui:GetChildren()) do
