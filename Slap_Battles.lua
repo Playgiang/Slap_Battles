@@ -22,7 +22,7 @@ end
 game:GetService("GuiService"):ClearError()
 
 if _G.LibraryGui == nil then
-_G.LibraryGui = "Orion"
+_G.LibraryGui = "LinoriaLib"
 end
 
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
@@ -680,7 +680,7 @@ if _G.LibraryGui == "Orion" then
 local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Playgiang/Script/refs/heads/main/OrionLib/Testing.lua")))()
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
-local Window = OrionLib:MakeWindow({IntroText = "Slap Battles ", IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - ".." Slap Battles ".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab1 - 15
 local Tab = Window:MakeTab({
@@ -785,21 +785,9 @@ end
 CheckGlove = Tab:AddLabel("Much Glove [ "..#Glove.." ]")
 Glove = Tab:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
 PlateTime = Tab:AddLabel("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]")
-Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
-local InfoServer = Tab:AddSection({Name = "Local Player"})
-if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-WalkspeedYou = Tab:AddLabel("Walk Speed [ Not Walk then rock ]")
-JumppowerYou = Tab:AddLabel("Jump Power [ Not Jump Power then rock ]")
-HealthYou = Tab:AddLabel("Health You [ Not Health then rock ]")
-HipHeightYou = Tab:AddLabel("Hip Height [ Not Hip then rock ]")
-else
-WalkspeedYou = Tab:AddLabel("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.WalkSpeed.." ]")
-JumppowerYou = Tab:AddLabel("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
-HealthYou = Tab:AddLabel("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
-HipHeightYou = Tab:AddLabel("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
-end
 GravityYou = Tab:AddLabel("Gravity [ "..game.Workspace.Gravity.." ]")
 PositionYou = Tab:AddLabel("Position In Your [ "..tostring(math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X)..", ".. math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y)..", "..math.round(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)).." ]")
+Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
 
 local function SetInfoAllServer()
 CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
@@ -819,17 +807,6 @@ PositionYou:Set("Position In You [ "..tostring(math.round(game.Players.LocalPlay
 CodeKeypad:Set("Code Keypad [ "..tostring((#game.Players:GetPlayers()) * 25 + 1100 - 7).." ]")
 CheckSlap:Set("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]")
 Glove:Set("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]")
-if game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-WalkspeedYou:Set("Walk Speed [ Not Walk then rock ]")
-JumppowerYou:Set("Jump Power [ Not Jump Power then rock ]")
-HealthYou:Set("Health You [ Not Health then rock ]")
-HipHeightYou:Set("Hip Height [ Not Hip then rock ]")
-else
-WalkspeedYou:Set("Walk Speed [ "..game.Players.LocalPlayer.Character.Humanoid.WalkSpeed.." ]")
-JumppowerYou:Set("Jump Power [ "..game.Players.LocalPlayer.Character.Humanoid.JumpPower.." ]")
-HealthYou:Set("Health You [ "..game.Players.LocalPlayer.Character.Humanoid.Health.." ]")
-HipHeightYou:Set("Hip Height [ "..game.Players.LocalPlayer.Character.Humanoid.HipHeight.." ]")
-end
 GravityYou:Set("Gravity [ "..game.Workspace.Gravity.." ]")
 if not game.Workspace:FindFirstChild("Keypad") then
 KeypadSpawn:Set("Keypad Spawn [ No ]")
@@ -2002,7 +1979,7 @@ AutoTycoon = Tab3:AddToggle({
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
 while _G.AutoTpPlate do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and #game.Players:GetPlayers() >= 7 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.Plate.CFrame * CFrame.new(0,2,0)
 end
 task.wait()
 end
@@ -2383,7 +2360,7 @@ RojoAbility = Value
 	end    
 })
 
-Tab14:AddToggle({
+RojoAbility = Tab14:AddToggle({
 	Name = "Auto Spam Rojo",
 	Default = false,
 	Callback = function(Value)
@@ -2391,13 +2368,59 @@ if Person == nil then
 Person = game.Players.LocalPlayer.Name
 end
 _G.RojoSpam = Value
-while _G.RojoSpam and RojoAbility == "Normal" do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Rojo" then
+while _G.RojoSpam do
+if RojoAbility == "Normal" then
 game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame})
+elseif RojoAbility == "Down" then
+game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame * CFrame.Angles(-1.5, -9.99999993922529e-09, -0.5663706660270691)})
+end
 task.wait()
 end
-while _G.RojoSpam and RojoAbility == "Down" do
-game:GetService("ReplicatedStorage"):WaitForChild("RojoAbility"):FireServer("Release", {game.Players[Person].Character.HumanoidRootPart.CFrame * CFrame.Angles(-1.5, -9.99999993922529e-09, -0.5663706660270691)})
+elseif _G.RojoSpam == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Rojo equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+RojoAbility:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
+	Name = "Barrel Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.BarrelPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.BarrelPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+BarrelPlayer = Tab14:AddToggle({
+	Name = "Auto Barrel Player",
+	Default = false,
+	Callback = function(Value)
+_G.BarrelSpamPlayer = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Barrel" then
+while _G.BarrelSpamPlayer do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["cf"] = game.Players[_G.BarrelPlayer].Character.HumanoidRootPart.CFrame})
 task.wait()
+end
+elseif _G.BarrelSpamPlayer == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Barrel equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+BarrelPlayer:Set(false)
 end
 	end    
 })
@@ -4916,64 +4939,6 @@ end
   	end    
 })
 
-Notifykeypad = Tab7:AddToggle({
-	Name = "Auto Notification Keypad",
-	Default = false,
-	Callback = function(Value)
-	 _G.NotifyKeypad = Value
-while _G.NotifyKeypad do
-if not game.Workspace:FindFirstChild("Keypad") then
-repeat task.wait() until game.Workspace:FindFirstChild("Keypad")
-OrionLib:MakeNotification({Name = "Error",Content = "Keypad Spawn.",Image = "rbxassetid://7733658504",Time = 8})
-Notifykeypad:Set(false)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Available Keypad.",Image = "rbxassetid://7733658504",Time = 5})
-NotifyToolbox:Set(false)
-end
-task.wait(0.05)
-end
-	end    
-})
-
-NotifyToolbox = Tab7:AddToggle({
-	Name = "Auto Notification ToolBox",
-	Default = false,
-	Callback = function(Value)
-	 _G.NotifyToolBox = Value
-while _G.NotifyToolBox do
-if not game.Workspace:FindFirstChild("Toolbox") then
-repeat task.wait() until game.Workspace:FindFirstChild("Toolbox")
-OrionLib:MakeNotification({Name = "Error",Content = "Toolbox Spawn.",Image = "rbxassetid://7733658504",Time = 5})
-NotifyToolbox:Set(false)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Available Toolbox.",Image = "rbxassetid://7733658504",Time = 5})
-NotifyToolbox:Set(false)
-end
-task.wait(0.05)
-end
-	end    
-})
-
-NotifyAdminJoin = Tab7:AddToggle({
-	Name = "Auto Notification Admin Join",
-	Default = false,
-	Callback = function(Value)
-	 _G.NotifyAdminJoin = Value
-while _G.NotifyAdminJoin do
-for i,v in pairs(game.Players:GetChildren()) do
-if v:GetRankInGroup(9950771) >= 2 or v:GetRankInGroup(9950771) >= 3 or v:GetRankInGroup(9950771) >= 4 or v:GetRankInGroup(9950771) >= 5 or v:GetRankInGroup(9950771) >= 7 or v:GetRankInGroup(9950771) >= 8 or v:GetRankInGroup(9950771) >= 9 or v:GetRankInGroup(9950771) >= 10 or v:GetRankInGroup(9950771) >= 11 or v:GetRankInGroup(9950771) >= 12 then
-OrionLib:MakeNotification({Name = "Error",Content = "Admin [ "..v.Name.." ] Join Guy",Image = "rbxassetid://7733658504",Time = 5})
-NotifyAdminJoin:Set(false)
-else
-OrionLib:MakeNotification({Name = "Error",Content = "Available Admin [ "..v.Name.." ]",Image = "rbxassetid://7733658504",Time = 5})
-NotifyAdminJoin:Set(false)
-end
-end
-task.wait()
-end
-	end    
-})
-
 Tab7:AddToggle({
 	Name = "Auto Code Pocket Keypad",
 	Default = false,
@@ -4983,18 +4948,19 @@ while _G.WriteCodeKeypad do
 if game.Workspace:FindFirstChild("RoomsFolder") then
 for i,v in pairs(game.Workspace.RoomsFolder:GetChildren()) do
 if string.find(v.Name, "'s Room") and v:FindFirstChild("PocketKeypad") then
-fireclickdetector(v.Buttons:FindFirstChild("Reset").ClickDetector)
+fireclickdetector(v.PocketKeypad.Buttons:FindFirstChild("Reset").ClickDetector)
 local digits = "4553293"
 for i = 1, #digits do
-fireclickdetector(v.Buttons:FindFirstChild(digits:sub(i,i)).ClickDetector)
-wait(0.3)
+wait(0.26)
+_G.CodeOPad = digits:sub(i,i)
+fireclickdetector(v.PocketKeypad.Buttons:FindFirstChild(_G.CodeOPad).ClickDetector)
 end
-wait(0.05)
-fireclickdetector(v.Buttons:FindFirstChild("Enter").ClickDetector)
+wait(0.15)
+fireclickdetector(v.PocketKeypad.Buttons:FindFirstChild("Enter").ClickDetector)
 end
 end
 end
-task.wait(0.4)
+task.wait(0.1)
 end
 	end    
 })
@@ -5026,7 +4992,7 @@ else
 game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 for i = 1,#_G.writeCode do
-wait(.5)
+wait(.35)
 local digit = _G.writeCode:sub(i,i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
@@ -5074,7 +5040,7 @@ else
 game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
 for i = 1,#_G.EggCodes do
-wait(.5)
+wait(.35)
 local digit = _G.EggCodes:sub(i,i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
 end
@@ -6831,21 +6797,15 @@ AntiPortal = Tab2:AddToggle({
 	Callback = function(Value)
 _G.AntiPortal = Value
 if _G.AntiPortal == true then
-for i,v in pairs(workspace.Lobby:GetChildren()) do
-if v.Name == "Teleport2" and v.Name == "Teleport3" and v.Name == "Teleport4" and v.Name == "Teleport6" then
-if v.CanTouch == true then
-v.CanTouch = false
-end
-end
-end
+workspace.Lobby.Teleport2.CanTouch = false
+workspace.Lobby.Teleport3.CanTouch = false
+workspace.Lobby.Teleport4.CanTouch = false
+workspace.Lobby.Teleport6.CanTouch = false
 else
-for i,v in pairs(workspace.Lobby:GetChildren()) do
-if v.Name == "Teleport2" and v.Name == "Teleport3" and v.Name == "Teleport4" and v.Name == "Teleport6" then
-if v.CanTouch == false then
-v.CanTouch = true
-end
-end
-end
+workspace.Lobby.Teleport2.CanTouch = true
+workspace.Lobby.Teleport3.CanTouch = true
+workspace.Lobby.Teleport4.CanTouch = true
+workspace.Lobby.Teleport6.CanTouch = true
 end
 	end    
 })
@@ -7739,7 +7699,7 @@ game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 elseif game.PlaceId == 11520107397 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - ".." Killstreak Only".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - Killstreak Only".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if hookmetamethod then
 local bypass;
@@ -9630,7 +9590,7 @@ game.Workspace.NoChanged.Changed:Connect(function()
 AntiRagdoll:Set(game.Workspace.NoChanged.Value)
 end)
 elseif game.PlaceId == 11828384869 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." / Server Elude"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." / Server Elude"),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 --Tab
 local Tab = Window:MakeTab({
@@ -9975,7 +9935,7 @@ end
   	end 
 })
 elseif game.PlaceId == 13833961666 then
-local Window = OrionLib:MakeWindow({IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = false, ConfigFolder = "slap battles"})
 
 if workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
@@ -10273,7 +10233,7 @@ end
 	end    
 })
 elseif game.PlaceId == 9431156611 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Combat",
@@ -11210,7 +11170,7 @@ task.wait()
 	end    
 })
 elseif game.PlaceId == 14422118326 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()), HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -11357,7 +11317,7 @@ end
   	end 
 })
 elseif game.PlaceId == 15507333474 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName),IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | "..identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if workspace:FindFirstChild("AntiVoid") == nil then
 local Anti = Instance.new("Part", workspace)
@@ -11678,7 +11638,7 @@ end
   	end 
 })
 elseif game.PlaceId == 16034567693 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -11733,7 +11693,7 @@ end
   	end 
 })
 elseif game.PlaceId == 17290438723 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Main",
@@ -11769,7 +11729,7 @@ end
   	end 
 })
 elseif game.PlaceId == 18550498098 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 if game.Workspace:FindFirstChild("VoidPart") == nil then
 local VoidPart = Instance.new("Part", workspace)
@@ -12233,7 +12193,7 @@ task.wait()
 	end    
 })
 elseif game.PlaceId == 18698003301 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> × <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -12302,7 +12262,7 @@ end
   	end 
 })
 elseif game.PlaceId == 7234087065 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("<font color='#FF0000'>AmongUs </font> Ã— <font color='#f03929'>Giang Hub </font> - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -12385,7 +12345,7 @@ end
   	end 
 })
 end
-------------------------------------------------------------------------
+--------------------------------------------------------
 if game.CoreGui:FindFirstChild("Orion") then
 for _, i in pairs(game.CoreGui:GetChildren()) do
 if i.Name == "Orion" then
@@ -12443,13 +12403,14 @@ local Toggles = getgenv().Linoria.Toggles
 
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 local Window = Library:CreateWindow({
-	Title = "AmongUs × Giang Hub / "..game.MarketplaceService:GetProductInfo(game.PlaceId).Name,
+	Title = "Article Hub - Slap Battles 👏",
 	Center = true,
-	AutoShow = true,
-	Resizable = true,
-	ShowCustomCursor = true,
-	TabPadding = 2,
-	MenuFadeTime = 0
+    AutoShow = true,
+    Resizable = true,
+    ShowCustomCursor = true,
+    NotifySide = "Right",
+    TabPadding = 2,
+    MenuFadeTime = 0
 })
 
 function Notification(Message, Time)
@@ -12464,6 +12425,7 @@ if _G.NotificationSound then
     end
     
 local Tabs = {
+	Tab = Window:AddTab("Info", "rbxassetid://7734053426"),
     Tab1 = Window:AddTab("Script", "rbxassetid://8997387937"),
     Tab2 = Window:AddTab("Anti", "rbxassetid://7734056608"),
     Tab3 = Window:AddTab("Badges", "rbxassetid://7733673987"),
@@ -12472,6 +12434,39 @@ local Tabs = {
     Tab6 = Window:AddTab("Gloves Optional", "rbxassetid://7733955740"),
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
+
+local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Server")
+local InfoServer2Group = Tabs.Tab:AddRightGroupbox("Toggle Return")
+
+CanYouFps = InfoServer1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouPing = InfoServer1Group:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
+ServerPlayer = InfoServer1Group:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
+TimeServer = InfoServer1Group:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+
+InfoServer2Group:AddToggle("Toggle Set", {
+    Text = "Toggle Return",
+    Default = false,
+    Callback = function(Value)
+_G.AutoSetInfo = Value
+if _G.AutoSetInfo == true then
+AutoSetInfoServer = game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AutoSetInfo == true then
+CanYouFps:SetText("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
+CanYouPing:SetText("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]")
+ServerPlayerSetText("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]")
+TimeServer:SetText("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]")
+end
+end)
+end
+if _G.AutoSetInfo == false then
+if AutoSetInfoServer then
+AutoSetInfoServer:Disconnect()
+AutoSetInfoServer = nil
+return AutoSetInfoServer
+end
+end
+    end
+})
 
 local Script1Group = Tabs.Tab1:AddLeftGroupbox("Script Basic")
 local Script2Group = Tabs.Tab1:AddRightGroupbox("Script")
@@ -12493,7 +12488,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifv
 Script1Group:AddButton({
     Text = "Inf yield Delta",
     Func = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/advxzivhsjjdhxhsidifvsh/mobkeyboard/main/main.txt", true))()
+loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
     end
 })
 
@@ -14773,7 +14768,7 @@ end
 task.wait()
 end
 elseif _G.RojoSpam == true then
-Notification("Can't find player", 5)
+Notification("You don't have Rojo equipped.", 5)
 wait(0.05)
 Toggles.RojoAbility:SetValue(false)
 end
@@ -14842,17 +14837,51 @@ end
     end
 })
 
+Glove1Group:AddInput("Players", {
+    Default = "",
+    Numeric = false,
+    Text = "",
+    Finished = true,
+    Placeholder = "Username",
+    Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.BarrelPlayer = targetPlayer.Name
+Notification("Found Player [ ".._G.BarrelPlayer.." ]", 5)
+else
+Notification("Can't find player", 5)
+end
+    end
+})
+
+Glove1Group:AddToggle("AbilityBarrelPlayer", {
+    Text = "Auto Barrel Player",
+    Default = false, 
+    Callback = function(Value) 
+_G.BarrelSpamPlayer = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Barrel" then
+while _G.BarrelSpamPlayer do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer({["cf"] = game.Players[_G.BarrelPlayer].Character.HumanoidRootPart.CFrame})
+task.wait()
+end
+elseif _G.BarrelSpamPlayer == true then
+Notification("You don't have Barrel equipped.", 5)
+wait(0.05)
+Toggles.AbilityBarrelPlayer:SetValue(false)
+end
+    end
+})
+
 -----// Create Script \\------
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
 local CreditsGroup = Tabs["UI Settings"]:AddRightGroupbox("Credits")
-
-MenuGroup:AddToggle("ShowCustomCursor", {
-    Text = "Custom Cursor",
-    Default = true, 
-    Callback = function(Value) 
-Library.ShowCustomCursor = Value 
-    end
-})
 
 _G.NotificationSound = true
 MenuGroup:AddToggle("NotifySound", {
@@ -14863,20 +14892,33 @@ _G.NotificationSound = Value
     end
 })
 
-MenuGroup:AddDivider()
-MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {
-       Default = "RightShift",
-       NoUI = true,
-       Text = "Menu keybind"
+MenuGroup:AddDropdown("NotifySide", {
+    Text = "Notification Side",
+    Values = {"Left", "Right"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+Library.NotifySide = Value
+    end
 })
-MenuGroup:AddButton("Join Discord Server", function()
+
+MenuGroup:AddToggle("KeybindMenuOpen", {Default = false, Text = "Open Keybind Menu", Callback = function(Value) Library.KeybindFrame.Visible = Value end})
+MenuGroup:AddToggle("ShowCustomCursor", {Text = "Custom Cursor", Default = true, Callback = function(Value) Library.ShowCustomCursor = Value end})
+MenuGroup:AddDivider()
+MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {Default = "RightShift", NoUI = true, Text = "Menu keybind"})
+MenuGroup:AddButton("Join Discord", function()
     local Inviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Discord%20Inviter/Source.lua"))()
 	Inviter.Join("https://discord.com/invite/VXP4d5n5")
 	Inviter.Prompt({name = "Article Hub", invite = "https://discord.com/invite/VXP4d5n5"})
+end):AddButton("Copy Link", function()
+    if setclipboard then
+        setclipboard("https://discord.com/invite/VXP4d5n5")
+        Library:Notify("Copied discord link to clipboard!")
+    else
+        Library:Notify("Discord link: https://discord.com/invite/VXP4d5n5", 10)
+    end
 end)
-MenuGroup:AddButton("Unload", function() 
-    Library:Unload() 
-end)
+MenuGroup:AddButton("Unload", function() Library:Unload() end)
 
 CreditsGroup:AddLabel("AmongUs - Python / Dex / Script")
 CreditsGroup:AddLabel("Giang Hub - Script / Dex")
@@ -14885,16 +14927,9 @@ Library.ToggleKeybind = Options.MenuKeybind
 
 ThemeManager:SetLibrary(Library)
 SaveManager:SetLibrary(Library)
-
 SaveManager:IgnoreThemeSettings()
-
-ThemeManager:SetFolder("AmongUs × Giang Hub")
-SaveManager:SetFolder("AmongUs × Giang Hub / Slap Battles")
-
 SaveManager:BuildConfigSection(Tabs["UI Settings"])
-
 ThemeManager:ApplyToTab(Tabs["UI Settings"])
-
 SaveManager:LoadAutoloadConfig()
 
 ----// Set Toggle Anti \\-----
@@ -15161,6 +15196,7 @@ gloveHits = {
     ["Shackle"] = game.ReplicatedStorage.GeneralHit,
     ["Titan"] = game.ReplicatedStorage.GeneralHit,
     ["Thanos"] = game.ReplicatedStorage.GeneralHit,
+    ["Barrel"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
