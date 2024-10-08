@@ -22,7 +22,7 @@ end
 game:GetService("GuiService"):ClearError()
 
 if _G.LibraryGui == nil then
-_G.LibraryGui = "LinoriaLib"
+_G.LibraryGui = "Orion"
 end
 
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
