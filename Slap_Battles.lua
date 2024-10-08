@@ -12386,41 +12386,7 @@ end
 })
 end
 --------------------------------------------------------
-if game.CoreGui:FindFirstChild("Orion") and game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") == nil then
-local TOGGLE = {}
-TOGGLE["Ui"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui)
-TOGGLE["DaIcon"] = Instance.new("ImageButton", TOGGLE["Ui"])
-TOGGLE["das"] = Instance.new("UICorner", TOGGLE["DaIcon"])
-
-TOGGLE["Ui"].Name = "ToggleUi"
-TOGGLE["Ui"].ResetOnSpawn = false
-
-TOGGLE["DaIcon"].Size = UDim2.new(0,45,0,45)
-TOGGLE["DaIcon"].Position = UDim2.new(0,0,0,0)
-TOGGLE["DaIcon"].Draggable = true
-TOGGLE["DaIcon"].Image = "rbxassetid://15315284749"
-TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromRGB(255, 186, 117)
-TOGGLE["DaIcon"].BorderColor3 = Color3.fromRGB(255, 186, 117)
-task.spawn(function()
-while true do
-	for i = 0, 255, 4 do
-		TOGGLE["DaIcon"].BorderColor3 = Color3.fromHSV(i/256, 1, 1)
-		TOGGLE["DaIcon"].BackgroundColor3 = Color3.fromHSV(i/256, .5, .8)
-		wait()
-	end
-end
-end)
-TOGGLE["DaIcon"].MouseButton1Click:Connect(function()
-if game.CoreGui:FindFirstChild("Orion") then
-for _, v in pairs(game.CoreGui:GetChildren()) do
-if v.Name == "Orion" then
-v.Enabled = not v.Enabled
-end
-end
-end
-end)
-TOGGLE["das"]["CornerRadius"] = UDim.new(0.20000000298023224, 0)
-end 
+print("done")
 ------------------------------------------------------------------------
 if game.CoreGui:FindFirstChild("Orion") then
 for _, i in pairs(game.CoreGui:GetChildren()) do
