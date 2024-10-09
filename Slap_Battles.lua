@@ -681,7 +681,10 @@ local OrionLib = loadstring(game:HttpGet(("https://raw.githubusercontent.com/Pla
 local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 then
 local Window = OrionLib:MakeWindow({IntroText = "Slap Battles 👏", IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - Slap Battles 👏".." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
-
+-- Fixing		
+local baseMenu = game:GetService("CoreGui").TopBarApp.TopBarFrame.RightFrame.MoreMenu.MoreMenuContainer.ContextualMenu.PositionFrame.BaseMenu
+baseMenu.Size = UDim2.new(1, -24, 0, 238)
+		
 --Tab1 - 15
 local Tab = Window:MakeTab({
 	Name = "Info",
