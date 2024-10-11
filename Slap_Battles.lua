@@ -2408,6 +2408,59 @@ end
 })
 
 Tab14:AddTextbox({
+	Name = "Bind Player",
+	Default = "Username",
+	TextDisappear = false,
+	Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.BindPlayer = targetPlayer.Name
+OrionLib:MakeNotification({Name = "Error",Content = "Found Player [ ".._G.BindPlayer.." ]",Image = "rbxassetid://7733658504",Time = 5})
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Can't find player",Image = "rbxassetid://7733658504",Time = 5})
+end
+	end	  
+})
+
+Tab14:AddDropdown({
+	Name = "Bind Ability",
+	Default = "",
+	Options = {"Default", "Ultimate"},
+	Callback = function(Value)
+_G.BindAbility = Value
+	end    
+})
+
+BindPlayer = Tab14:AddToggle({
+	Name = "Auto Bind Player",
+	Default = false,
+	Callback = function(Value)
+_G.BindSpamPlayer = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Bind" then
+while _G.BindSpamPlayer do
+if _G.BindAbility == "Default" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("default", {["goal"] = game.Players[_G.BindPlayer].Character.HumanoidRootPart.CFrame, ["origin"] = game.Players[_G.BindPlayer].Character.Head.CFrame})
+elseif _G.BindAbility == "Ultimate" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("ultimate", {["goal"] = game.Players[_G.BindPlayer].Character.HumanoidRootPart.CFrame * CFrame.Angles(3.141592502593994, 1.0641214847564697, -3.141592502593994), ["origin"] = game.Players[_G.BindPlayer].Character.HumanoidRootPart.CFrame * CFrame.Angles(3.141592502593994, 1.0641214847564697, -3.141592502593994)})
+end
+task.wait()
+end
+elseif _G.BindSpamPlayer == true then
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Bind equipped.",Image = "rbxassetid://7733658504",Time = 5})
+wait(0.05)
+BindPlayer:Set(false)
+end
+	end    
+})
+
+Tab14:AddTextbox({
 	Name = "Spam Divebomb Player",
 	Default = "Username",
 	TextDisappear = false,
@@ -5493,6 +5546,14 @@ task.wait()
 end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Shackle" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Bind" do
+local players = game.Players:GetChildren()
+local randomPlayer = players[math.random(1, #players)]
+repeat randomPlayer = players[math.random(1, #players)] until randomPlayer ~= game.Players.LocalPlayer and randomPlayer.Character:FindFirstChild("entered") and randomPlayer.Character:FindFirstChild("ded") == nil and randomPlayer.Character:FindFirstChild("InLabyrinth") == nil and randomPlayer.Character:FindFirstChild("rock") == nil
+Target = randomPlayer
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("default", {["goal"] = Target.Character.HumanoidRootPart.CFrame, ["origin"] = Target.Character.Head.CFrame})
 task.wait()
 end
 	end    
@@ -14241,7 +14302,7 @@ Glove1Group:AddDropdown("RojoAbility", {
     Default = "",
     Multi = false,
     Callback = function(Value)
-SlapstickAbility = Value
+RojoAbility = Value
     end
 })
 
@@ -14370,6 +14431,62 @@ elseif _G.BarrelSpamPlayer == true then
 Notification("You don't have Barrel equipped.", 5)
 wait(0.05)
 Toggles.AbilityBarrelPlayer:SetValue(false)
+end
+    end
+})
+
+Glove1Group:AddInput("Players", {
+    Default = "",
+    Numeric = false,
+    Text = "",
+    Finished = true,
+    Placeholder = "Username",
+    Callback = function(Value)
+local targetAbbreviation = Value
+local targetPlayer
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
+targetPlayer = v
+break
+end
+end
+if targetPlayer then
+_G.BarrelPlayer = targetPlayer.Name
+Notification("Found Player [ ".._G.BarrelPlayer.." ]", 5)
+else
+Notification("Can't find player", 5)
+end
+    end
+})
+
+Glove1Group:AddDropdown("BindAbility", {
+    Text = "Bind Ability",
+    Values = {"Default", "Ultimate"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+_G.BindAbility = Value
+    end
+})
+
+Glove1Group:AddToggle("AbilityBindPlayer", {
+    Text = "Auto Bind Player",
+    Default = false, 
+    Callback = function(Value) 
+_G.BindSpamPlayer = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Bind" then
+while _G.BindSpamPlayer do
+if _G.BindAbility == "Default" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("default", {["goal"] = game.Players[_G.BindPlayer].Character.HumanoidRootPart.CFrame, ["origin"] = game.Players[_G.BindPlayer].Character.Head.CFrame})
+elseif _G.BindAbility == "Ultimate" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("ultimate", {["goal"] = game.Players[_G.BindPlayer].Character.HumanoidRootPart.CFrame * CFrame.Angles(3.141592502593994, 1.0641214847564697, -3.141592502593994), ["origin"] = game.Players[_G.BindPlayer].Character.HumanoidRootPart.CFrame * CFrame.Angles(3.141592502593994, 1.0641214847564697, -3.141592502593994)})
+end
+task.wait()
+end
+elseif _G.BindSpamPlayer == true then
+Notification("You don't have Bind equipped.", 5)
+wait(0.05)
+Toggles.AbilityBindPlayer:SetValue(false)
 end
     end
 })
@@ -14692,6 +14809,8 @@ gloveHits = {
     ["Titan"] = game.ReplicatedStorage.GeneralHit,
     ["Thanos"] = game.ReplicatedStorage.GeneralHit,
     ["Barrel"] = game.ReplicatedStorage.GeneralHit,
+    ["Bind"] = game.ReplicatedStorage.GeneralHit,
+    ["MATERIALIZE"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
