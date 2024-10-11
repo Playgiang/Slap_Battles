@@ -46,24 +46,25 @@ end
 ---Potion---
 
 _G.GetPotion = {
-      	["Grug"] = {"Mushroom"},
-      	["Nightmare"] = {"Dark Root","Dark Root","Dark Root"},
-      	["Confusion"] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
-      	["Power"] = {"Dire Flower","Red Crystal","Wild Vine"},
-      	["Paralyzing"] = {"Plane Flower","Plane Flower"},
-      	["Haste"] = {"Autumn Sprout","Jade Stone"},
-      	["Invisibility"] = {"Hazel Lily","Hazel Lily","Blue Crystal"},
-      	["Explosion"] = {"Red Crystal","Fire Flower","Fire Flower"},
-      	["Invincible"] = {"Elder Wood","Mushroom","Mushroom"},
-      	["Toxic"] = {"Dark Root","Dark Root","Blood Rose","Red Crystal"},
-      	["Freeze"] = {"Winter Rose","Winter Rose","Wild Vine","Blue Crystal","Glowing Mushroom"},
-      	["Feather"] = {"Mushroom","Hazel Lily"},
-      	["Speed"] = {"Mushroom","Mushroom","Plane Flower","Hazel Lily","Blue Crystal"},
-      	["Lethal"] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
-      	["Slow"] = {"Mushroom","Mushroom","Blue Crystal","Blue Crystal","Jade Stone","Plane Flower"},
-      	["Antitoxin"] = {"Blue Crystal","Glowing Mushroom","Plane Flower","Plane Flower","Elder Wood"},
-      	["Corrupted Vine"] = {"Wild Vine","Wild Vine","Wild Vine","Blood Rose","Dark Root","Elder Wood","Jade Stone"},
-      	["Field"] = {"Hazel Lily","Plane Flower","Plane Flower"}
+      ["Grug"] = {"Mushroom"},
+      ["Nightmare"] = {"Dark Root","Dark Root","Dark Root"},
+      ["Confusion"] = {"Red Crystal","Blue Crystal","Glowing Mushroom"},
+      ["Power"] = {"Dire Flower","Red Crystal","Wild Vine"},
+      ["Paralyzing"] = {"Plane Flower","Plane Flower"},
+      ["Haste"] = {"Autumn Sprout","Jade Stone"},
+      ["Invisibility"] = {"Hazel Lily","Hazel Lily","Blue Crystal"},
+      ["Explosion"] = {"Red Crystal","Fire Flower","Fire Flower"},
+      ["Invincible"] = {"Elder Wood","Mushroom","Mushroom"},
+      ["Toxic"] = {"Dark Root","Dark Root","Blood Rose","Red Crystal"},
+      ["Freeze"] = {"Winter Rose","Winter Rose","Wild Vine","Blue Crystal","Glowing Mushroom"},
+      ["Feather"] = {"Mushroom","Hazel Lily"},
+      ["Speed"] = {"Mushroom","Mushroom","Plane Flower","Hazel Lily","Blue Crystal"},
+      ["Lethal"] = {"Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Blood Rose","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root","Dark Root"},
+      ["Slow"] = {"Mushroom","Mushroom","Blue Crystal","Blue Crystal","Jade Stone","Plane Flower"},
+      ["Antitoxin"] = {"Blue Crystal","Glowing Mushroom","Plane Flower","Plane Flower","Elder Wood"},
+      ["Corrupted Vine"] = {"Wild Vine","Wild Vine","Wild Vine","Blood Rose","Dark Root","Elder Wood","Jade Stone"},
+      ["Field"] = {"Hazel Lily","Plane Flower","Plane Flower"},
+      ["Lost"] = {"Blue Crystal","Elder Wood","Elder Wood","Elder Wood","Red Crystal"}
 }
 
 ---GetSome---
@@ -3480,7 +3481,7 @@ end
 Tab14:AddDropdown({
 	Name = "Potion",
 	Default = "Speed",
-	Options = {"Grug","idIot","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine","Field"},
+	Options = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine","Field","Lost"},
 	Callback = function(Value)
 _G.MakePotion = Value
 	end    
@@ -11734,6 +11735,24 @@ fireclickdetector(v.ClickDetector, 0)
 fireclickdetector(v.ClickDetector, 1)
 end
 end
+end
+  	end 
+})
+elseif game.PlaceId == 74169485398268 then
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4370318685",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "Get Glove",
+	Callback = function()
+if game.Workspace:FindFirstChild("Orb") then
+fireclickdetector(game.Workspace.Orb.ClickDetector, 0)
+fireclickdetector(game.Workspace.Orb.ClickDetector, 1)
 end
   	end 
 })
