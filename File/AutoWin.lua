@@ -1,5 +1,8 @@
 if _G.GloveChoose == nil then
-_G.GloveChoose = "Normal"
+_G.GloveChoose = "No"
+end
+if _G.View == nil then
+_G.View = true
 end
 
 if _G.GloveChoose == "No" or _G.GloveChoose == "Nah" or _G.GloveChoose == "Nah Id Win" or _G.GloveChoose == "Nah id win" then
