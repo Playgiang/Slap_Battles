@@ -31,9 +31,8 @@ for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
             end
        end
 for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
-                if game.Players.LocalPlayer.Character:FindFirstChild("Head") and v:FindFirstChild("TouchTransmitter") then
-                    firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), v, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), v, 1)
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                   v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 end
             end
 end
