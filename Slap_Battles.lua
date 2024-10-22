@@ -2,23 +2,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-if _G.AutoExecuter == true then
-local ScriptSpawnSlap = queueonteleport or queue_on_teleport
-if ScriptSpawnSlap then
-    ScriptSpawnSlap([[
-if not game:IsLoaded() then
-    game.Loaded:Wait()
-end
-repeat wait() until game.Players.LocalPlayer
-wait(0.25)
-_G.AutoExecuter = true
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/main/Slap_Battles.lua"))()
-    ]])
-else
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot auto execute",Icon = "rbxassetid://7733658504",Duration = 5})
-end
-end
-
 game:GetService("GuiService"):ClearError()
 
 if _G.LibraryGui == nil then
@@ -1208,7 +1191,7 @@ end
 end
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872)
 else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Fort equipped, or you have owner badge [ Don't turn on shiftlock ]",Image = "rbxassetid://7733658504",Time = 5})
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Fort equipped, or you have owner badge",Image = "rbxassetid://7733658504",Time = 5})
 end
   	end    
 })
@@ -1553,6 +1536,38 @@ game:GetService("TeleportService"):Teleport(11828384869)
 })
 
 Tab3:AddButton({
+	Name = "Get Fish + Voodoo + Trap",
+	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+fireclickdetector(workspace.Lobby["ZZZZZZZ"].ClickDetector)
+wait(0.2)
+game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+fireclickdetector(workspace.Lobby["Brick"].ClickDetector)
+wait(0.2)
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Teleport1.CFrame)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.35)
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0))
+wait(0.2)
+repeat wait(1)
+if AutoBrick == "Fast" then
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
+elseif AutoBrick == "Slow" then
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+end
+until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2127567042)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ghost equipped, or You have go to lobby",Image = "rbxassetid://7733658504",Time = 5})
+end
+  	end 
+})
+
+Tab3:AddButton({
 	Name = "Get Glove [Redacted]",
 	Callback = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
@@ -1665,8 +1680,8 @@ Tab3:AddToggle({
 	Name = "Toolbox Farm",
 	Default = false,
 	Callback = function(Value)
-Toolboxfarm = Value
-while Toolboxfarm do
+_G.Toolboxfarm = Value
+while _G.Toolboxfarm do
 if game.Workspace:FindFirstChild("Toolbox") then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Toolbox" and v:FindFirstChild("ClickDetector") then
@@ -1744,8 +1759,8 @@ Tab3:AddToggle({
 	Name = "Gift Farm",
 	Default = false,
 	Callback = function(Value)
-Giftfarm = Value
-while Giftfarm do
+_G.Giftfarm = Value
+while _G.Giftfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Gift" then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
@@ -1757,79 +1772,9 @@ end
 	end    
 })
 
-Tab3:AddDropdown({
-	Name = "Farm Time",
-	Default = "",
-	Options = {"Voodoo + Fish", "MegaRock"},
-	Callback = function(Value)
-AutoTime = Value
-	end    
-})
-
-FarmTimeServer = Tab3:AddLabel("Farm Time [ 0 ]")
-
-GetFarmTime = Tab3:AddToggle({
-	Name = "AutoFarm Time",
-	Default = false,
-	Callback = function(Value)
-_G.AutoTimeGet = Value
-if AutoTime == "Voodoo + Fish" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-fireclickdetector(workspace.Lobby["ZZZZZZZ"].ClickDetector)
-wait(0.2)
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+if AutoBrick == nil then
+AutoBrick = "Slow"
 end
-wait(0.2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-wait(0.2)
-game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
-elseif _G.AutoTimeGet == true then
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Ghost equipped, or You have go to lobby",Image = "rbxassetid://7733658504",Time = 5})
-end
-elseif AutoTime ~= "Voodoo + Fish" or Value == false then
-SleepTimeandTimeGhost = 0
-FarmTimeServer:Set("Farm Time [ 0 ]")
-end
-while _G.AutoTimeGet and AutoTime == "Voodoo + Fish" and task.wait() do
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "ZZZZZZZ" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == true then
-task.wait(1)
-SleepTimeandTimeGhost += 1
-FarmTimeServer:Set("Farm Time [ "..SleepTimeandTimeGhost.." ]")
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("Ragdolled").Value == false then
-SleepTimeandTimeGhost = 0
-FarmTimeServer:Set("Farm Time [ 0 ]")
-end
-end
-if AutoTime == "MegaRock" then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" then
-game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
-end
-elseif AutoTime ~= "MegaRock" or Value == false then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") ~= nil then
-game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
-TimeMegarock = 0
-FarmTimeServer:Set("Farm Time [ 0 ]")
-end
-end
-while _G.AutoTimeGet and AutoTime == "MegaRock" and task.wait() do
-task.wait(1)
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("rock") then
-TimeMegarock += 1
-FarmTimeServer:Set("Farm Time [ "..TimeMegarock.." ]")
-elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil or game.Players.LocalPlayer.Character:FindFirstChild("rock") == nil then
-TimeMegarock = 0
-FarmTimeServer:Set("Farm Time [ 0 ]")
-end
-end
-	end    
-})
-
 Tab3:AddDropdown({
 	Name = "Farm Brick",
 	Default = "Slow",
@@ -1843,9 +1788,9 @@ AutoFarmBrick = Tab3:AddToggle({
 	Name = "AutoFram Brick",
 	Default = false,
 	Callback = function(Value)
-	    Brickfarm = Value
+	    _G.Brickfarm = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Brick" then
-while Brickfarm do
+while _G.Brickfarm do
 if AutoBrick == "Slow" then
 game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
 elseif AutoBrick == "Fast" then
@@ -2742,8 +2687,9 @@ Tab14:AddButton({
 	Callback = function()
 if _G.PlayerChoose == "Username" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players[_G.PressIntoTheGround].Character:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Quake") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
+end
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
 wait(3.45)
@@ -2758,8 +2704,9 @@ OrionLib:MakeNotification({Name = "Error",Content = "You don't have Quake equipp
 end
 elseif _G.PlayerChoose == "Random" then
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Quake" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+if game.Players.LocalPlayer.Backpack:FindFirstChild("Quake") then
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Quake)
+end
 OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 game:GetService("ReplicatedStorage"):WaitForChild("QuakeQuake"):FireServer({["start"] = true})
 wait(4)
@@ -2809,22 +2756,18 @@ end
 Tab14:AddButton({
 	Name = "Cards Player",
 	Callback = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
 if _G.PlayerChoose == "Username" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",game.Players[PersonCar])
-else
-OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
 elseif _G.PlayerChoose == "Random" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Jester" then
 local players = game.Players:GetChildren()
 local RandomPlayer = players[math.random(1, #players)]
 repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
 Target = RandomPlayer
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("Ability3",Target)
+end
 else
 OrionLib:MakeNotification({Name = "Error",Content = "You don't have Jester glove equipped",Image = "rbxassetid://7733658504",Time = 5})
-end
 end
   	end    
 })
@@ -2857,7 +2800,7 @@ AutoOven = Tab14:AddToggle({
 	Callback = function(Value)
 _G.OvenPlayerAuto = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" then
-while _G.OvenPlayerAuto and game.Players.LocalPlayer.leaderstats.Glove.Value == "Oven" do
+while _G.OvenPlayerAuto do
 if _G.PlayerChoose == "Username" then
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Oven") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer(game.Players[_G.OvenPlayer].Character.HumanoidRootPart.CFrame)
@@ -4384,9 +4327,8 @@ Tab7:AddToggle({
 	    CandyCornsFarm = Value
 while CandyCornsFarm do
 for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
-                if game.Players.LocalPlayer.Character:FindFirstChild("Head") then
-                    firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), v, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChild("Head"), v, 1)
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                   v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 end
             end
 task.wait()
@@ -6082,7 +6024,7 @@ Tab7:AddColorpicker({
 })
 
 Tab7:AddToggle({
-	Name = "ESP Glove",
+	Name = "ESP Glove & Ghost",
 	Default = false,
 	Callback = function(Value)
 _G.GloveESP = Value
@@ -6111,13 +6053,43 @@ GloveEsp.AlwaysOnTop = true
 GloveEspText = Instance.new("TextLabel", GloveEsp)
 GloveEspText.BackgroundTransparency = 1
 GloveEspText.Size = UDim2.new(0, 100, 0, 100)
-GloveEspText.TextSize = 20
+GloveEspText.TextSize = 15
 GloveEspText.Font = Enum.Font.FredokaOne
 GloveEspText.TextColor3 = _G.ColorESP
 GloveEspText.TextStrokeTransparency = 0.5
 GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
                 end
             end
+if game.Workspace:FindFirstChild(v.Name.."_Body") and game.Workspace[v.Name.."_Body"]:FindFirstChild("HumanoidRootPart") and game.Workspace[v.Name.."_Body"].HumanoidRootPart:FindFirstChild("BodyGloveEsp") == nil then
+BodyGloveEsp = Instance.new("BillboardGui", game.Workspace[v.Name.."_Body"].HumanoidRootPart)
+BodyGloveEsp.Adornee = game.Workspace[v.Name.."_Body"].HumanoidRootPart
+BodyGloveEsp.Name = "BodyGloveEsp"
+BodyGloveEsp.Size = UDim2.new(0, 100, 0, 150)
+BodyGloveEsp.AlwaysOnTop = true
+BodyGloveEspText = Instance.new("TextLabel", BodyGloveEsp)
+BodyGloveEspText.BackgroundTransparency = 1
+BodyGloveEspText.Size = UDim2.new(0, 100, 0, 100)
+BodyGloveEspText.TextSize = 15
+BodyGloveEspText.Font = Enum.Font.FredokaOne
+BodyGloveEspText.TextColor3 = _G.ColorESP
+BodyGloveEspText.TextStrokeTransparency = 0.5
+BodyGloveEspText.Text = "Body "..v.Name
+         end
+if game.Workspace:FindFirstChild(v.Name.."_Ghost") and game.Workspace[v.Name.."_Ghost"]:FindFirstChild("RootPart") and game.Workspace[v.Name.."_Ghost"].RootPart:FindFirstChild("GhostGloveEsp") == nil then
+GhostGloveEsp = Instance.new("BillboardGui", game.Workspace[v.Name.."_Ghost"].RootPart)
+GhostGloveEsp.Adornee = game.Workspace[v.Name.."_Ghost"].RootPart
+GhostGloveEsp.Name = "GhostGloveEsp"
+GhostGloveEsp.Size = UDim2.new(0, 100, 0, 150)
+GhostGloveEsp.AlwaysOnTop = true
+GhostGloveEspText = Instance.new("TextLabel", GhostGloveEsp)
+GhostGloveEspText.BackgroundTransparency = 1
+GhostGloveEspText.Size = UDim2.new(0, 100, 0, 100)
+GhostGloveEspText.TextSize = 15
+GhostGloveEspText.Font = Enum.Font.FredokaOne
+GhostGloveEspText.TextColor3 = _G.ColorESP
+GhostGloveEspText.TextStrokeTransparency = 0.5
+GhostGloveEspText.Text = "Ghost "..v.Name
+                end
             end
 task.wait()
 end
@@ -6272,14 +6244,10 @@ Tab2:AddDropdown({
 	Default = "Normal",
 	Options = {"Normal","Retro","Water","Psycho","Bob","Fall"},
 	Callback = function(Value)
+_G.AntiVoidChoose = Value
 if _G.AntiVoid == true then
 AntiVoid:Set(false)
-wait(0.05)
-_G.AntiVoidChoose = Value
-wait(0.03)
 AntiVoid:Set(true)
-elseif _G.AntiVoid == false then
-_G.AntiVoidChoose = Value
 end
 	end    
 })
@@ -6535,7 +6503,7 @@ end
 })
 
 AntiGhostPlayer = Tab2:AddToggle({
-	Name = "Anti Ghost Player",
+	Name = "Anti Ghost",
 	Default = false,
 	Callback = function(Value)
 		_G.AntiGhostPlayer = Value
@@ -6570,7 +6538,9 @@ AntiMail = Tab2:AddToggle({
 	Name = "Anti Mail",
 	Default = false,
 	Callback = function(Value)
+if game.Players.LocalPlayer.Character:FindFirstChild("YouHaveGotMail") then
 game.Players.LocalPlayer.Character.YouHaveGotMail.Disabled = Value
+end
 _G.AntiMail = Value
 while _G.AntiMail do
 if game.Players.LocalPlayer.Character:FindFirstChild("YouHaveGotMail") then
@@ -6619,8 +6589,8 @@ AntiKnock = Tab2:AddToggle({
 	Callback = function(Value)
 _G.AntiKnock = Value
 while _G.AntiKnock do
-if game.Workspace.CurrentCamera and game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Workspace.CurrentCamera.CameraSubject == game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s_falsehead") then
-game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") and game.Workspace.CurrentCamera.CameraSubject == game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s_falsehead") then
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
 end
 task.wait()
 end
@@ -6657,7 +6627,9 @@ AntiSquid = Tab2:AddToggle({
 	Callback = function(Value)
 	_G.AntiSquid = Value
 if _G.AntiSquid == false then
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("SquidInk") then
 game.Players.LocalPlayer.PlayerGui.SquidInk.Enabled = true
+end
 end
 while _G.AntiSquid do
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("SquidInk") then
@@ -6745,7 +6717,7 @@ AntiRun = Tab2:AddToggle({
 _G.AutoExit = Value
 while _G.AutoExit do
 if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
-for _, v in next, workspace:GetChildren() do
+for _, v in pairs(workspace:GetChildren()) do
     if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
         for _, y in ipairs(v.Doors:GetChildren()) do
             if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("TouchInterest") then
@@ -6771,6 +6743,24 @@ for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Union" then
                         v.CanTouch = false
                         v.CanQuery = false
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
+AntiBrick = Tab2:AddToggle({
+	Name = "Anti Ghost Fake",
+	Default = false,
+	Callback = function(Value)
+_G.AntiGhostFake = Value
+while _G.AntiGhostFake do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "Car" or v.Name == "crate" or v.Name == "Pumpkin" or v.Name == "snowpeep" then
+                        v.CanTouch = false
+                        v.CanQuery = false
+                        v.CanCollide = false
                     end
                 end
 task.wait()
@@ -7139,20 +7129,17 @@ Tab15:AddButton({
 })
 
 Tab15:AddButton({
-	Name = "Copy Join Slap Battles Group",
+	Name = "Copy Join Article Hub 🅰️",
 	Callback = function()
-            setclipboard("https://discord.com/invite/xdCKBcS6")
+            setclipboard("https://discord.gg/56BDhEaz32")
   	end    
 })
 
 Tab15:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 _G.AutoSetInfo = false
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 
@@ -8220,7 +8207,7 @@ Tab7:AddToggle({
 	    CandyCornsFarm = Value
 while CandyCornsFarm do
 for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
-                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("TouchTransmitter") then
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 end
             end
@@ -8413,49 +8400,6 @@ for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     end
                 end
 end
-end
-	end    
-})
-
-Tab7:AddToggle({
-	Name = "AutoFarm Kill",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoFarmKill = Value
-if _G.AutoFarmKill == true then
-if _G.ClosestMagnitude == nil then
-_G.ClosestMagnitude = 99999
-end
-else
-if _G.ClosestMagnitude then
-_G.ClosestMagnitude = nil
-end
-end
-while _G.AutoFarmKill do
-for _, v in pairs(game.Players:GetPlayers()) do
-if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("entered") then
-local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-if Magnitude <= _G.ClosestMagnitude then
-_G.ClosestMagnitude = Magnitude
-RandomPlayer = v
-end
-end
-end
-if RandomPlayer.Character:FindFirstChild("entered") == nil or RandomPlayer.Character.Humanoid.Health == 0 or RandomPlayer.Character:FindFirstChild("Torso") and RandomPlayer.Character.Torso.Anchored == true then
-_G.ClosestMagnitude = 999999
-RandomPlayer = nil
-end
-if RandomPlayer and _G.ClosestMagnitude ~= 999999 then
-if RandomPlayer ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character then
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("entered") and RandomPlayer.Character:FindFirstChild("HumanoidRootPart") and RandomPlayer.Character.Ragdolled.Value == false then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = RandomPlayer.Character:FindFirstChild("Head").CFrame
-wait(0.19)
-game.ReplicatedStorage.KSHit:FireServer(RandomPlayer.Character:WaitForChild("Head"))
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-end
-end
-end
-task.wait(0.4)
 end
 	end    
 })
@@ -8890,20 +8834,17 @@ Tab15:AddButton({
 })
 
 Tab15:AddButton({
-	Name = "Copy Join Slap Battles Group",
+	Name = "Copy Join Article Hub 🅰️",
 	Callback = function()
-            setclipboard("https://discord.com/invite/xdCKBcS6")
+            setclipboard("https://discord.gg/56BDhEaz32")
   	end    
 })
 
 Tab15:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 _G.AutoSetInfo = false
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 
@@ -8958,22 +8899,6 @@ local Tab = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://7733673987",
 	PremiumOnly = false
-})
-
-local Fps = Tab:AddSection({Name = "Fps You"})
-CanYouFps = Tab:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-Tab:AddParagraph("Game's ID [ "..game.PlaceId.." ]","Server ID [ "..game.JobId.." ]")
-
-AutoSetInfo = Tab:AddToggle({
-	Name = "Auto Set Info",
-	Default = false,
-	Callback = function(Value)
-_G.AutoSetInfo = Value
-while _G.AutoSetInfo do
-CanYouFps:Set("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]")
-task.wait()
-end
-	end    
 })
 
 Tab:AddButton({
@@ -9287,12 +9212,9 @@ end
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 elseif game.PlaceId == 13833961666 then
@@ -9501,12 +9423,9 @@ Tab:AddButton({
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 
@@ -9870,12 +9789,9 @@ end
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 
@@ -10555,26 +10471,6 @@ end
 	end    
 })
 
-Tab:AddToggle({
-	Name = "Anti Cooldown",
-	Default = false,
-	Callback = function(Value)
-AntiCooldown = Value
-while AntiCooldown do
-local player = game.Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local tool = character:FindFirstChildOfClass("Tool") or player.Backpack:FindFirstChildOfClass("Tool")
-local localscript = tool:FindFirstChildOfClass("LocalScript")
-local localscriptclone = localscript:Clone()
-localscriptclone = localscript:Clone()
-localscriptclone:Clone()
-localscript:Destroy()
-localscriptclone.Parent = tool
-task.wait()
-end
-	end    
-})
-
 Tab:AddTextbox({
 	Name = "Speed Fly",
 	Default = "Userspeed",
@@ -10669,12 +10565,9 @@ end
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 elseif game.PlaceId == 15507333474 then
@@ -10725,7 +10618,7 @@ for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
 if v.Character.Ragdolled.Value == false then
                         if _G.ReachSlap >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
-game.ReplicatedStorage.GeneralHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"),true)
+game.ReplicatedStorage.GeneralHit:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
                     end
 end
 end
@@ -10990,12 +10883,9 @@ end
 })
 
 Tab2:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 elseif game.PlaceId == 16034567693 then
@@ -11045,12 +10935,9 @@ OrionLib:MakeNotification({Name = "Error",Content = "You have to wait the 1 hour
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 elseif game.PlaceId == 17290438723 then
@@ -11081,12 +10968,9 @@ game:GetService("TeleportService"):Teleport(6403373529)
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 elseif game.PlaceId == 18550498098 then
@@ -11424,12 +11308,9 @@ end
 })
 
 Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
+	Name = "Destroy GUI",
 	Callback = function()
 OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
   	end 
 })
 
@@ -11553,75 +11434,6 @@ task.wait()
             end
 	end    
 })
-elseif game.PlaceId == 18698003301 then
-local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
-
-local Tab = Window:MakeTab({
-	Name = "Misc",
-	Icon = "rbxassetid://4370318685",
-	PremiumOnly = false
-})
-
-Tab:AddToggle({
-	Name = "Auto Slap Player",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoSlapPlayer = Value
-            while _G.AutoSlapPlayer do
-                for i, v in pairs(game.Players:GetChildren()) do
-                if v ~= game.Players.LocalPlayer and v.Character then
-                    game:GetService("ReplicatedStorage").remotes.Slap:FireServer(v.Character:FindFirstChild("HumanoidRootPart"), Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
-                end
-            end
-task.wait()
-            end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Auto Slap Ball",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoSlapBall = Value
-while _G.AutoSlapBall do
-if workspace.Map:FindFirstChild("Balls") and workspace.Map.Balls:FindFirstChild("ball") then
-game:GetService("ReplicatedStorage").remotes.Slap:FireServer(workspace.Map.Balls.ball, Vector3.new(game:GetService("Workspace").CurrentCamera.CFrame.LookVector.X, 0, game:GetService("Workspace").CurrentCamera.CFrame.LookVector.Z).Unit * 0.2)
-end
-task.wait()
-end
-	end    
-})
-
-Tab:AddToggle({
-	Name = "Auto View Ball",
-	Default = false,
-	Callback = function(Value)
-		_G.AutoViewBall = Value
-if _G.AutoViewBall == false then
-if game.Players.LocalPlayers.Character:FindFirstChild("Humanoid") and game.Workspace.CurrentCamera.CameraSubject ~= game.Players.LocalPlayers.Character:FindFirstChild("Humanoid") then
-game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayers.Character:FindFirstChild("Humanoid")
-end
-end
-while _G.AutoViewBall do
-if workspace.Map:FindFirstChild("Balls") and workspace.Map.Balls:FindFirstChild("ball") and game.Workspace.CurrentCamera.CameraSubject ~= workspace.Map.Balls:FindFirstChild("ball") then
-game.Workspace.CurrentCamera.CameraSubject = workspace.Map.Balls:FindFirstChild("ball")
-else
-game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayers.Character:FindFirstChild("Humanoid")
-end
-task.wait()
-end
-	end    
-})
-
-Tab:AddButton({
-	Name = "[ Destroy GUI ] [ Toggle Gui ]",
-	Callback = function()
-OrionLib:Destroy()
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi") then
-game.Players.LocalPlayer.PlayerGui:FindFirstChild("ToggleUi"):Destroy()
-end
-  	end 
-})
 elseif game.PlaceId == 7234087065 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -11723,8 +11535,29 @@ fireclickdetector(game.Workspace.Orb.ClickDetector, 1)
 end
   	end 
 })
+
+Tab:AddButton({
+	Name = "Teleport Glove",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["rock chain glove_defaultglove_cell"].CFrame
+for i,v in pairs(game.Workspace:GetChildren()) do
+if v.Name == "Shadow" then
+v:Destroy()
+end
+end
+  	end 
+})
 elseif game.PlaceId == 103505724406848 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+_G.Hit = {
+	["Fort"] = game:GetService("ReplicatedStorage").Remotes.Fort,
+	["Brick"] = game:GetService("ReplicatedStorage").Remotes.BrickHit,
+	["woah"] = game:GetService("ReplicatedStorage").Remotes.woahHit,
+	["Rojo"] = game:GetService("ReplicatedStorage").Remotes.RojoHit,
+	["Pull"] = game:GetService("ReplicatedStorage").Remotes.PullHit,
+	["Phantom"] = game:GetService("ReplicatedStorage").Remotes.PhantomHit
+}
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -11733,19 +11566,30 @@ local Tab = Window:MakeTab({
 })
 
 Tab:AddToggle({
-	Name = "Auto All Mod & Boss",
+	Name = "Slap Aura Mod",
 	Default = false,
 	Callback = function(Value)
 		_G.AutoSlapAll = Value
 while _G.AutoSlapAll do
 for i,v in pairs(workspace.Enemies:GetChildren()) do
 if v:FindFirstChild("HumanoidRootPart") then
-game:GetService("ReplicatedStorage").Remotes.GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
 end
 end
-task.wait(0.15)
+task.wait(0.35)
 end
 	end    
+})
+
+Tab:AddButton({
+	Name = "Slap Mod",
+	Callback = function()
+for i,v in pairs(workspace.Enemies:GetChildren()) do
+if v:FindFirstChild("HumanoidRootPart") then
+_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
+end
+  	end 
 })
 
 Tab:AddTextbox({
@@ -13583,6 +13427,38 @@ end
 })
 
 Badge2Group:AddButton({
+    Text = "Win Obby Psycho",
+    Func = function()
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
+game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+fireclickdetector(workspace.Lobby["ZZZZZZZ"].ClickDetector)
+wait(0.2)
+game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
+fireclickdetector(workspace.Lobby["Brick"].ClickDetector)
+wait(0.2)
+if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+repeat task.wait()
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Teleport1.CFrame)
+until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+end
+wait(0.35)
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0))
+wait(0.2)
+repeat wait(1)
+if AutoBrick == "Fast" then
+game:GetService("ReplicatedStorage").lbrick:FireServer()
+game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text = game:GetService("Players").LocalPlayer.PlayerGui.BRICKCOUNT.ImageLabel.TextLabel.Text + 1
+elseif AutoBrick == "Slow" then
+game:GetService("VirtualInputManager"):SendKeyEvent(true,"E",false,x)
+end
+until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2127567042)
+else
+Notification("You don't have Ghost equipped, or You have go to lobby", 5)
+end
+    end
+})
+
+Badge2Group:AddButton({
     Text = "Get Duck & Orange & Knife Badge",
     Func = function()
 if not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760907) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2128220957) and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124760916) then
@@ -13762,50 +13638,6 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootP
                     end
                 end
 task.wait()
-end
-    end
-})
-
-Badge2Group:AddDropdown("Farm Time", {
-    Text = "Farm Time",
-    Values = {"Voodoo + Fish", "MegaRock"},
-    Default = "",
-    Multi = false,
-    Callback = function(Value)
-AutoTime = Value
-    end
-})
-
-Badge2Group:AddToggle("AutoFarm Time", {
-    Text = "AutoFarm Time",
-    Default = false, 
-    Callback = function(Value) 
-_G.AutoTimeGet = Value
-if AutoTime == "Voodoo + Fish" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-fireclickdetector(workspace.Lobby["ZZZZZZZ"].ClickDetector)
-wait(0.2)
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
-end
-wait(0.2)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["SafeBox"].CFrame * CFrame.new(0,5,0)
-wait(0.2)
-game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
-elseif _G.AutoTimeGet == true then
-Notification("You don't have Ghost equipped, or You have go to lobby", 5)
-end
-elseif AutoTime == "MegaRock" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Diamond" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game:GetService("ReplicatedStorage"):WaitForChild("Rockmode"):FireServer()
-elseif _G.AutoTimeGet == true then
-Notification("You don't have Diamond equipped, or You have go to arena", 5)
-end
 end
     end
 })
@@ -14721,16 +14553,19 @@ MenuGroup:AddToggle("KeybindMenuOpen", {Default = false, Text = "Open Keybind Me
 MenuGroup:AddToggle("ShowCustomCursor", {Text = "Custom Cursor", Default = true, Callback = function(Value) Library.ShowCustomCursor = Value end})
 MenuGroup:AddDivider()
 MenuGroup:AddLabel("Menu bind"):AddKeyPicker("MenuKeybind", {Default = "RightShift", NoUI = true, Text = "Menu keybind"})
-MenuGroup:AddButton("Join Discord", function()
-    local Inviter = loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Utilities/main/Discord%20Inviter/Source.lua"))()
-	Inviter.Join("https://discord.com/invite/VXP4d5n5")
-	Inviter.Prompt({name = "Article Hub 🅰️", invite = "https://discord.com/invite/VXP4d5n5"})
-end):AddButton("Copy Link", function()
+MenuGroup:AddButton("Copy Link discord", function()
     if setclipboard then
-        setclipboard("https://discord.com/invite/VXP4d5n5")
+        setclipboard("https://discord.gg/56BDhEaz32")
         Library:Notify("Copied discord link to clipboard!")
     else
-        Library:Notify("Discord link: https://discord.com/invite/VXP4d5n5", 10)
+        Library:Notify("Discord link: https://discord.gg/56BDhEaz32", 10)
+    end
+end):AddButton("Copy Link Zalo", function()
+    if setclipboard then
+        setclipboard("https://zalo.me/g/qlukiy407")
+        Library:Notify("Copied Zalo link to clipboard!")
+    else
+        Library:Notify("Zalo link: https://zalo.me/g/qlukiy407", 10)
     end
 end)
 MenuGroup:AddButton("Unload", function() Library:Unload() end)
