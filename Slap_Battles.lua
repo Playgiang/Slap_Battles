@@ -5912,7 +5912,7 @@ end
 Tab7:AddSlider({
 	Name = "Extend Glove",
 	Min = 2,
-	Max = 50,
+	Max = 40,
 	Default = 5,
 	Color = Color3.fromRGB(255,255,255),
 	Increment = 1,
@@ -5976,24 +5976,6 @@ for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     end
                 end
 end
-for i, v in pairs(workspace:GetChildren()) do
-                    if string.find(v.Name, "Å") and v:FindFirstChild("Replica") then
-                        if v.Replica:FindFirstChild("Glove") ~= nil then
-                            if GloveExtendOption == "Meat Stick" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, 2)
-                            elseif GloveExtendOption == "Pancake" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(0, _G.GloveExtendReach, _G.GloveExtendReach)
-                            elseif GloveExtendOption == "Growth" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,_G.GloveExtendReach,_G.GloveExtendReach)
-                            elseif GloveExtendOption == "North Korea Wall" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(_G.GloveExtendReach,0,_G.GloveExtendReach)
-                            elseif GloveExtendOption == "Slight Extend" then
-                            v:FindFirstChild("Glove").Size = Vector3.new(3, 3, 3.7)
-                            end
-                            v:FindFirstChild("Glove").Transparency = 0.5
-                        end
-                    end
-                end
 task.wait()
 end
 if _G.GloveExtendGet == false then
@@ -6016,14 +5998,6 @@ for _,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     end
                 end
 end
-for i, v in pairs(workspace:GetChildren()) do
-                    if string.find(v.Name, "Å") and v:FindFirstChild("Replica") then
-                        if v.Replica:FindFirstChild("Glove") ~= nil then
-                            v:FindFirstChild("Glove").Size = Vector3.new(2.5, 2.5, 1.7)
-                            v:FindFirstChild("Glove").Transparency = 0
-                        end
-                    end
-                end
 end
 	end    
 })
@@ -11648,6 +11622,15 @@ end
 elseif game.PlaceId == 103505724406848 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
+_G.Hit = {
+	["Fort"] = game:GetService("ReplicatedStorage").Remotes.Fort,
+	["Brick"] = game:GetService("ReplicatedStorage").Remotes.BrickHit,
+	["woah"] = game:GetService("ReplicatedStorage").Remotes.woahHit,
+	["Rojo"] = game:GetService("ReplicatedStorage").Remotes.RojoHit,
+	["Pull"] = game:GetService("ReplicatedStorage").Remotes.PullHit,
+	["Phantom"] = game:GetService("ReplicatedStorage").Remotes.PhantomHit
+}
+
 local Tab = Window:MakeTab({
 	Name = "Misc",
 	Icon = "rbxassetid://4370318685",
@@ -11662,7 +11645,7 @@ Tab:AddToggle({
 while _G.AutoSlapAll do
 for i,v in pairs(workspace.Enemies:GetChildren()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Ragdolled") and v.Ragdolled.Value == false then
-game.ReplicatedStorage.Remotes.GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
 end
 end
 task.wait(0.35)
@@ -11675,7 +11658,7 @@ Tab:AddButton({
 	Callback = function()
 for i,v in pairs(workspace.Enemies:GetChildren()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Ragdolled") and v.Ragdolled.Value == false then
-game.ReplicatedStorage.Remotes.GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
 end
 end
   	end 
