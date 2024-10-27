@@ -1736,6 +1736,23 @@ end
 })
 
 Tab3:AddToggle({
+	Name = "MATERIALIZE Farm",
+	Default = false,
+	Callback = function(Value)
+_G.PhaseOrJetfarm = Value
+while _G.PhaseOrJetfarm do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "MATERIALIZEOrb" then
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 1)
+                    end
+                end
+task.wait()
+end
+	end    
+})
+
+Tab3:AddToggle({
 	Name = "Phase Or Jet Glitch",
 	Default = false,
 	Callback = function(Value)
@@ -2968,24 +2985,20 @@ end
 })
 
 Tab14:AddButton({
-	Name = "Sbeve All Player",
+	Name = "Bring All Player",
 	Callback = function()
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Sbeve" or game.Players.LocalPlayer.Character:FindFirstChild("stevebody") then
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Lawnmower" then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("lawnmower")
 for i,v in pairs(game.Players:GetChildren()) do
          if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
               if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.Ragdolled.Value == false then
-                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.stevebody.CFrame
+                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame
+                 wait(0.2)
               end
           end
      end
-elseif game.Players.LocalPlayer.Character:FindFirstChild("stevebody") == nil then
-for i,v in pairs(game.Players:GetChildren()) do
-         if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-              if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") then
-                 v.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-              end
-          end
-     end
+else
+OrionLib:MakeNotification({Name = "Error",Content = "You don't have Lawnmower equipped.",Image = "rbxassetid://7733658504",Time = 5})
  end
   	end    
 })
@@ -3353,7 +3366,9 @@ Tab14:AddButton({
 	Name = "Spawn Orb Siphon",
 	Callback = function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Siphon" then
+repeat task.wait()
 game:GetService("ReplicatedStorage").Events.Siphon:FireServer({["cf"] = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame})
+until game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:FindFirstChild("siphon_charge")
 repeat task.wait()
 if game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"]:FindFirstChild("siphon_charge") then
 game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -3615,7 +3630,7 @@ end
 while ReplicaBallerFarm do 
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
                  end
 end
 task.wait()
@@ -3640,7 +3655,7 @@ end
 while ReplicaBallerBlinkFarm do 
 for i, v in pairs(workspace:GetChildren()) do 
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then 
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
                  end
 end
 task.wait()
@@ -3665,7 +3680,7 @@ end
 while _G.BallerFarm do
 for _, v in pairs(workspace:GetChildren()) do
                  if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
                 end
             end
 task.wait()
@@ -3690,7 +3705,7 @@ end
 while ReplicaFarm do
 for i, v in pairs(workspace:GetChildren()) do
                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+game.ReplicatedStorage.b:FireServer(v:WaitForChild("HumanoidRootPart"))
                 end
             end
 task.wait()
@@ -3715,7 +3730,7 @@ end
 while BlinkFarm do
 for i, v in pairs(workspace:GetChildren()) do
                 if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"),true)
+game.ReplicatedStorage.GeneralHit:FireServer(v:WaitForChild("HumanoidRootPart"))
                 end
             end
 task.wait()
@@ -5375,6 +5390,10 @@ while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Polt
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("ability2")
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Lawnmower" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer("lawnmower")
+task.wait()
+end
 	end    
 })
 
@@ -6827,7 +6846,7 @@ end
 	end    
 })
 
-AntiBrick = Tab2:AddToggle({
+AntiGhostFake = Tab2:AddToggle({
 	Name = "Anti Ghost Fake",
 	Default = false,
 	Callback = function(Value)
@@ -6835,9 +6854,7 @@ _G.AntiGhostFake = Value
 while _G.AntiGhostFake do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Car" or v.Name == "crate" or v.Name == "Pumpkin" or v.Name == "snowpeep" then
-                        v.CanTouch = false
-                        v.CanQuery = false
-                        v.CanCollide = false
+                        v:Destroy()
                     end
                 end
 task.wait()
@@ -11620,7 +11637,7 @@ end
 Tab:AddButton({
 	Name = "Teleport Glove",
 	Callback = function()
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace["rock chain glove_defaultglove_cell"].CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Orb["Meshes/rock chain glove_defaultglove_cell.001"].CFrame
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "Shadow" then
 v:Destroy()
@@ -11630,15 +11647,6 @@ end
 })
 elseif game.PlaceId == 103505724406848 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
-
-_G.Hit = {
-	["Fort"] = game:GetService("ReplicatedStorage").Remotes.Fort,
-	["Brick"] = game:GetService("ReplicatedStorage").Remotes.BrickHit,
-	["woah"] = game:GetService("ReplicatedStorage").Remotes.woahHit,
-	["Rojo"] = game:GetService("ReplicatedStorage").Remotes.RojoHit,
-	["Pull"] = game:GetService("ReplicatedStorage").Remotes.PullHit,
-	["Phantom"] = game:GetService("ReplicatedStorage").Remotes.PhantomHit
-}
 
 local Tab = Window:MakeTab({
 	Name = "Misc",
@@ -11653,8 +11661,8 @@ Tab:AddToggle({
 		_G.AutoSlapAll = Value
 while _G.AutoSlapAll do
 for i,v in pairs(workspace.Enemies:GetChildren()) do
-if v:FindFirstChild("HumanoidRootPart") then
-_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
+if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Ragdolled") and v.Ragdolled.Value == false then
+game.ReplicatedStorage.Remotes.GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
 end
 end
 task.wait(0.35)
@@ -11666,8 +11674,8 @@ Tab:AddButton({
 	Name = "Slap Mod",
 	Callback = function()
 for i,v in pairs(workspace.Enemies:GetChildren()) do
-if v:FindFirstChild("HumanoidRootPart") then
-_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
+if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Ragdolled") and v.Ragdolled.Value == false then
+game.ReplicatedStorage.Remotes.GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
 end
 end
   	end 
@@ -11902,6 +11910,7 @@ gloveHits = {
     ["Bind"] = game.ReplicatedStorage.GeneralHit,
     ["MATERIALIZE"] = game.ReplicatedStorage.GeneralHit,
     ["Rougelike"] = game.ReplicatedStorage.GeneralHit,
+    ["Lawnmower"] = game.ReplicatedStorage.GeneralHit,
     -----------// Glove Hit Normal Or New Glove \\-----------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
