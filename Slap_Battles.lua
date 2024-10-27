@@ -11645,7 +11645,11 @@ Tab:AddToggle({
 while _G.AutoSlapAll do
 for i,v in pairs(workspace.Enemies:GetChildren()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Ragdolled") and v.Ragdolled.Value == false then
-_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
+if game.Players.LocalPlayer.leaderstats.Glove.Value == _G.Hit[game.Players.LocalPlayer.leaderstats.Glove.Value] then
+_G.Hit[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:FindFirstChild("HumanoidRootPart"))
+else
+game.ReplicatedStorage.Remotes.GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
 end
 end
 task.wait(0.35)
@@ -11658,7 +11662,11 @@ Tab:AddButton({
 	Callback = function()
 for i,v in pairs(workspace.Enemies:GetChildren()) do
 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Ragdolled") and v.Ragdolled.Value == false then
-_G.Hit[game.Players.LocalPlayer.leaderstats.Glove]:FireServer(v:FindFirstChild("HumanoidRootPart"))
+if game.Players.LocalPlayer.leaderstats.Glove.Value == _G.Hit[game.Players.LocalPlayer.leaderstats.Glove.Value] then
+_G.Hit[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v:FindFirstChild("HumanoidRootPart"))
+else
+game.ReplicatedStorage.Remotes.GeneralHit:FireServer(v:FindFirstChild("HumanoidRootPart"))
+end
 end
 end
   	end 
