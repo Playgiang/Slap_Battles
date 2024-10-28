@@ -1739,8 +1739,8 @@ Tab3:AddToggle({
 	Name = "MATERIALIZE Farm",
 	Default = false,
 	Callback = function(Value)
-_G.PhaseOrJetfarm = Value
-while _G.PhaseOrJetfarm do
+_G.MATERIALIZEfarm = Value
+while _G.MATERIALIZEfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "MATERIALIZEOrb" then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), v, 0)
