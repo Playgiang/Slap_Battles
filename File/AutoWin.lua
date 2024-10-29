@@ -14,6 +14,13 @@ Safespot.Transparency = .5
 end
 end
 
+if _G.Farm == nil then
+_G.Farm = {
+	Slapple = true,
+	Candy = false
+}
+end
+
 while true do
 repeat task.wait()
 for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
@@ -22,6 +29,7 @@ _G.SlapTournament = v.SlapTournament.Visible
 end
 end
 if _G.SlapTournament == false then
+if _G.Farm.Slapple == true then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Slapple" or v.Name == "GoldenSlapple" and v:FindFirstChild("Glove") and v.Glove:FindFirstChildWhichIsA("TouchTransmitter") then
@@ -30,11 +38,14 @@ for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
                 end
             end
        end
+end
+if _G.Farm.Candy == true then
 for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 end
             end
+end
 end
 until _G.SlapTournament == true
 game:GetService("ReplicatedStorage").Events.Tournament.TournamentResponse:FireServer(true)
