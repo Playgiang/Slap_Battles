@@ -11,7 +11,7 @@ while Orb do
 if game.Workspace:FindFirstChild("MATERIALIZEOrb") == nil then
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "JetOrb" or v.Name == "PhaseOrb" then
-game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.CFrame * CFrame.new(6,0,0)
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.CFrame * CFrame.new(6,0,0))
                     end
                 end
 else
