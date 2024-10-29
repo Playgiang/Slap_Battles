@@ -70,4 +70,3 @@ end
 task.wait()
 until game.Workspace:FindFirstChild("MATERIALIZEOrb")
 game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(game.Workspace:FindFirstChild("MATERIALIZEOrb").CFrame)
-end
