@@ -3776,7 +3776,7 @@ function Library:CreateWindow(...)
         WindowLabel.Text = Title;
     end;
 
-    function Window:AddTab(Name)
+    function Window:AddTab(Name, Image)
         local Tab = {
             Groupboxes = {};
             Tabboxes = {};
