@@ -1,4 +1,4 @@
-local cloneref = (cloneref or clonereference or function(instance: any) return instance end)
+local cloneref = cloneref or function(o) return o end
 local InputService: UserInputService = cloneref(game:GetService('UserInputService'));
 local TextService: TextService = cloneref(game:GetService('TextService'));
 local CoreGui: CoreGui = cloneref(game:GetService('CoreGui'));
@@ -10,12 +10,12 @@ local RenderStepped = RunService.RenderStepped;
 local LocalPlayer = Players.LocalPlayer;
 local Mouse = LocalPlayer:GetMouse();
 
-local DrawingLib = typeof(Drawing) == "table" and Drawing or { drawing_replaced = true };
+local DrawingLib = typeof(Drawing) == "table" and Drawing or false;
 local ProtectGui = protectgui or (function() end);
 local GetHUI = gethui or (function() return CoreGui end);
 
 local ScreenGui = Instance.new('ScreenGui');
-pcall(ProtectGui, ScreenGui);
+pcall(ProtectGui, ScreenGui); 
 
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 local Parented = pcall(function() ScreenGui.Parent = GetHUI(); end);
@@ -29,7 +29,7 @@ getgenv().Linoria = {
     Options = Options
 }
 
-getgenv().Toggles = Toggles;
+getgenv().Toggles = Toggles; -- if you load infinite yeild after you executed any script with LinoriaLib it will just break the whole UI lib :/ (thats why I added getgenv().Linoria)
 getgenv().Options = Options;
 
 local LibraryMainOuterFrame = nil;
@@ -52,7 +52,6 @@ local Library = {
     OpenedFrames = {};
     DependencyBoxes = {};
 
-    UnloadSignals = {};
     Signals = {};
     ScreenGui = ScreenGui;
     
@@ -62,22 +61,15 @@ local Library = {
     MinSize = Vector2.new(550, 300);
     IsMobile = false;
     DevicePlatform = Enum.Platform.None;
-
     CanDrag = true;
     CantDragForced = false;
-
     NotifySide = "Left";
     ShowCustomCursor = true; 
-    ShowToggleFrameInKeybinds = true;
-
     VideoLink = "";
     TotalTabs = 0;
-
-    Toggles = Toggles;
-    Options = Options;
 };
 
-pcall(function() Library.DevicePlatform = InputService:GetPlatform(); end);
+pcall(function() Library.DevicePlatform = InputService:GetPlatform(); end); -- For safety so the UI library doesn't error.
 Library.IsMobile = (Library.DevicePlatform == Enum.Platform.Android or Library.DevicePlatform == Enum.Platform.IOS);
 
 if Library.IsMobile then
@@ -159,18 +151,12 @@ end;
 function Library:Create(Class, Properties)
     local _Instance = Class;
 
-    if typeof(Class) == 'string' then
+    if type(Class) == 'string' then
         _Instance = Instance.new(Class);
     end;
 
     for Property, Value in next, Properties do
-        local success, err = pcall(function()
-            _Instance[Property] = Value;
-        end);
-
-        if (not success) then
-            warn(err);
-        end;
+        _Instance[Property] = Value;
     end;
 
     return _Instance;
@@ -179,7 +165,7 @@ end;
 function Library:ApplyTextStroke(Inst)
     Inst.TextStrokeTransparency = 1;
 
-    return Library:Create('UIStroke', {
+    Library:Create('UIStroke', {
         Color = Color3.new(0, 0, 0);
         Thickness = 1;
         LineJoinMode = Enum.LineJoinMode.Miter;
@@ -205,47 +191,42 @@ function Library:CreateLabel(Properties, IsHud)
     return Library:Create(_Instance, Properties);
 end;
 
-function Library:MakeDraggable(Instance, Cutoff, IsMainWindow)
+function Library:MakeDraggable(Instance, Cutoff)
     Instance.Active = true;
 
-    if Library.IsMobile == false then
-        Instance.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-            	if IsMainWindow == true and Library.CantDragForced == true then
-                    return;
-                end;
-           
-                local ObjPos = Vector2.new(
-                    Mouse.X - Instance.AbsolutePosition.X,
-                    Mouse.Y - Instance.AbsolutePosition.Y
+    Instance.InputBegan:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+            local ObjPos = Vector2.new(
+                Mouse.X - Instance.AbsolutePosition.X,
+                Mouse.Y - Instance.AbsolutePosition.Y
+            );
+
+            if ObjPos.Y > (Cutoff or 40) then
+                return;
+            end;
+
+            while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+                Instance.Position = UDim2.new(
+                    0,
+                    Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
+                    0,
+                    Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
                 );
 
-                if ObjPos.Y > (Cutoff or 40) then
-                    return;
-                end;
-
-                while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
-                    Instance.Position = UDim2.new(
-                        0,
-                        Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
-                        0,
-                        Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
-                    );
-
-                    RenderStepped:Wait();
-                end;
+                RenderStepped:Wait();
             end;
-        end);
-    else
+        end;
+    end);
+
+    if Library.IsMobile then
         local Dragging, DraggingInput, DraggingStart, StartPosition;
 
         InputService.TouchStarted:Connect(function(Input)
-            if IsMainWindow == true and Library.CantDragForced == true then
+            if Library.CantDragForced == true then
                 Dragging = false
                 return;
             end
-
-            if not Dragging and Library:MouseIsOverFrame(Instance, Input) and (IsMainWindow == true and (Library.CanDrag == true and Library.Window.Holder.Visible == true) or true) then
+            if not Dragging and Library:MouseIsOverFrame(Instance, Input) and Library.Window.Holder.Visible == true then
                 DraggingInput = Input;
                 DraggingStart = Input.Position;
                 StartPosition = Instance.Position;
@@ -260,12 +241,11 @@ function Library:MakeDraggable(Instance, Cutoff, IsMainWindow)
             end;
         end);
         InputService.TouchMoved:Connect(function(Input)
-            if IsMainWindow == true and Library.CantDragForced == true then
+            if Library.CantDragForced == true then
                 Dragging = false;
                 return;
             end
-
-            if Input == DraggingInput and Dragging and (IsMainWindow == true and (Library.CanDrag == true and Library.Window.Holder.Visible == true) or true) then
+            if Input == DraggingInput and Dragging and Library.CanDrag == true and Library.Window.Holder.Visible == true then
                 local OffsetPos = Input.Position - DraggingStart;
 
                 Instance.Position = UDim2.new(
@@ -281,42 +261,6 @@ function Library:MakeDraggable(Instance, Cutoff, IsMainWindow)
                 Dragging = false;
             end;
         end);
-    end;
-end;
-
-function Library:MakeDraggableUsingParent(Instance, Parent, Cutoff, IsMainWindow)
-    Instance.Active = true;
-
-    if Library.IsMobile == false then
-    	Instance.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-            	if IsMainWindow == true and Library.CantDragForced == true then
-                    return;
-                end;
-  
-                local ObjPos = Vector2.new(
-                    Mouse.X - Parent.AbsolutePosition.X,
-                    Mouse.Y - Parent.AbsolutePosition.Y
-                );
-
-                if ObjPos.Y > (Cutoff or 40) then
-                    return;
-                end;
-
-                while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
-                    Parent.Position = UDim2.new(
-                        0,
-                        Mouse.X - ObjPos.X + (Parent.Size.X.Offset * Parent.AnchorPoint.X),
-                        0,
-                        Mouse.Y - ObjPos.Y + (Parent.Size.Y.Offset * Parent.AnchorPoint.Y)
-                    );
-
-                    RenderStepped:Wait();
-                end;
-            end;
-        end);
-    else  
-        Library:MakeDraggable(Parent, Cutoff, IsMainWindow)
     end;
 end;
 
@@ -612,9 +556,9 @@ function Library:UpdateColorsUsingRegistry()
 
     for Idx, Object in next, Library.Registry do
         for Property, ColorIdx in next, Object.Properties do
-            if typeof(ColorIdx) == 'string' then
+            if type(ColorIdx) == 'string' then
                 Object.Instance[Property] = Library[ColorIdx];
-            elseif typeof(ColorIdx) == 'function' then
+            elseif type(ColorIdx) == 'function' then
                 Object.Instance[Property] = ColorIdx()
             end
         end;
@@ -634,15 +578,15 @@ function Library:Unload()
     end
 
     -- Call our unload callback, maybe to undo some hooks etc
-    for _, UnloadCallback in pairs(Library.UnloadSignals) do
-        Library:SafeCallback(UnloadCallback)
+    if Library.OnUnload then
+        Library.OnUnload()
     end
 
     ScreenGui:Destroy()
 end
 
 function Library:OnUnload(Callback)
-    table.insert(Library.UnloadSignals, Callback)
+    Library.OnUnload = Callback
 end
 
 Library:GiveSignal(ScreenGui.DescendantRemoving:Connect(function(Instance)
@@ -667,7 +611,7 @@ do
             Value = Info.Default;
             Transparency = Info.Transparency or 0;
             Type = 'ColorPicker';
-            Title = typeof(Info.Title) == 'string' and Info.Title or 'Color picker',
+            Title = type(Info.Title) == 'string' and Info.Title or 'Color picker',
             Callback = Info.Callback or function(Color) end;
         };
 
@@ -913,6 +857,7 @@ do
             Parent = PickerFrameInner;
         });
 
+
         local ContextMenu = {}
         do
             ContextMenu.Options = {}
@@ -995,7 +940,7 @@ do
             end
 
             function ContextMenu:AddOption(Str, Callback)
-                if typeof(Callback) ~= 'function' then
+                if type(Callback) ~= 'function' then
                     Callback = function() end
                 end
 
@@ -1047,7 +992,6 @@ do
             end)
 
         end
-        ColorPicker.ContextMenu = ContextMenu;
 
         Library:AddToRegistry(PickerFrameInner, { BackgroundColor3 = 'BackgroundColor'; BorderColor3 = 'OutlineColor'; });
         Library:AddToRegistry(Highlight, { BackgroundColor3 = 'AccentColor'; });
@@ -1350,119 +1294,14 @@ do
             Parent = ModeSelectInner;
         });
 
-        -- Keybinds Text
-        local KeybindsToggle = {}
-        do
-            local KeybindsToggleContainer = Library:Create('Frame', {
-                BackgroundTransparency = 1;
-                Size = UDim2.new(1, 0, 0, 18);
-                Visible = false;
-                ZIndex = 110;
-                Parent = Library.KeybindContainer;
-            });
-
-            local KeybindsToggleOuter = Library:Create('Frame', {
-                BackgroundColor3 = Color3.new(0, 0, 0);
-                BorderColor3 = Color3.new(0, 0, 0);
-                Size = UDim2.new(0, 13, 0, 13);
-                Position = UDim2.new(0, 0, 0, 6);
-                Visible = true;
-                ZIndex = 110;
-                Parent = KeybindsToggleContainer;
-            });
-
-            Library:AddToRegistry(KeybindsToggleOuter, {
-                BorderColor3 = 'Black';
-            });
-
-            local KeybindsToggleInner = Library:Create('Frame', {
-                BackgroundColor3 = Library.MainColor;
-                BorderColor3 = Library.OutlineColor;
-                BorderMode = Enum.BorderMode.Inset;
-                Size = UDim2.new(1, 0, 1, 0);
-                ZIndex = 111;
-                Parent = KeybindsToggleOuter;
-            });
-
-            Library:AddToRegistry(KeybindsToggleInner, {
-                BackgroundColor3 = 'MainColor';
-                BorderColor3 = 'OutlineColor';
-            });
-
-            local KeybindsToggleLabel = Library:CreateLabel({
-                BackgroundTransparency = 1;
-                Size = UDim2.new(0, 216, 1, 0);
-                Position = UDim2.new(1, 6, 0, -1);
-                TextSize = 14;
-                Text = "";
-                TextXAlignment = Enum.TextXAlignment.Left;
-                ZIndex = 111;
-                Parent = KeybindsToggleInner;
-            });
-
-            Library:Create('UIListLayout', {
-                Padding = UDim.new(0, 4);
-                FillDirection = Enum.FillDirection.Horizontal;
-                HorizontalAlignment = Enum.HorizontalAlignment.Right;
-                SortOrder = Enum.SortOrder.LayoutOrder;
-                Parent = KeybindsToggleLabel;
-            });
-
-            local KeybindsToggleRegion = Library:Create('Frame', {
-                BackgroundTransparency = 1;
-                Size = UDim2.new(0, 170, 1, 0);
-                ZIndex = 113;
-                Parent = KeybindsToggleOuter;
-            });
-
-            Library:OnHighlight(KeybindsToggleRegion, KeybindsToggleOuter,
-                { BorderColor3 = 'AccentColor' },
-                { BorderColor3 = 'Black' },
-                function()
-                    return true
-                end
-            );
-
-            function KeybindsToggle:Display(State)
-                KeybindsToggleInner.BackgroundColor3 = State and Library.AccentColor or Library.MainColor;
-                KeybindsToggleInner.BorderColor3 = State and Library.AccentColorDark or Library.OutlineColor;
-                KeybindsToggleLabel.TextColor3 = State and Library.AccentColor or Library.FontColor;
-                
-                Library.RegistryMap[KeybindsToggleInner].Properties.BackgroundColor3 = State and 'AccentColor' or 'MainColor';
-                Library.RegistryMap[KeybindsToggleInner].Properties.BorderColor3 = State and 'AccentColorDark' or 'OutlineColor';
-                Library.RegistryMap[KeybindsToggleLabel].Properties.TextColor3 = State and 'AccentColor' or 'FontColor';
-            end;
-
-            function KeybindsToggle:SetText(text)
-                KeybindsToggleLabel.Text = text
-            end
-
-            function KeybindsToggle:SetVisibility(bool)
-                KeybindsToggleContainer.Visible = bool
-            end
-
-            function KeybindsToggle:SetNormal(bool)
-                KeybindsToggle.Normal = bool
-
-                KeybindsToggleOuter.BackgroundTransparency = if KeybindsToggle.Normal then 1 else 0;
-
-                KeybindsToggleInner.BackgroundTransparency = if KeybindsToggle.Normal then 1 else 0;
-                KeybindsToggleInner.BorderSizePixel = if KeybindsToggle.Normal then 0 else 1;
-
-                KeybindsToggleLabel.Position = if KeybindsToggle.Normal then UDim2.new(1, -13, 0, -1) else UDim2.new(1, 6, 0, -1);
-            end
-
-            Library:GiveSignal(KeybindsToggleRegion.InputBegan:Connect(function(Input)
-                if KeybindsToggle.Normal then return end
-                                        
-                if (Input.UserInputType == Enum.UserInputType.MouseButton1 and not Library:MouseIsOverOpenedFrame()) or Input.UserInputType == Enum.UserInputType.Touch then
-                    KeyPicker.Toggled = not KeyPicker.Toggled;
-                    KeyPicker:DoClick()
-                end;
-            end));
-
-            KeybindsToggle.Loaded = true;
-        end;
+        local ContainerLabel = Library:CreateLabel({
+            TextXAlignment = Enum.TextXAlignment.Left;
+            Size = UDim2.new(1, 0, 0, 18);
+            TextSize = 13;
+            Visible = false;
+            ZIndex = 110;
+            Parent = Library.KeybindContainer;
+        },  true);
 
         local Modes = Info.Modes or { 'Always', 'Toggle', 'Hold' };
         local ModeButtons = {};
@@ -1519,51 +1358,27 @@ do
             end;
 
             local State = KeyPicker:GetState();
-            local ShowToggle = Library.ShowToggleFrameInKeybinds and KeyPicker.Mode == 'Toggle';
 
-            if ShowToggle then
-            	if KeybindsToggle.Loaded then
-            		KeybindsToggle:SetNormal(false);
-                    KeybindsToggle:SetVisibility(true);       
-                    KeybindsToggle:SetText(string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, KeyPicker.Mode));
-                    KeybindsToggle:Display(State);
-                end
-            else
-                if KeybindsToggle.Loaded then
-            		KeybindsToggle:SetNormal(true);
-                end
-            end;  
-            if KeybindsToggle.Loaded then
-            	if ShowToggle then KeybindsToggle:SetNormal(false); else KeybindsToggle:SetNormal(true); end;
-       
-                KeybindsToggle:SetVisibility(true);       
-                KeybindsToggle:SetText(string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, KeyPicker.Mode));
-                KeybindsToggle:Display(State);
-            end
+            ContainerLabel.Text = string.format('[%s] %s (%s)', KeyPicker.Value, Info.Text, KeyPicker.Mode);
+
+            ContainerLabel.Visible = true;
+            ContainerLabel.TextColor3 = State and Library.AccentColor or Library.FontColor;
+
+            Library.RegistryMap[ContainerLabel].Properties.TextColor3 = State and 'AccentColor' or 'FontColor';
 
             local YSize = 0
             local XSize = 0
 
-            for _, Frame in next, Library.KeybindContainer:GetChildren() do
-                if Frame:IsA('Frame') and Frame.Visible then
+            for _, Label in next, Library.KeybindContainer:GetChildren() do
+                if Label:IsA('TextLabel') and Label.Visible then
                     YSize = YSize + 18;
-                    local Label = Frame:FindFirstChild("TextLabel", true)
-                    if not Label then continue end
-
                     if (Label.TextBounds.X > XSize) then
-                        XSize = Label.TextBounds.X + 20;
+                        XSize = Label.TextBounds.X
                     end
                 end;
-
-                --[[if Frame:IsA('TextLabel') and Frame.Visible then
-                    YSize = YSize + 18;
-                    if (Frame.TextBounds.X > XSize) then
-                        XSize = Frame.TextBounds.X;
-                    end
-                end;--]]
             end;
 
-            Library.KeybindFrame.Size = UDim2.new(0, math.max(XSize + 10, 210), 0, YSize + 23 + 6)
+            Library.KeybindFrame.Size = UDim2.new(0, math.max(XSize + 10, 210), 0, YSize + 23)
         end;
 
         function KeyPicker:GetState()
@@ -1580,7 +1395,7 @@ do
                     return Key == 'MB1' and InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
                         or Key == 'MB2' and InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2);
                 else
-                    return InputService:IsKeyDown(Enum.KeyCode[KeyPicker.Value]) and not InputService:GetFocusedTextBox();
+                    return InputService:IsKeyDown(Enum.KeyCode[KeyPicker.Value]);
                 end;
             else
                 return KeyPicker.Toggled;
@@ -1615,14 +1430,6 @@ do
 
             Library:SafeCallback(KeyPicker.Callback, KeyPicker.Toggled)
             Library:SafeCallback(KeyPicker.Clicked, KeyPicker.Toggled)
-        end
-
-        function KeyPicker:SetModePickerVisibility(bool)
-            ModeSelectOuter.Visible = bool;
-        end
-
-        function KeyPicker:GetModePickerVisibility()
-            return ModeSelectOuter.Visible;
         end
 
         local Picking = false;
@@ -1677,9 +1484,9 @@ do
                     Event:Disconnect();
                 end);
             elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and not Library:MouseIsOverOpenedFrame() then
-                KeyPicker:SetModePickerVisibility(not KeyPicker:GetModePickerVisibility())
+                ModeSelectOuter.Visible = true;
             end;
-        end)
+        end);
 
         Library:GiveSignal(InputService.InputBegan:Connect(function(Input)
             if KeyPicker.Value == "Unknown" then return end
@@ -1711,7 +1518,7 @@ do
                 if Mouse.X < AbsPos.X or Mouse.X > AbsPos.X + AbsSize.X
                     or Mouse.Y < (AbsPos.Y - 20 - 1) or Mouse.Y > AbsPos.Y + AbsSize.Y then
 
-                    KeyPicker:SetModePickerVisibility(false);
+                    ModeSelectOuter.Visible = false;
                 end;
             end;
         end))
@@ -1809,14 +1616,26 @@ do
 
         return Label;
     end;
-    
+
     function Funcs:AddButton(...)
-        local Button = typeof(select(1, ...)) == "table" and select(1, ...) or {
-            Text = select(1, ...),
-            Func = select(2, ...)
-        }
-        
-        assert(typeof(Button.Func) == 'function', 'AddButton: `Func` callback is missing.');
+        -- TODO: Eventually redo this
+        local Button = {};
+        local function ProcessButtonParams(Class, Obj, ...)
+            local Props = select(1, ...)
+            if type(Props) == 'table' then
+                Obj.Text = Props.Text
+                Obj.Func = Props.Func
+                Obj.DoubleClick = Props.DoubleClick
+                Obj.Tooltip = Props.Tooltip
+            else
+                Obj.Text = select(1, ...)
+                Obj.Func = select(2, ...)
+            end
+
+            assert(type(Obj.Func) == 'function', 'AddButton: `Func` callback is missing.');
+        end
+
+        ProcessButtonParams('Button', Button, ...)
 
         local Groupbox = self;
         local Container = Groupbox.Container;
@@ -1877,7 +1696,7 @@ do
                 local bindable = Instance.new('BindableEvent')
                 local connection = event:Once(function(...)
 
-                    if typeof(validator) == 'function' and validator(...) then
+                    if type(validator) == 'function' and validator(...) then
                         bindable:Fire(true)
                     else
                         bindable:Fire(false)
@@ -1942,7 +1761,7 @@ do
         InitEvents(Button)
 
         function Button:AddTooltip(tooltip)
-            if typeof(tooltip) == 'string' then
+            if type(tooltip) == 'string' then
                 Library:AddToolTip(tooltip, self.Outer)
             end
             return self
@@ -1950,12 +1769,9 @@ do
 
 
         function Button:AddButton(...)
-            local SubButton = typeof(select(1, ...)) == "table" and select(1, ...) or {
-                Text = select(1, ...),
-                Func = select(2, ...)
-            }
-    
-            assert(typeof(SubButton.Func) == 'function', 'AddButton: `Func` callback is missing.');
+            local SubButton = {}
+
+            ProcessButtonParams('SubButton', SubButton, ...)
 
             self.Outer.Size = UDim2.new(0.5, -2, 0, 20)
 
@@ -1966,13 +1782,13 @@ do
             SubButton.Outer.Parent = self.Outer
 
             function SubButton:AddTooltip(tooltip)
-                if typeof(tooltip) == 'string' then
+                if type(tooltip) == 'string' then
                     Library:AddToolTip(tooltip, self.Outer)
                 end
                 return SubButton
             end
 
-            if typeof(SubButton.Tooltip) == 'string' then
+            if type(SubButton.Tooltip) == 'string' then
                 SubButton:AddTooltip(SubButton.Tooltip)
             end
 
@@ -1980,7 +1796,7 @@ do
             return SubButton
         end
 
-        if typeof(Button.Tooltip) == 'string' then
+        if type(Button.Tooltip) == 'string' then
             Button:AddTooltip(Button.Tooltip)
         end
 
@@ -2081,7 +1897,7 @@ do
             { BorderColor3 = 'Black' }
         );
 
-        if typeof(Info.Tooltip) == 'string' then
+        if type(Info.Tooltip) == 'string' then
             Library:AddToolTip(Info.Tooltip, TextBoxOuter)
         end
 
@@ -2300,7 +2116,7 @@ do
             Toggle:Display();
         end;
 
-        if typeof(Info.Tooltip) == 'string' then
+        if type(Info.Tooltip) == 'string' then
             Library:AddToolTip(Info.Tooltip, ToggleRegion)
         end
 
@@ -2483,7 +2299,7 @@ do
             { BorderColor3 = 'Black' }
         );
 
-        if typeof(Info.Tooltip) == 'string' then
+        if type(Info.Tooltip) == 'string' then
             Library:AddToolTip(Info.Tooltip, SliderOuter)
         end
 
@@ -2750,7 +2566,7 @@ do
             { BorderColor3 = 'Black' }
         );
 
-        if typeof(Info.Tooltip) == 'string' then
+        if type(Info.Tooltip) == 'string' then
             Library:AddToolTip(Info.Tooltip, DropdownOuter)
         end
 
@@ -3062,19 +2878,19 @@ do
 
         local Defaults = {}
 
-        if typeof(Info.Default) == 'string' then
+        if type(Info.Default) == 'string' then
             local Idx = table.find(Dropdown.Values, Info.Default)
             if Idx then
                 table.insert(Defaults, Idx)
             end
-        elseif typeof(Info.Default) == 'table' then
+        elseif type(Info.Default) == 'table' then
             for _, Value in next, Info.Default do
                 local Idx = table.find(Dropdown.Values, Value)
                 if Idx then
                     table.insert(Defaults, Idx)
                 end
             end
-        elseif typeof(Info.Default) == 'number' and Dropdown.Values[Info.Default] ~= nil then
+        elseif type(Info.Default) == 'number' and Dropdown.Values[Info.Default] ~= nil then
             table.insert(Defaults, Info.Default)
         end
 
@@ -3161,7 +2977,7 @@ do
 
         function Depbox:SetupDependencies(Dependencies)
             for _, Dependency in next, Dependencies do
-                assert(typeof(Dependency) == 'table', 'SetupDependencies: Dependency is not of type `table`.');
+                assert(type(Dependency) == 'table', 'SetupDependencies: Dependency is not of type `table`.');
                 assert(Dependency[1], 'SetupDependencies: Dependency is missing element argument.');
                 assert(Dependency[2] ~= nil, 'SetupDependencies: Dependency is missing value argument.');
             end;
@@ -3588,18 +3404,18 @@ function Library:CreateWindow(...)
     local Arguments = { ... }
     local Config = { AnchorPoint = Vector2.zero }
 
-    if typeof(...) == 'table' then
+    if type(...) == 'table' then
         Config = ...;
     else
         Config.Title = Arguments[1]
         Config.AutoShow = Arguments[2] or false;
     end
 
-    if typeof(Config.Title) ~= 'string' then Config.Title = 'No title' end
-    if typeof(Config.TabPadding) ~= 'number' then Config.TabPadding = 1 end
-    if typeof(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
-    if typeof(Config.NotifySide) ~= 'string' then Library.NotifySide = 'Left' else Library.NotifySide = Config.NotifySide end
-    if typeof(Config.ShowCustomCursor) ~= 'boolean' then Library.ShowCustomCursor = true else Library.ShowCustomCursor = Config.ShowCustomCursor end
+    if type(Config.Title) ~= 'string' then Config.Title = 'No title' end
+    if type(Config.TabPadding) ~= 'number' then Config.TabPadding = 1 end
+    if type(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
+    if type(Config.NotifySide) ~= 'string' then Library.NotifySide = 'Left' else Library.NotifySide = Config.NotifySide end
+    if type(Config.ShowCustomCursor) ~= 'boolean' then Library.ShowCustomCursor = true else Library.ShowCustomCursor = Config.ShowCustomCursor end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
     if typeof(Config.Size) ~= 'UDim2' then 
@@ -3638,7 +3454,7 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
     LibraryMainOuterFrame = Outer;
-    Library:MakeDraggable(Outer, 25, true);
+    Library:MakeDraggable(Outer, 25);
 
     if Config.Resizable then
         Library:MakeResizable(Outer, Library.MinSize);
@@ -3768,7 +3584,7 @@ function Library:CreateWindow(...)
         WindowLabel.Text = Title;
     end;
 
-    function Window:AddTab(Name)
+    function Window:AddTab(Name, Image)
         local Tab = {
             Groupboxes = {};
             Tabboxes = {};
@@ -3830,75 +3646,6 @@ function Library:CreateWindow(...)
             Parent = TabContainer;
         });
 
-        local TopBar, TopBarInner, TopBarLabel, TopBarTextLabel; do
-            TopBar = Library:Create('Frame', {
-                BackgroundColor3 = Library.BackgroundColor;
-                BorderColor3 = Color3.fromRGB(248, 51, 51);
-                BorderMode = Enum.BorderMode.Inset;
-                Position = UDim2.new(0, 7, 0, 7);
-                Size = UDim2.new(1, -13, 0, 0);
-                ZIndex = 2;
-                Parent = TabFrame;
-                Visible = false;
-            });
-
-            TopBarInner = Library:Create('Frame', {
-                BackgroundColor3 = Color3.fromRGB(117, 22, 17);
-                BorderColor3 = Color3.new();
-                -- BorderMode = Enum.BorderMode.Inset;
-                Size = UDim2.new(1, -2, 1, -2);
-                Position = UDim2.new(0, 1, 0, 1);
-                ZIndex = 4;
-                Parent = TopBar;
-            });
-
-            local TopBarHighlight = Library:Create('Frame', {
-                BackgroundColor3 = Color3.fromRGB(255, 75, 75);
-                BorderSizePixel = 0;
-                Size = UDim2.new(1, 0, 0, 2);
-                ZIndex = 5;
-                Parent = TopBarInner;
-            });
-
-            TopBarLabel = Library:Create('TextLabel', {
-                BackgroundTransparency = 1;
-                Font = Library.Font;
-                TextStrokeTransparency = 0;
-
-                Size = UDim2.new(1, 0, 0, 18);
-                Position = UDim2.new(0, 4, 0, 2);
-                TextSize = 14;
-                Text = "Text";
-                TextXAlignment = Enum.TextXAlignment.Left;
-                TextColor3 = Color3.fromRGB(255, 55, 55);
-                ZIndex = 5;
-                Parent = TopBarInner;
-            });
-
-            local TopBarLabelStroke = Library:ApplyTextStroke(TopBarLabel);
-            TopBarLabelStroke.Color = Color3.fromRGB(174, 3, 3);
-
-            TopBarTextLabel = Library:CreateLabel({
-                Position =  UDim2.new(0, 4, 0, 20);
-                Size = UDim2.new(1, -4, 0, 14);
-                TextSize = 14;
-                Text = "Text";
-                TextWrapped = true,
-                TextXAlignment = Enum.TextXAlignment.Left;
-                TextYAlignment = Enum.TextYAlignment.Top;
-                ZIndex = 5;
-                Parent = TopBarInner;
-            });
-            
-            Library:Create('Frame', {
-                BackgroundTransparency = 1;
-                Size = UDim2.new(1, 0, 0, 5);
-                Visible = true;
-                ZIndex = 1;
-                Parent = TopBarInner;
-            });
-        end
-        
         local LeftSide = Library:Create('ScrollingFrame', {
             BackgroundTransparency = 1;
             BorderSizePixel = 0;
@@ -3978,58 +3725,6 @@ function Library:CreateWindow(...)
             end);
         end;
 
-        function Tab:Resize()
-            if TopBar.Visible == true then
-                local Size = 5;
-
-                for _, Element in next, TopBarInner:GetChildren() do
-                    if (not Element:IsA('UIListLayout')) and Element.Visible then
-                    	if Element == TopBarTextLabel then
-                    		Size = Size + Element.TextBounds.Y;    
-                    		continue                     
-                        end;
-                        
-                        Size = Size + Element.Size.Y.Offset;
-                    end;
-                end;
-                
-                TopBar.Size = UDim2.new(1, -13, 0, Size);
-                Size = Size + 10;
-                
-                LeftSide.Position = UDim2.new(0, 8 - 1, 0, 8 - 1 + Size);
-                LeftSide.Size = UDim2.new(0.5, -12 + 2, 1, -14 - Size);
-        
-                RightSide.Position = UDim2.new(0.5, 4 + 1, 0, 8 - 1 + Size);
-                RightSide.Size = UDim2.new(0.5, -12 + 2, 1, -14 - Size);
-            else
-                LeftSide.Position = UDim2.new(0, 8 - 1, 0, 8 - 1);
-                LeftSide.Size = UDim2.new(0.5, -12 + 2, 1, -14);
-        
-                RightSide.Position = UDim2.new(0.5, 4 + 1, 0, 8 - 1);
-                RightSide.Size = UDim2.new(0.5, -12 + 2, 1, -14);
-            end;
-        end;
-
-        function Tab:UpdateWarningBox(Info)
-            if typeof(Info.Visible) == "boolean" then
-                TopBar.Visible = Info.Visible;
-                Tab:Resize();
-            end;
-
-            if typeof(Info.Title) == "string" then
-                TopBarLabel.Text = Info.Title;
-            end;
-
-            if typeof(Info.Text) == "string" then
-                TopBarTextLabel.Text = Info.Text;
-        
-                local Y = select(2, Library:GetTextBounds(Info.Text, Library.Font, 14, Vector2.new(TopBarTextLabel.AbsoluteSize.X, math.huge)));
-                TopBarTextLabel.Size = UDim2.new(1, -4, 0, Y);
-
-                Tab:Resize();
-            end;
-        end;
-
         function Tab:ShowTab()
             Library.ActiveTab = Name;
             for _, Tab in next, Window.Tabs do
@@ -4040,8 +3735,6 @@ function Library:CreateWindow(...)
             TabButton.BackgroundColor3 = Library.MainColor;
             Library.RegistryMap[TabButton].Properties.BackgroundColor3 = 'MainColor';
             TabFrame.Visible = true;
-
-            Tab:Resize();
         end;
 
         function Tab:HideTab()
@@ -4326,7 +4019,7 @@ function Library:CreateWindow(...)
                         Tab:Show();
                         Tab:Resize();
                     end;
-                end)
+                end);
 
                 Tab.Container = Container;
                 Tabbox.Tabs[Name] = Tab;
@@ -4363,12 +4056,8 @@ function Library:CreateWindow(...)
             end;
         end);
 
-        TopBar:GetPropertyChangedSignal("Visible"):Connect(function()
-            Tab:Resize();
-        end);
-
         -- This was the first tab added, so we show it by default.
-        Library.TotalTabs = Library.TotalTabs + 1;
+    Library.TotalTabs = Library.TotalTabs + 1;
         if Library.TotalTabs == 1 then
             Tab:ShowTab();
         end;
@@ -4391,7 +4080,9 @@ function Library:CreateWindow(...)
     local Fading = false;
     
     function Library:Toggle()
-        if Fading then return end;
+        if Fading then
+            return;
+        end;
 
         local FadeTime = Config.MenuFadeTime;
         Fading = true;
@@ -4403,38 +4094,33 @@ function Library:CreateWindow(...)
             -- A bit scuffed, but if we're going from not toggled -> toggled we want to show the frame immediately so that the fade is visible.
             Outer.Visible = true;
 
-            if DrawingLib.drawing_replaced ~= true then
+            if Library.ShowCustomCursor and DrawingLib then
                 local Cursor = DrawingLib.new("Triangle")
                 Cursor.Thickness = 1
                 Cursor.Filled = true
-                Cursor.Visible = Library.ShowCustomCursor
-
+                Cursor.Visible = true
                 local CursorOutline = DrawingLib.new("Triangle")
                 CursorOutline.Thickness = 1
                 CursorOutline.Filled = false
                 CursorOutline.Color = Color3.new(0, 0, 0)
-                CursorOutline.Visible = Library.ShowCustomCursor
+                CursorOutline.Visible = true
                 
                 local OldMouseIconState = InputService.MouseIconEnabled
-                pcall(function() RunService:UnbindFromRenderStep("LinoriaCursor") end)
                 RunService:BindToRenderStep("LinoriaCursor", Enum.RenderPriority.Camera.Value - 1, function()
-                    InputService.MouseIconEnabled = not Library.ShowCustomCursor
+                    InputService.MouseIconEnabled = false
                     local mPos = InputService:GetMouseLocation()
                     local X, Y = mPos.X, mPos.Y
                     Cursor.Color = Library.AccentColor
                     Cursor.PointA = Vector2.new(X, Y)
                     Cursor.PointB = Vector2.new(X + 16, Y + 6)
                     Cursor.PointC = Vector2.new(X + 6, Y + 16)
-                    Cursor.Visible = Library.ShowCustomCursor
                     CursorOutline.PointA = Cursor.PointA
                     CursorOutline.PointB = Cursor.PointB
                     CursorOutline.PointC = Cursor.PointC
-                    CursorOutline.Visible = Library.ShowCustomCursor
-
-                    if not Toggled or (not ScreenGui or not ScreenGui.Parent) then
+                    if not (Toggled and ScreenGui.Parent and Library.ShowCustomCursor) then
                         InputService.MouseIconEnabled = OldMouseIconState
-                        if Cursor then Cursor:Destroy() end
-                        if CursorOutline then CursorOutline:Destroy() end
+                        Cursor:Destroy()
+                        CursorOutline:Destroy()
                         RunService:UnbindFromRenderStep("LinoriaCursor")
                     end
                 end)
@@ -4442,16 +4128,9 @@ function Library:CreateWindow(...)
         end;
 
         for _, Option in Options do
-            task.spawn(function()
-                if Option.Type == 'Dropdown' then
-                    Option:CloseDropdown();
-                elseif Option.Type == 'KeyPicker' then
-                	Option:SetModePickerVisibility(false);
-                elseif Option.Type == 'ColorPicker' then
-                    Option.ContextMenu:Hide();
-                    Option:Hide();
-                end
-            end)
+            if Option.Type == 'Dropdown' then
+                Option:CloseDropdown()
+            end
         end
 
         for _, Desc in next, Outer:GetDescendants() do
@@ -4489,12 +4168,14 @@ function Library:CreateWindow(...)
         end;
 
         task.wait(FadeTime);
+
         Outer.Visible = Toggled;
+
         Fading = false;
     end
 
     Library:GiveSignal(InputService.InputBegan:Connect(function(Input, Processed)
-        if typeof(Library.ToggleKeybind) == 'table' and Library.ToggleKeybind.Type == 'KeyPicker' then
+        if type(Library.ToggleKeybind) == 'table' and Library.ToggleKeybind.Type == 'KeyPicker' then
             if Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode.Name == Library.ToggleKeybind.Value then
                 task.spawn(Library.Toggle)
             end
@@ -4567,14 +4248,14 @@ function Library:CreateWindow(...)
             Parent = ToggleUIInnerFrame;
         });
     
-        Library:MakeDraggableUsingParent(ToggleUIButton, ToggleUIOuter);
+        Library:MakeDraggable(ToggleUIOuter);
 
         ToggleUIButton.MouseButton1Down:Connect(function()
-            Library:Toggle()
+            task.spawn(Library.Toggle)
         end)
 
-        -- Lock
-        local LockUIOuter = Library:Create('Frame', {
+    -- Lock
+    local LockUIOuter = Library:Create('Frame', {
             BorderColor3 = Color3.new(0, 0, 0);
             Position = UDim2.new(0.008, 0, 0.075, 0);
             Size = UDim2.new(0, 77, 0, 30);
@@ -4637,11 +4318,10 @@ function Library:CreateWindow(...)
             Parent = LockUIInnerFrame;
         });
     
-        Library:MakeDraggableUsingParent(LockUIButton, LockUIOuter);
+        Library:MakeDraggable(LockUIOuter);
         
         LockUIButton.MouseButton1Down:Connect(function()
             Library.CantDragForced = not Library.CantDragForced;
-            LockUIButton.Text = Library.CantDragForced and "Unlock UI" or "Lock UI";
         end)
     end;
 
@@ -4663,8 +4343,8 @@ local function OnPlayerChange()
     end;
 end;
 
-Library:GiveSignal(Players.PlayerAdded:Connect(OnPlayerChange));
-Library:GiveSignal(Players.PlayerRemoving:Connect(OnPlayerChange));
+Players.PlayerAdded:Connect(OnPlayerChange);
+Players.PlayerRemoving:Connect(OnPlayerChange);
 
 getgenv().Library = Library
 return Library
