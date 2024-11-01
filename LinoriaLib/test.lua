@@ -3791,12 +3791,12 @@ function Library:CreateWindow(...)
             ZIndex = 1;
             Parent = TabArea;
         });
-       
+
         Library:AddToRegistry(TabButton, {
             BackgroundColor3 = 'BackgroundColor';
             BorderColor3 = 'OutlineColor';
         });
-        
+
         local TabButtonLabel = Library:CreateLabel({
             Position = UDim2.new(0, 0, 0, 0);
             Size = UDim2.new(1, 10, 1, -1);
@@ -4675,4 +4675,4 @@ Library:GiveSignal(Players.PlayerAdded:Connect(OnPlayerChange));
 Library:GiveSignal(Players.PlayerRemoving:Connect(OnPlayerChange));
 
 getgenv().Library = Library
-return Library Library
+return Library
