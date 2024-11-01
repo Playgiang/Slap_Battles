@@ -3806,6 +3806,15 @@ function Library:CreateWindow(...)
             ZIndex = 3;
             Parent = TabButton;
         });
+        
+        local TabImage = Library:Create('ImageLabel', {
+            BackgroundTransparency = 1,
+            Size = UDim2.new(0, 12, 0, 12);
+            Position = UDim2.new(0, 1, 0, 5);
+            Image = Image or "";
+            ZIndex = 1;
+            Parent = TabButton;
+        });
 
         Library:AddToRegistry(Blocker, {
             BackgroundColor3 = 'MainColor';
