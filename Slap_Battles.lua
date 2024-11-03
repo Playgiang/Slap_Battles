@@ -616,9 +616,9 @@ local bypass;
        end
           return bypass(method, ...)
      end)
- game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Bypass Success ðŸ¤‘",Icon = "rbxassetid://7733658504",Duration = 5})
+ game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Bypass Success ",Icon = "rbxassetid://7733658504",Duration = 5})
 else
-game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot bypass, you must be careful ðŸ¥¹",Icon = "rbxassetid://7733658504",Duration = 5})
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot bypass, you must be careful",Icon = "rbxassetid://7733658504",Duration = 5})
 end
 
 if workspace:FindFirstChild("AntiLava") == nil then
@@ -3003,6 +3003,42 @@ OrionLib:MakeNotification({Name = "Error",Content = "You don't have Lawnmower eq
   	end    
 })
 
+Tab14:AddToggle({
+	Name = "Auto Win Tournament",
+	Default = false,
+	Callback = function(Value)
+_G.AutoWinTournament = Value
+while _G.AutoWinTournament do
+repeat task.wait()
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "Component" and v:FindFirstChild("SlapTournament") then
+_G.SlapTournament = v.SlapTournament.Visible
+end
+end
+until _G.SlapTournament == true
+if _G.SlapTournament == true then
+game:GetService("ReplicatedStorage").Events.Tournament.TournamentResponse:FireServer(true)
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
+if v.Name == "Component" and v:FindFirstChild("SlapTournament") then
+v.SlapTournament.Visible = false
+end
+end
+_G.SlapTournament = false
+wait(4)
+repeat task.wait()
+if game.Workspace.CurrentCamera.CameraSubject ~= workspace.Battlearena:FindFirstChild("Arena") then
+game.Workspace.CurrentCamera.CameraSubject = workspace.Battlearena:FindFirstChild("Arena")
+end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+wait(0.5)
+game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
+end
+task.wait()
+end
+	end    
+})
+
 Tab14:AddDropdown({
 	Name = "Black Hole",
 	Default = "",
@@ -3022,11 +3058,13 @@ wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.08)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+task.wait(0.08)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.3)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
 for i = 1,26 do
@@ -3046,11 +3084,13 @@ wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.06)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+task.wait(0.08)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.3)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
 for i = 1,26 do
@@ -3086,11 +3126,13 @@ wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-task.wait(0.06)
 fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+task.wait(0.08)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.3)
 game:GetService("ReplicatedStorage").bob:FireServer()
 wait(0.5)
 for i = 1,26 do
@@ -4090,24 +4132,6 @@ end
 	end    
 })
 
-Tab14:AddToggle({
-	Name = "Invisible Reverse",
-	Default = false,
-	Callback = function(Value)
-		Invis_Reverse = Value
-while Invis_Reverse do
-repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChild("SelectionBox", 1) and game.Players.LocalPlayer.Character:FindFirstChild("Head"):FindFirstChild("UnoReverseCard")
-game.Players.LocalPlayer.Character.Head["UnoReverseCard"]:Destroy()
-for i,v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-if v.Name == "SelectionBox" then
-v:Destroy()
-end
-end
-task.wait()
-end
-	end    
-})
-
 Tab7:AddToggle({
 	Name = "Infinity Jump",
 	Default = false,
@@ -4528,25 +4552,6 @@ for i = 1,#_G.writeCode do
 wait(.35)
 local digit = _G.writeCode:sub(i,i)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(digit).ClickDetector)
-end
-if _G.EnterKeypad == "Enter" then
-fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
-end
-end
-  	end    
-})
-
-Tab7:AddButton({
-	Name = "Write Code Keypad Start",
-	Callback = function()
-if not workspace:FindFirstChild("Keypad") then
-OrionLib:MakeNotification({Name = "Error",Content = "Server in don't have keypad.",Image = "rbxassetid://7733658504",Time = 5})
-else
-game.Workspace.CurrentCamera.CameraSubject = workspace.Keypad.Buttons.Enter
-fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Reset").ClickDetector)
-for i = 1,#_G.writeCode do
-wait(.3)
-fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild(_G.writeCode:sub(i,i)).ClickDetector)
 end
 if _G.EnterKeypad == "Enter" then
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
@@ -5725,7 +5730,7 @@ if _G.SlapAuraChoose == "Normal" then
 for i, c in pairs(workspace:GetChildren()) do
 if string.find(c.Name, "Å") and c:FindFirstChild("HumanoidRootPart") then
 if _G.ReachSlapArua >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - c.HumanoidRootPart.Position).Magnitude then
-gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitForChild(SlapAuraCharacter),true)
+gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(c:WaitForChild(SlapAuraCharacter))
 end
 end
 end
@@ -5751,7 +5756,7 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 if _G.ReachSlapArua >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
 if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
-gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter))
 elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boxer" then
 game:GetService("ReplicatedStorage").Events.Boxing:FireServer(v, false)
 end
@@ -5767,7 +5772,7 @@ if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("Humanoi
 if v.Character.Head:FindFirstChild("UnoReverseCard") == nil or game.Players.LocalPlayer.leaderstats.Glove.Value == "Error" then
 if _G.ReachSlapArua >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
 if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
-gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(SlapAuraCharacter))
 elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boxer" then
 game:GetService("ReplicatedStorage").Events.Boxing:FireServer(v, false)
 end
@@ -5783,7 +5788,7 @@ if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirs
 if v.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") then
 if v.Character.Head:FindFirstChild("UnoReverseCard") and game.Players.LocalPlayer.Character.Head:FindFirstChild("UnoReverseCard") then
 if _G.ReachSlapArua >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
-game.ReplicatedStorage.ReverseHit:FireServer(v.Character:WaitForChild(SlapAuraCharacter),true)
+game.ReplicatedStorage.ReverseHit:FireServer(v.Character:WaitForChild(SlapAuraCharacter))
 end
 end
 end
@@ -6063,7 +6068,7 @@ GloveEsp.AlwaysOnTop = true
 GloveEspText = Instance.new("TextLabel", GloveEsp)
 GloveEspText.BackgroundTransparency = 1
 GloveEspText.Size = UDim2.new(0, 100, 0, 100)
-GloveEspText.TextSize = 15
+GloveEspText.TextSize = 10
 GloveEspText.Font = Enum.Font.FredokaOne
 GloveEspText.TextColor3 = _G.ColorESP
 GloveEspText.TextStrokeTransparency = 0.5
@@ -8518,7 +8523,7 @@ KillESP.StudsOffset = Vector3.new(0, 3, 0)
 KillESPText = Instance.new("TextLabel", KillESP)
 KillESPText.BackgroundTransparency = 1
 KillESPText.Size = UDim2.new(0, 100, 0, 100)
-KillESPText.TextSize = 20
+KillESPText.TextSize = 15
 KillESPText.Font = Enum.Font.FredokaOne
 KillESPText.TextColor3 = _G.ColorESP
 KillESPText.TextStrokeTransparency = 0.5
@@ -11589,6 +11594,22 @@ end
 end
   	end 
 })
+
+Tab:AddToggle({
+	Name = "Teleport Clock",
+	Default = false,
+	Callback = function(Value)
+		_G.AutoTPClock = Value
+while _G.AutoTPClock do
+for i,v in pairs(workspace.Buildings:GetChildren()) do
+if v.Name == "wizard twoer" and v:FindFirstChild("Cone") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Cone.CFrame * CFrame.new(0,15,0)
+end
+end
+task.wait()
+end
+	end    
+})
 elseif game.PlaceId == 74169485398268 then
 local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
 
@@ -11739,6 +11760,60 @@ Tab:AddButton({
 OrionLib:Destroy()
   	end 
 })
+elseif game.PlaceId == 102908326578005 then
+local Window = OrionLib:MakeWindow({IntroText = (GameName), IntroIcon = "rbxassetid://15315284749",Name = ("Article Hub 🅰️ - "..GameName.." | ".. identifyexecutor()),IntroToggleIcon = "rbxassetid://7734091286", HidePremium = false, SaveConfig = false, IntroEnabled = true, ConfigFolder = "slap battles"})
+
+local Tab = Window:MakeTab({
+	Name = "Misc",
+	Icon = "rbxassetid://4370318685",
+	PremiumOnly = false
+})
+
+Tab:AddButton({
+	Name = "Ball Teleport",
+	Callback = function()
+for i,v in ipairs(workspace.Furniture.jorgisBasketballs:GetChildren()) do
+            if v.Name == "B-Ball" and v:FindFirstChild("ClickDetector") then
+            if not fireclickdetector then
+            v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            elseif fireclickdetector then
+            fireclickdetector(v.ClickDetector, 0)
+            fireclickdetector(v.ClickDetector, 1)
+            end
+            end
+            end
+      end
+})
+
+Tab:AddButton({
+	Name = "Key Teleport",
+	Callback = function()
+for i,v in ipairs(workspace.Furniture.jorgisDresser:GetChildren()) do
+            if v.Name == "Drawer" and v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ClickDetector") then
+            if not fireclickdetector then
+            v.Handle.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            elseif fireclickdetector then
+            fireclickdetector(v.Handle.ClickDetector, 0)
+            fireclickdetector(v.Handle.ClickDetector, 1)
+            end
+            end
+            end
+  	end 
+})
+
+Tab:AddButton({
+	Name = "Teleport Door",
+	Callback = function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Furniture.finalDoor.Base.Base.CFrame
+  	end 
+})
+
+Tab:AddButton({
+	Name = "Destroy GUI",
+	Callback = function()
+OrionLib:Destroy()
+  	end 
+})
 end
 --------------------------------------------------------
 if game.CoreGui:FindFirstChild("Orion") then
@@ -11795,7 +11870,7 @@ end
 gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
-    -----------// Glove Hit General Or New Glove \\-----------
+    ------------------------------------------------------------------------
     ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
@@ -11976,8 +12051,10 @@ gloveHits = {
     ["Cloud"] = game.ReplicatedStorage.CloudHit,
     ["Null"] = game.ReplicatedStorage.NullHit,
     ["spin"] = game.ReplicatedStorage.spinhit,
+    ------------------------------------------------------------------------
     ["Poltergeist"] = game.ReplicatedStorage.UTGHit,
-    -----------// Glove Hit Stun \\-----------
+    ["Clock"] = game.ReplicatedStorage.UTGHit,
+    ------------------------------------------------------------------------
     ["Kinetic"] = game.ReplicatedStorage.HtStun,
     ["Recall"] = game.ReplicatedStorage.HtStun,
     ["Balloony"] = game.ReplicatedStorage.HtStun,
@@ -11985,16 +12062,16 @@ gloveHits = {
     ["Boogie"] = game.ReplicatedStorage.HtStun,
     ["Stun"] = game.ReplicatedStorage.HtStun,
     ["Coil"] = game.ReplicatedStorage.HtStun,
-    -----------// Glove Hit Diamond \\-----------
+    ------------------------------------------------------------------------
     ["Diamond"] = game.ReplicatedStorage.DiamondHit,
     ["Megarock"] = game.ReplicatedStorage.DiamondHit,
-    -----------// Glove Hit Celestial \\-----------
+    ------------------------------------------------------------------------
     ["Moon"] = game.ReplicatedStorage.CelestialHit,
     ["Jupiter"] = game.ReplicatedStorage.CelestialHit,
-    -----------// Glove Hard \\-----------
+    ------------------------------------------------------------------------
     ["Mitten"] = game.ReplicatedStorage.MittenHit,
     ["Hallow Jack"] = game.ReplicatedStorage.HallowHIT,
-    -----------// Glove Hit Power \\-----------
+    ------------------------------------------------------------------------
     ["OVERKILL"] = game.ReplicatedStorage.Overkillhit,
     ["The Flex"] = game.ReplicatedStorage.FlexHit,
     ["Custom"] = game.ReplicatedStorage.CustomHit,
