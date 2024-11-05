@@ -3663,7 +3663,11 @@ function Library:CreateWindow(...)
         ZIndex = 1;
         Parent = Inner;
     });
-
+    
+    Settings.MouseButton1Click:Connect(function()
+    Library.ActiveTab = "UI Settings";
+    end)
+    
     Library:AddToRegistry(Inner, {
         BackgroundColor3 = 'MainColor';
         BorderColor3 = 'AccentColor';
