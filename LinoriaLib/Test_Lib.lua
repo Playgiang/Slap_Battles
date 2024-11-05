@@ -3655,7 +3655,7 @@ function Library:CreateWindow(...)
         Parent = Outer;
     });
     
-    local Settings = Libary:Create('Frame', {
+    local Settings = Library:Create('Frame', {
     	BackgroundColor3 = Library.MainColor;
         BorderColor3 = Library.AccentColor;
         BorderMode = Enum.BorderMode.Inset;
