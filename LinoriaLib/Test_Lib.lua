@@ -3655,12 +3655,11 @@ function Library:CreateWindow(...)
         Parent = Outer;
     });
     
-    local Settings = Library:Create('Frame', {
+    local Settings = Library:Create('ImageButton', {
     	BackgroundColor3 = Library.MainColor;
-        BorderColor3 = Library.AccentColor;
-        BorderMode = Enum.BorderMode.Inset;
         Position = UDim2.new(0.95, 0, 0, 5);
         Size = UDim2.new(0, 15, 0, 15);
+        Image = "rbxassetid://7733955511";
         ZIndex = 1;
         Parent = Inner;
     });
