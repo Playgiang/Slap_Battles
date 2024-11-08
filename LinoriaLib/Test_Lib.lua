@@ -3600,6 +3600,8 @@ function Library:CreateWindow(...)
     if typeof(Config.TabPadding) ~= 'number' then Config.TabPadding = 1 end
     if typeof(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
     if typeof(Config.NotifySide) ~= 'string' then Library.NotifySide = 'Left' else Library.NotifySide = Config.NotifySide end
+    if typeof(Config.RequiredTab) ~= 'string' then Library.RequiredTab = 'UI Settings' else Library.RequiredTab = Config.RequiredTab end
+    if typeof(Config.RequiredTabImage) ~= 'string' then Library.RequiredTabImage = 'rbxassetid://7733955511' else Library.RequiredTabImage = Config.RequiredTabImage end
     if typeof(Config.ShowCustomCursor) ~= 'boolean' then Library.ShowCustomCursor = true else Library.ShowCustomCursor = Config.ShowCustomCursor end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
@@ -3659,13 +3661,13 @@ function Library:CreateWindow(...)
     	BackgroundColor3 = Library.MainColor;
         Position = UDim2.new(0.95, 0, 0, 5);
         Size = UDim2.new(0, 15, 0, 15);
-        Image = "rbxassetid://7733955511";
+        Image = Config.RequiredTabImage;
         ZIndex = 1;
         Parent = Inner;
     });
     
     Settings.MouseButton1Click:Connect(function()
-    Library.ActiveTab = "UI Settings";
+    Library.ActiveTab = Config.RequiredTab;
     end)
     
     Library:AddToRegistry(Inner, {
