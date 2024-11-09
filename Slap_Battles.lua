@@ -596,7 +596,7 @@ VoidPart1.CanCollide = false
 local TournamentAntiVoid = Instance.new("Part", VoidPart)
 TournamentAntiVoid.Name = "TAntiVoid"
 TournamentAntiVoid.Size = Vector3.new(2048, 15, 2048)
-TournamentAntiVoid.Position = Vector3.new(3450, 59.009, 68)
+TournamentAntiVoid.Position = Vector3.new(3393, 228, 97)
 TournamentAntiVoid.Anchored = true
 TournamentAntiVoid.Transparency = 1
 TournamentAntiVoid.CanCollide = false
@@ -3024,13 +3024,15 @@ v.SlapTournament.Visible = false
 end
 end
 _G.SlapTournament = false
-wait(4)
+wait(7)
 repeat task.wait()
-if game.Workspace.CurrentCamera.CameraSubject ~= workspace.Battlearena:FindFirstChild("Arena") then
-game.Workspace.CurrentCamera.CameraSubject = workspace.Battlearena:FindFirstChild("Arena")
+if workspace:FindFirstChild("TournamentIsland") and workspace.TournamentIsland:FindFirstChild("Spawns") and workspace.TournamentIsland.Spawns:FindFirstChild("Part") then
+if game.Workspace.CurrentCamera.CameraSubject ~= workspace.TournamentIsland.Spawns.Part then
+game.Workspace.CurrentCamera.CameraSubject = workspace.TournamentIsland.Spawns.Part
+end
 end
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
+until workspace:FindFirstChild("TournamentIsland") == nil or game.Players.LocalPlayer.Character.Humanoid.Health == 0
 wait(0.5)
 game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
 end
@@ -4232,7 +4234,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Aren
 elseif Value == "Plate" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
 elseif Value == "Tournament" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
+if workspace:FindFirstChild("TournamentIsland") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TournamentIsland.Spawns.Part.CFrame * CFrame.new(0,2,0)
+else
+OrionLib:MakeNotification({Name = "Error",Content = "Tournament Island don't not spawn.",Image = "rbxassetid://7733658504",Time = 5})
+end
 elseif Value == "Cannon Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,0,35)
 elseif Value == "Equip Glovel" then
@@ -6676,7 +6682,7 @@ AntiJack = Tab2:AddToggle({
 	Name = "Anti Hallow - Jack",
 	Default = false,
 	Callback = function(Value)
-game.Players.LocalPlayer.PlayerScripts.HallowJackAbilities.Disabled = Value
+game.Players.LocalPlayer.PlayerScripts.LegacyClient.HallowJackAbilities.Disabled = Value
 	end    
 })
 
@@ -6719,19 +6725,7 @@ AntiConveyor = Tab2:AddToggle({
 	Name = "Anti Conveyor",
 	Default = false,
 	Callback = function(Value)
-game.Players.LocalPlayer.PlayerScripts.ConveyorVictimized.Disabled = Value
-	end    
-})
-
-AntiNightmareAndPotion = Tab2:AddToggle({
-	Name = "Anti Nightmare & Potion",
-	Default = false,
-	Callback = function(Value)
-        if Value == true then
-        game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Lighting
-    else
-        game.Players.LocalPlayer.PlayerScripts.VFXListener.NightmareEffect.Parent = game.Players.LocalPlayer.PlayerScripts.VFXListener
-    end
+game.Players.LocalPlayer.PlayerScripts.LegacyClient.ConveyorVictimized.Disabled = Value
 	end    
 })
 
@@ -6881,7 +6875,7 @@ AntiReda = Tab2:AddToggle({
 	Name = "Anti [REDACTED]",
 	Default = false,
 	Callback = function(Value)
-game.Players.LocalPlayer.PlayerScripts.Well.Disabled = Value
+game.Players.LocalPlayer.PlayerScripts.LegacyClient.Well.Disabled = Value
 	end    
 })
 
@@ -7299,10 +7293,6 @@ end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
 AntiConveyor:Set(game.Workspace.NoChanged.Value)
-end)
-
-game.Workspace.NoChanged.Changed:Connect(function()
-AntiNightmareAndPotion:Set(game.Workspace.NoChanged.Value)
 end)
 
 game.Workspace.NoChanged.Changed:Connect(function()
