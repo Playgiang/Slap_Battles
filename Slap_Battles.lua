@@ -3004,7 +3004,7 @@ OrionLib:MakeNotification({Name = "Error",Content = "You don't have Lawnmower eq
 })
 
 Tab14:AddToggle({
-	Name = "Auto Win Tournament",
+	Name = "Auto Join Tournament",
 	Default = false,
 	Callback = function(Value)
 _G.AutoWinTournament = Value
@@ -3016,7 +3016,7 @@ _G.SlapTournament = v.SlapTournament.Visible
 end
 end
 until _G.SlapTournament == true
-if _G.SlapTournament == true then
+if _G.SlapTournament == true and _G.AutoWinTournament == true then
 game:GetService("ReplicatedStorage").Events.Tournament.TournamentResponse:FireServer(true)
 for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetChildren()) do
 if v.Name == "Component" and v:FindFirstChild("SlapTournament") then
@@ -3024,17 +3024,6 @@ v.SlapTournament.Visible = false
 end
 end
 _G.SlapTournament = false
-wait(7)
-repeat task.wait()
-if workspace:FindFirstChild("TournamentIsland") and workspace.TournamentIsland:FindFirstChild("Spawns") and workspace.TournamentIsland.Spawns:FindFirstChild("Part") then
-if game.Workspace.CurrentCamera.CameraSubject ~= workspace.TournamentIsland.Spawns.Part then
-game.Workspace.CurrentCamera.CameraSubject = workspace.TournamentIsland.Spawns.Part
-end
-end
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace["Safespot"].CFrame * CFrame.new(0,10,0)
-until workspace:FindFirstChild("TournamentIsland") == nil or game.Players.LocalPlayer.Character.Humanoid.Health == 0
-wait(0.5)
-game.Workspace.CurrentCamera.CameraSubject = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")
 end
 task.wait()
 end
