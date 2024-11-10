@@ -21,6 +21,13 @@ ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 local Parented = pcall(function() ScreenGui.Parent = GetHUI(); end);
 if not Parented then ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui", 9e9) end;
 
+--[[
+    You can access Toggles & Options through (I'm planning to remove **a** option):
+        a) getgenv().Toggles, getgenv().Options (IY will break this getgenv)
+        b) getgenv().Linoria.Toggles, getgenv().Linoria.Options
+        c) Library.Toggles, Library.Options
+--]]
+
 local Toggles = {};
 local Options = {};
 
@@ -2884,7 +2891,7 @@ do
                     BorderColor3 = 'OutlineColor';
                 });
 
-                local ButtonLabel = Library:CreateLabel({
+                local ButtonLabel = Library:Create('Button', {
                     Active = false;
                     Size = UDim2.new(1, -6, 1, 0);
                     Position = UDim2.new(0, 6, 0, 0);
@@ -2919,7 +2926,7 @@ do
                     Library.RegistryMap[ButtonLabel].Properties.TextColor3 = Selected and 'AccentColor' or 'FontColor';
                 end;
 
-                ButtonLabel.InputBegan:Connect(function(Input)
+                ButtonLabel.MouseButton1Click:Connect(function(Input)
                     if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                         local Try = not Selected;
 
@@ -3600,8 +3607,6 @@ function Library:CreateWindow(...)
     if typeof(Config.TabPadding) ~= 'number' then Config.TabPadding = 1 end
     if typeof(Config.MenuFadeTime) ~= 'number' then Config.MenuFadeTime = 0.2 end
     if typeof(Config.NotifySide) ~= 'string' then Library.NotifySide = 'Left' else Library.NotifySide = Config.NotifySide end
-    if typeof(Config.RequiredTab) ~= 'string' then Library.RequiredTab = 'UI Settings' else Library.RequiredTab = Config.RequiredTab end
-    if typeof(Config.RequiredTabImage) ~= 'string' then Library.RequiredTabImage = 'rbxassetid://7733955511' else Library.RequiredTabImage = Config.RequiredTabImage end
     if typeof(Config.ShowCustomCursor) ~= 'boolean' then Library.ShowCustomCursor = true else Library.ShowCustomCursor = Config.ShowCustomCursor end
 
     if typeof(Config.Position) ~= 'UDim2' then Config.Position = UDim2.fromOffset(175, 50) end
@@ -3656,20 +3661,7 @@ function Library:CreateWindow(...)
         ZIndex = 1;
         Parent = Outer;
     });
-    
-    local Settings = Library:Create('ImageButton', {
-    	BackgroundColor3 = Library.MainColor;
-        Position = UDim2.new(0.95, 0, 0, 5);
-        Size = UDim2.new(0, 15, 0, 15);
-        Image = Config.RequiredTabImage;
-        ZIndex = 1;
-        Parent = Inner;
-    });
-    
-    Settings.MouseButton1Click:Connect(function()
-    Library.ActiveTab = Config.RequiredTab;
-    end)
-    
+
     Library:AddToRegistry(Inner, {
         BackgroundColor3 = 'MainColor';
         BorderColor3 = 'AccentColor';
@@ -3683,8 +3675,6 @@ function Library:CreateWindow(...)
         ZIndex = 1;
         Parent = Inner;
     });
-    
-    
 
     local MainSectionOuter = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor;
