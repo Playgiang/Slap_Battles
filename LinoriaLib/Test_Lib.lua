@@ -2926,10 +2926,8 @@ do
                     Library.RegistryMap[ButtonLabel].Properties.TextColor3 = Selected and 'AccentColor' or 'FontColor';
                 end;
 
-                ButtonLabel.MouseButton1Click:Connect(function(Input)
-                    if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-                        local Try = not Selected;
-
+                ButtonLabel.MouseButton1Click:Connect(function()
+                    local Try = not Selected;
                         if Dropdown:GetActiveValues() == 1 and (not Try) and (not Info.AllowNull) then
                         else
                             if Info.Multi then
@@ -2963,7 +2961,6 @@ do
 
                             Library:AttemptSave();
                         end;
-                    end;
                 end);
 
                 Table:UpdateButton();
