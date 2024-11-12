@@ -4,10 +4,6 @@ end
 
 game:GetService("GuiService"):ClearError()
 
-if _G.LibraryGui == nil then
-_G.LibraryGui = "Orion"
-end
-
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 if hookmetamethod then
 local bypass;
@@ -928,10 +924,12 @@ Anti2Group:AddDropdown("Choose Anti Void", {
     Default = "Normal",
     Multi = false,
     Callback = function(Value)
-_G.AntiVoidChoose = Value
 if _G.AntiVoid == true then
 Toggles["Anti Void"]:SetValue(false)
+_G.AntiVoidChoose = Value
 Toggles["Anti Void"]:SetValue(true)
+elseif _G.AntiVoid == false then
+_G.AntiVoidChoose = Value
 end
     end
 })
@@ -1815,7 +1813,7 @@ end
 local Badge1Group = Tabs.Tab3:AddLeftGroupbox("Badge Auto")
 
 Badge1Group:AddButton({
-    Text = "Auto Get Fan + Boxing",
+    Text = "Auto Get Boxing",
     Func = function()
 local teleportFunc = queueonteleport or queue_on_teleport
     if teleportFunc then
@@ -1824,40 +1822,6 @@ local teleportFunc = queueonteleport or queue_on_teleport
                 game.Loaded:Wait()
             end
             repeat wait() until game.Players.LocalPlayer
-if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 1 then
-game:GetService("ReplicatedStorage").RemoteEvents.SuitUpClown:FireServer()
-wait(0.15)
-game:GetService("ReplicatedStorage").RemoteEvents.KeyQuest:FireServer()
-end
-wait(0.5)
-if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 0 then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.QuestStuff.Key.CFrame
-wait(0.35)
-for i,v in ipairs(game.Workspace.QuestStuff:GetChildren()) do
-            if v.Name == "Key" and v:FindFirstChild("ClickDetector") then
-                   fireclickdetector(v.ClickDetector, 0)
-                   fireclickdetector(v.ClickDetector, 1)
-            end
-        end
-wait(2.89)
-if game.Workspace.Buildings:FindFirstChild("oog's cage") and game.Workspace.Buildings["oog's cage"]:FindFirstChild("Door") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Buildings["oog's cage"].Door.Door.CFrame * CFrame.new(-3,0,0)
-wait(0.35)
-for i,v in ipairs(game.Workspace.Buildings["oog's cage"]:GetChildren()) do
-            if v.Name == "Door" and v:FindFirstChild("ClickDetector") then
-                   fireclickdetector(v.ClickDetector, 0)
-                   fireclickdetector(v.ClickDetector, 1)
-            end
-        end
-end
-wait(2.5)
-if game.Workspace.NPCS:FindFirstChild("Pablo Pinkypoo") and game.Workspace.NPCS["Pablo Pinkypoo"]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.NPCS["Pablo Pinkypoo"].HumanoidRootPart.CFrame * CFrame.new(0,0,5)
-wait(0.4)
-game:GetService("ReplicatedStorage").RemoteEvents.KeyBadgeReward:FireServer()
-end
-end
-wait(0.7)
 if game.Workspace:FindFirstChild("BoxingGloves") == nil then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Buildings.house:FindFirstChild("TP").CFrame * CFrame.new(0,10,0)
 repeat task.wait()
@@ -1937,7 +1901,7 @@ end
 })
 
 Badge1Group:AddButton({
-    Text = "Auto Get Fan + Boxing",
+    Text = "Auto Get Chain",
     Func = function()
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 1000 then
 local teleportFunc = queueonteleport or queue_on_teleport
@@ -3851,6 +3815,9 @@ Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.Replicate
 Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
 Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
 Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
+if Floss.IsPlaying or Groove.IsPlaying or Headless.IsPlaying or Helicopter.IsPlaying or Kick.IsPlaying or L.IsPlaying or Laugh.IsPlaying or Parker.IsPlaying or Spasm.IsPlaying or Thriller.IsPlaying then
+Floss:Stop(); Groove:Stop(); Headless:Stop(); Helicopter:Stop(); Kick:Stop(); L:Stop(); Laugh:Stop(); Parker:Stop(); Spasm:Stop(); Thriller:Stop()
+end
 if string.lower(msg) == "/e floss" then
 Floss:Play()
 elseif string.lower(msg) == "/e groove" then
@@ -3935,7 +3902,11 @@ firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), works
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Battlearena.Arena.CFrame * CFrame.new(0,10,0)
+if workspace:FindFirstChild("TournamentIsland") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TournamentIsland.Spawns.Part.CFrame * CFrame.new(0,2,0)
+else
+Notification("Tournament Island don't not spawn.", 5)
+end
 else
 Notification("you are in Tournament not equip, 1 you use it.", 5)
 end
@@ -4062,7 +4033,7 @@ if _G.ReachSlapArua >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Posi
 if game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Boxer" then
 gloveHits[game.Players.LocalPlayer.leaderstats.Glove.Value]:FireServer(v.Character:WaitForChild(_G.SlapAuraCharacter))
 elseif game.Players.LocalPlayer.leaderstats.Glove.Value == "Boxer" then
-game:GetService("ReplicatedStorage").Events.Boxing:FireServer(v, false)
+game:GetService("ReplicatedStorage").Events.Boxing:FireServer(v, true)
 end
 end
 end
@@ -4109,6 +4080,7 @@ end
    SyncToggleState = Library.IsMobile
 })
 
+_G.ReachShukuchi = 50
  Misc1Basic:AddSlider("Reach Shukuchi", {
     Text = "Reach Shukuchi",
     Default = 50,
@@ -4173,6 +4145,7 @@ end
     end
 })
 
+_G.ReachHitbox = 10
  Misc1Basic:AddSlider("Reach HitBox", {
     Text = "Reach Hitbox",
     Default = 10,
@@ -4227,6 +4200,7 @@ end
    SyncToggleState = Library.IsMobile
 })
 
+_G.GloveExtendReach = 5
  Misc1Basic:AddSlider("Extend Glove", {
     Text = "Extend Glove",
     Default = 5,
@@ -4242,7 +4216,7 @@ _G.GloveExtendReach = Value
  Misc1Basic:AddDropdown("Extend Option", {
     Text = "Extend Option",
     Values = {"Meat Stick","Pancake","Growth","North Korea Wall","Slight Extend"},
-    Default = "Meat Stick",
+    Default = "",
     Multi = false,
     Callback = function(Value)
 GloveExtendOption = Value
@@ -7361,6 +7335,49 @@ end
    SyncToggleState = Library.IsMobile
 })
 
+_G.ReachHitbox = 10
+Combat1Group:AddSlider("Reach HitBox", {
+    Text = "Reach Hitbox",
+    Default = 10,
+    Min = 10,
+    Max = 30,
+    Rounding = 1,
+    Compact = false,
+    Callback = function(Value)
+_G.ReachHitbox = Value
+    end
+})
+
+Combat1Group:AddToggle("Hitbox Player", {
+    Text = "Hitbox Player",
+    Default = false, 
+    Callback = function(Value) 
+_G.HitboxPlayer = Value
+while _G.HitboxPlayer do
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(_G.ReachHitbox,_G.ReachHitbox,_G.ReachHitbox)
+                        v.Character.HumanoidRootPart.Transparency = 0.75
+                    end
+                end
+task.wait()
+end
+if _G.HitboxPlayer == false then
+for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                        v.Character.HumanoidRootPart.Size = Vector3.new(2, 2, 1)
+                        v.Character.HumanoidRootPart.Transparency = 1
+                    end
+                end
+end
+    end
+}):AddKeyPicker("Hitbox", {
+   Default = "Z",
+   Text = "Hitbox Player",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
 Combat1Group:AddInput("FlySpeed", {
     Default = "50",
     Numeric = true,
@@ -7470,6 +7487,60 @@ end
    SyncToggleState = Library.IsMobile
 })
 
+Combat1Group:AddToggle("Esp1", {
+    Text = "Item Esp",
+    Default = false, 
+    Callback = function(Value) 
+ItemESP = Value
+if ItemESP == false then
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+                if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ItemESP") then
+v.Handle.ItemESP:Destroy()
+                end
+            end
+end
+while ItemESP do
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ItemESP") == nil then
+ItemESP = Instance.new("BillboardGui", v.Handle)
+ItemESP.Adornee = v.Handle
+ItemESP.Name = "ItemESP"
+ItemESP.Size = UDim2.new(0, 100, 0, 150)
+ItemESP.StudsOffset = Vector3.new(0, 1, 0)
+ItemESP.AlwaysOnTop = true
+ItemESP.StudsOffset = Vector3.new(0, 3, 0)
+ItemESPText = Instance.new("TextLabel", ItemESP)
+ItemESPText.BackgroundTransparency = 1
+ItemESPText.Size = UDim2.new(0, 100, 0, 100)
+ItemESPText.TextSize = 20
+ItemESPText.Font = Enum.Font.SourceSansBold
+ItemESPText.TextColor3 = Color3.new(255, 255, 255)
+ItemESPText.TextStrokeTransparency = 0
+ItemESPText.Text = v.Name
+                end
+            end
+for i, v in pairs(game.Players:GetPlayers()) do
+        for t, g in pairs(v.Character:GetChildren()) do
+            if g:IsA("Tool") and g:FindFirstChild("Handle") and g.Handle:FindFirstChild("ItemESP") then
+                g.Handle.ItemESP:Destroy()
+            end
+        end
+for w, n in pairs(v.Backpack:GetChildren()) do
+    if n:IsA("Tool") and n:FindFirstChild("Handle") and n.Handle:FindFirstChild("ItemESP") then
+       n.Handle.ItemESP:Destroy()
+    end
+end
+end
+task.wait()
+end
+    end
+}):AddKeyPicker("ItemEsp", {
+   Default = "L",
+   Text = "Item Esp",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
 Combat1Group:AddButton({
     Text = "Leave Bus Early",
     DoubleClick = true,
@@ -7481,7 +7552,7 @@ game.Players.LocalPlayer.PlayerGui.JumpPrompt:Destroy()
     end
 })
 
-local Combat2Group = Tabs.Tab:AddLeftGroupbox("Item")
+local Combat2Group = Tabs.Tab:AddRightGroupbox("Item")
 
 Combat2Group:AddToggle("Get Item", {
     Text = "Get All Item",
@@ -7526,14 +7597,14 @@ end
     end
 })
 
-Combat1Group:AddButton("Infinity 250 Power", function()
+Combat2Group:AddButton("Infinity 250 Power", function()
 for i = 1,2 do
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack["True Power"])
 game.Players.LocalPlayer.Character["True Power"]:Activate()
 end
 end)
 
-Combat1Group:AddButton("Use Item Power", function()
+Combat2Group:AddButton("Use Item Power", function()
 for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
             if v.Name == "Bull's essence" or v.Name == "Potion of Strength" or v.Name == "Boba" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Strength Brew" or v.Name == "Frog Brew" or v.Name == "Speed Brew" then
                 game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
@@ -7542,7 +7613,7 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
         end
 end)
 
-Combat1Group:AddButton("Bomb Bus", function()
+Combat2Group:AddButton("Bomb Bus", function()
 if game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
 for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
             if v.Name == "Bomb" then
@@ -7676,7 +7747,7 @@ end
    SyncToggleState = Library.IsMobile
 })
 
-Anti1Group:AddButton("Remove Safe", function()
+Anti1Group:AddButton("Remove Not Safe", function()
 for _, v in ipairs(game:GetService("Workspace"):GetDescendants()) do
     if v.Name == "Lava" or v.Name == "Acid" then
         v:Destroy()
@@ -7689,7 +7760,7 @@ for _, v in ipairs(game:GetService("ReplicatedStorage"):GetDescendants()) do
 end
 end)
 
-local Misc1Group = Tabs.Tab1:AddLeftGroupbox("Misc")
+local Misc1Group = Tabs.Tab2:AddLeftGroupbox("Misc")
 
 CodeLab = Misc1Group:AddLabel("Code [ ??? ]")
 
@@ -8280,7 +8351,7 @@ end
 
 elseif game.PlaceId == 15507333474 then
 local Window = Library:CreateWindow({
-	Title = "Article Hub 🅰️ - Maze Null ",
+	Title = "Article Hub 🅰️ - Christmas 🎉",
 	Center = true,
     AutoShow = true,
     Resizable = true,
@@ -8373,43 +8444,6 @@ end
 }):AddKeyPicker("Hitbox", {
    Default = "Z",
    Text = "Hitbox Player",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-Combat1Group:AddSlider("Reach Slap", {
-    Text = "Reach Slap Aura",
-    Default = 25,
-    Min = 10,
-    Max = 50,
-    Rounding = 1,
-    Compact = true,
-    Callback = function(Value)
-_G.ReachAura = Value
-    end
-})
-
-Combat1Group:AddToggle("Slap Aura", {
-    Text = "Slap Aura",
-    Default = false, 
-    Callback = function(Value)
-_G.SlapAura = Value
-                while _G.SlapAura do
-for i,v in pairs(game.Players:GetChildren()) do
-                    if v ~= game.Players.LocalPlayer and v.Character then
-if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:WaitForChild("inMatch").Value == true and game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
-                        if _G.ReachAura >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
-game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
-                    end
-end
-end
-                end
-task.wait()
-end
-    end
-}):AddKeyPicker("SlapAura", {
-   Default = "F",
-   Text = "Slap Aura",
    Mode = Library.IsMobile and "Toggle" or "Hold",
    SyncToggleState = Library.IsMobile
 })
