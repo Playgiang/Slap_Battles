@@ -1,7 +1,7 @@
-# // Copy Script \\
-// Scripts \\
+# Copy Script
+• Scripts
 
-## Slap Battles
+## • Slap Battles
 ```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/Main.lua",true))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/Slap_Battles.lua"))()
 ```
