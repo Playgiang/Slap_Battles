@@ -714,10 +714,31 @@ ToolboxSpawn = InfoServer1Group:AddLabel("Player Spawn Toolbox [ No ]", true)
 else
 ToolboxSpawn = InfoServer1Group:AddLabel("Player Spawn Toolbox [ Yes ]", true)
 end
-if not game.Workspace:FindFirstChild("SiphonOrb") then
-SiphonOrbSpawn = InfoServer1Group:AddLabel("Spawn Siphon Orb [ No ]", true)
+if not game.Workspace:FindFirstChild("Gravestone") then
+GravestoneSpawn = InfoServer1Group:AddLabel("Gravestone Spawn [ No ]", true)
 else
-SiphonOrbSpawn = InfoServer1Group:AddLabel("Spawn Siphon Orb [ Yes ]", true)
+GravestoneSpawn = InfoServer1Group:AddLabel("Gravestone Spawn [ Yes ]", true)
+end
+if not game.Workspace:FindFirstChild("Gift") then
+GiftSpawn = InfoServer1Group:AddLabel("Player Spawn Gift [ No ]", true)
+else
+GiftSpawn = InfoServer1Group:AddLabel("Player Spawn Gift [ Yes ]", true)
+end
+if workspace.Arena.island5.Slapples:FindFirstChild("GoldenSlapple") and workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChild("Glove") and workspace.Arena.island5.Slapples.GoldenSlapple.Glove.Transparency == 1 then
+GoldenSlappleSpawn = InfoServer1Group:AddLabel("Golden Slapple Spawn [ No ]", true)
+else
+GoldenSlappleSpawn = InfoServer1Group:AddLabel("Golden Slapple Spawn [ Yes ]", true)
+end
+if game.Workspace:FindFirstChild("JetOrb") then
+OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ Jet ]", true)
+elseif game.Workspace:FindFirstChild("PhaseOrb") then
+OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ Phase ]", true)
+elseif game.Workspace:FindFirstChild("SiphonOrb") then
+OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ Siphon ]", true)
+elseif game.Workspace:FindFirstChild("MATERIALIZEOrb") then
+OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ MATERIALIZE ]", true)
+else
+OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ No ]", true)
 end
 CheckSlap = InfoServer1Group:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]", true)
 Glove = {}
@@ -774,10 +795,31 @@ ToolboxSpawn:SetText("Player Spawn Toolbox [ No ]", true)
 else
 ToolboxSpawn:SetText("Player Spawn Toolbox [ Yes ]", true)
 end
-if not game.Workspace:FindFirstChild("SiphonOrb") then
-SiphonOrbSpawn:SetText("Spawn Siphon Orb [ No ]", true)
+if not game.Workspace:FindFirstChild("Gravestone") then
+GravestoneSpawn:SetText("Gravestone Spawn [ No ]", true)
 else
-SiphonOrbSpawn:SetText("Spawn Siphon Orb [ Yes ]", true)
+GravestoneSpawn:SetText("Gravestone Spawn [ Yes ]", true)
+end
+if not game.Workspace:FindFirstChild("Gift") then
+GiftSpawn:SetText("Player Spawn Gift [ No ]", true)
+else
+GiftSpawn:SetText("Player Spawn Gift [ Yes ]", true)
+end
+if workspace.Arena.island5.Slapples:FindFirstChild("GoldenSlapple") and workspace.Arena.island5.Slapples.GoldenSlapple:FindFirstChild("Glove") and workspace.Arena.island5.Slapples.GoldenSlapple.Glove.Transparency == 1 then
+GoldenSlappleSpawn:SetText("Golden Slapple Spawn [ No ]", true)
+else
+GoldenSlappleSpawn:SetText("Golden Slapple Spawn [ Yes ]", true)
+end
+if game.Workspace:FindFirstChild("JetOrb") then
+OrbSpawn:SetText("Spawn Orb [ Jet ]", true)
+elseif game.Workspace:FindFirstChild("PhaseOrb") then
+OrbSpawn:SetText("Spawn Orb [ Phase ]", true)
+elseif game.Workspace:FindFirstChild("SiphonOrb") then
+OrbSpawn:SetText("Spawn Orb [ Siphon ]", true)
+elseif game.Workspace:FindFirstChild("MATERIALIZEOrb") then
+OrbSpawn:SetText("Spawn Orb [ MATERIALIZE ]", true)
+else
+OrbSpawn:SetText("Spawn Orb [ No ]", true)
 end
 CheckSlap:SetText("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]", true)
 GloveCheck:SetText("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]", true)
@@ -7198,8 +7240,10 @@ Tabs = {
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
-local Combat1Group = Tabs.Tab:AddLeftGroupbox("Combat")
+TabBoxCombat1 = Tabs.Tab:AddLeftTabbox()
+local Combat1Group = TabBoxCombat1:AddTab("Combat")
 
+_G.ReachAura = 25
 Combat1Group:AddSlider("Reach Slap", {
     Text = "Reach Slap Aura",
     Default = 25,
@@ -7212,11 +7256,23 @@ _G.ReachAura = Value
     end
 })
 
+_G.SlapAuraChoose = "Click Slap"
+Combat1Group:AddDropdown("ChooseSlap", {
+    Text = "Slap Aura",
+    Values = {"Slap Aura", "Click Slap"},
+    Default = "Click Slap",
+    Multi = false,
+    Callback = function(Value)
+_G.SlapAuraChoose = Value
+    end
+})
+
 Combat1Group:AddToggle("Slap Aura", {
     Text = "Slap Aura",
     Default = false, 
     Callback = function(Value)
 _G.SlapAura = Value
+if _G.SlapAuraChoose == "Slap Aura" then
                 while _G.SlapAura do
 for i,v in pairs(game.Players:GetChildren()) do
                     if v ~= game.Players.LocalPlayer and v.Character then
@@ -7228,6 +7284,24 @@ end
 end
                 end
 task.wait()
+end
+elseif _G.SlapAuraChoose == "Click Slap" then
+game:GetService("UserInputService").InputBegan:Connect(function(input)
+if _G.SlapAuraChoose == "Click Slap" and _G.SlapAura == true then
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        for i,v in pairs(game.Players:GetChildren()) do
+                    if v ~= game.Players.LocalPlayer and v.Character then
+if v.Character:FindFirstChild("Dead") == nil and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:WaitForChild("inMatch").Value == true and game.Players.LocalPlayer.Character:WaitForChild("inMatch").Value == true then
+                        if _G.ReachAura >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude then
+game.ReplicatedStorage.Events.Slap:FireServer(v.Character:WaitForChild("HumanoidRootPart"))
+                    end
+end
+end
+                end
+wait(2)
+    end
+end
+end)
 end
     end
 }):AddKeyPicker("SlapAura", {
@@ -7445,102 +7519,6 @@ end
    SyncToggleState = Library.IsMobile
 })
 
-Combat1Group:AddToggle("Esp", {
-    Text = "Glove Esp",
-    Default = false, 
-    Callback = function(Value) 
-GloveESP = Value
-if GloveESP == false then
-for i, v in ipairs(game.Players:GetChildren()) do
-                if v.Character and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("GloveEsp") then
- v.Character.Head.GloveEsp:Destroy()
-                end
-            end
-end
-while GloveESP do
-for i, v in ipairs(game.Players:GetChildren()) do
-if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") and v.Character.inMatch.Value == true and v.Character.Head:FindFirstChild("GloveEsp") == nil then
-GloveEsp = Instance.new("BillboardGui", v.Character.Head)
-GloveEsp.Adornee = v.Character.Head
-GloveEsp.Name = "GloveEsp"
-GloveEsp.Size = UDim2.new(0, 100, 0, 150)
-GloveEsp.StudsOffset = Vector3.new(0, 1, 0)
-GloveEsp.AlwaysOnTop = true
-GloveEsp.StudsOffset = Vector3.new(0, 3, 0)
-GloveEspText = Instance.new("TextLabel", GloveEsp)
-GloveEspText.BackgroundTransparency = 1
-GloveEspText.Size = UDim2.new(0, 100, 0, 100)
-GloveEspText.TextSize = 20
-GloveEspText.Font = Enum.Font.SourceSansBold
-GloveEspText.TextColor3 = Color3.new(255, 255, 255)
-GloveEspText.TextStrokeTransparency = 0
-GloveEspText.Text = "Glove [ "..v.Glove.Value.." ]"
-                end
-            end
-task.wait()
-end
-    end
-}):AddKeyPicker("GloveEsp", {
-   Default = "B",
-   Text = "Glove Esp",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
-Combat1Group:AddToggle("Esp1", {
-    Text = "Item Esp",
-    Default = false, 
-    Callback = function(Value) 
-ItemESP = Value
-if ItemESP == false then
-for i, v in ipairs(game.Workspace.Items:GetChildren()) do
-                if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ItemESP") then
-v.Handle.ItemESP:Destroy()
-                end
-            end
-end
-while ItemESP do
-for i, v in ipairs(game.Workspace.Items:GetChildren()) do
-if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ItemESP") == nil then
-ItemESP = Instance.new("BillboardGui", v.Handle)
-ItemESP.Adornee = v.Handle
-ItemESP.Name = "ItemESP"
-ItemESP.Size = UDim2.new(0, 100, 0, 150)
-ItemESP.StudsOffset = Vector3.new(0, 1, 0)
-ItemESP.AlwaysOnTop = true
-ItemESP.StudsOffset = Vector3.new(0, 3, 0)
-ItemESPText = Instance.new("TextLabel", ItemESP)
-ItemESPText.BackgroundTransparency = 1
-ItemESPText.Size = UDim2.new(0, 100, 0, 100)
-ItemESPText.TextSize = 20
-ItemESPText.Font = Enum.Font.SourceSansBold
-ItemESPText.TextColor3 = Color3.new(255, 255, 255)
-ItemESPText.TextStrokeTransparency = 0
-ItemESPText.Text = v.Name
-                end
-            end
-for i, v in pairs(game.Players:GetPlayers()) do
-        for t, g in pairs(v.Character:GetChildren()) do
-            if g:IsA("Tool") and g:FindFirstChild("Handle") and g.Handle:FindFirstChild("ItemESP") then
-                g.Handle.ItemESP:Destroy()
-            end
-        end
-for w, n in pairs(v.Backpack:GetChildren()) do
-    if n:IsA("Tool") and n:FindFirstChild("Handle") and n.Handle:FindFirstChild("ItemESP") then
-       n.Handle.ItemESP:Destroy()
-    end
-end
-end
-task.wait()
-end
-    end
-}):AddKeyPicker("ItemEsp", {
-   Default = "L",
-   Text = "Item Esp",
-   Mode = Library.IsMobile and "Toggle" or "Hold",
-   SyncToggleState = Library.IsMobile
-})
-
 Combat1Group:AddButton({
     Text = "Leave Bus Early",
     DoubleClick = true,
@@ -7597,6 +7575,23 @@ end
     end
 })
 
+Combat2Group:AddToggle("Auto Use Item Power", {
+    Text = "Auto Use Item Power",
+    Default = false,
+    Callback = function(Value)
+_G.AutoUseItemPower = Value
+while _G.AutoUseItemPower do
+for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if v.Name == "Bull's essence" or v.Name == "Potion of Strength" or v.Name == "Boba" or v.Name == "Speed Potion" or v.Name == "Frog Potion" or v.Name == "Strength Brew" or v.Name == "Frog Brew" or v.Name == "Speed Brew" then
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
+                v:Activate()
+            end
+        end
+task.wait()
+end
+    end
+})
+
 Combat2Group:AddButton("Infinity 250 Power", function()
 for i = 1,2 do
 game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack["True Power"])
@@ -7619,13 +7614,197 @@ for i, v in ipairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
             if v.Name == "Bomb" then
                 game.Players.LocalPlayer.Character.Humanoid:EquipTool(v)
                 v:Activate()
-                wait(0.1)
+                wait(0.3)
             end
         end
 else
 Notification("You have start bus.", 5)
 end
 end)
+
+local Esp1Group = TabBoxCombat1:AddTab("ESP") 
+
+Esp1Group:AddToggle("Esp", {
+    Text = "Glove Esp",
+    Default = false, 
+    Callback = function(Value) 
+_G.GloveESP = Value
+if _G.GloveESP == false then
+for i, v in ipairs(game.Players:GetChildren()) do
+                if v.Character and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("GloveEsp") then
+ v.Character.Head.GloveEsp:Destroy()
+                end
+            end
+end
+while _G.GloveESP do
+for i, v in ipairs(game.Players:GetChildren()) do
+if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Head") then
+if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") and v.Character.Head.GloveEsp.TextLabel.TextColor3 ~= _G.ColorESP then
+v.Character.Head.GloveEsp.TextLabel.TextColor3 = _G.ColorESP
+end
+if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") then
+if _G.DistanceEsp == false then
+if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.Glove.Value.." ]" then
+v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.Glove.Value.." ]"
+end
+elseif _G.DistanceEsp == true then
+if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]" then
+v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]"
+end
+end
+end
+if v.Character.Head:FindFirstChild("GloveEsp") == nil then
+GloveEsp = Instance.new("BillboardGui", v.Character.Head)
+GloveEsp.Adornee = v.Character.Head
+GloveEsp.Name = "GloveEsp"
+GloveEsp.Size = UDim2.new(0, 100, 0, 150)
+GloveEsp.StudsOffset = Vector3.new(0, 1, 0)
+GloveEsp.AlwaysOnTop = true
+GloveEsp.StudsOffset = Vector3.new(0, 3, 0)
+GloveEspText = Instance.new("TextLabel", GloveEsp)
+GloveEspText.BackgroundTransparency = 1
+GloveEspText.Size = UDim2.new(0, 100, 0, 100)
+GloveEspText.TextSize = _G.TextSize
+GloveEspText.Font = Enum.Font.SourceSansBold
+GloveEspText.TextColor3 = _G.ColorESP
+GloveEspText.TextStrokeTransparency = 0
+GloveEspText.Text = "Glove [ "..v.Glove.Value.." ]"
+end
+                end
+            end
+task.wait()
+end
+    end
+}):AddColorPicker("Color Esp Glove", {
+     Default = Color3.new(255,255,255),
+     Callback = function(Value)
+_G.ColorESP = Value
+     end
+}):AddKeyPicker("GloveEsp", {
+   Default = "B",
+   Text = "Glove Esp",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
+Esp1Group:AddToggle("Esp1", {
+    Text = "Item Esp",
+    Default = false, 
+    Callback = function(Value) 
+_G.ItemESP = Value
+if _G.ItemESP == false then
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+                if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ItemESP") then
+v.Handle.ItemESP:Destroy()
+                end
+            end
+for i, v in pairs(game.Players:GetPlayers()) do
+        for t, g in pairs(v.Character:GetChildren()) do
+            if g:IsA("Tool") and g:FindFirstChild("Handle") and g.Handle:FindFirstChild("ItemESP") then
+                g.Handle.ItemESP:Destroy()
+            end
+        end
+for w, n in pairs(v.Backpack:GetChildren()) do
+    if n:IsA("Tool") and n:FindFirstChild("Handle") and n.Handle:FindFirstChild("ItemESP") then
+       n.Handle.ItemESP:Destroy()
+    end
+end
+end
+end
+while _G.ItemESP do
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+if v.ClassName == "Tool" and v:FindFirstChild("Handle") then
+if v.Handle:FindFirstChild("ItemESP") and v.Handle.ItemESP:FindFirstChild("TextLabel") and v.Handle.ItemESP.TextLabel.TextColor3 ~= _G.ColorESP1 then
+v.Handle.ItemESP.TextLabel.TextColor3 = _G.ColorESP1
+end
+if v.Handle:FindFirstChild("ItemESP") and v.Handle.ItemESP:FindFirstChild("TextLabel") then
+if _G.DistanceEsp == false then
+if v.Handle.ItemESP.TextLabel.Text ~= v.Name then
+v.Handle.ItemESP.TextLabel.Text = v.Name
+end
+elseif _G.DistanceEsp == true then
+if v.Handle.ItemESP.TextLabel.Text ~= v.Name.."\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude).." ]" then
+v.Handle.ItemESP.TextLabel.Text = v.Name.."\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Handle.Position).Magnitude).." ]"
+end
+end
+end
+if v.Handle:FindFirstChild("ItemESP") == nil then
+ItemESP = Instance.new("BillboardGui", v.Handle)
+ItemESP.Adornee = v.Handle
+ItemESP.Name = "ItemESP"
+ItemESP.Size = UDim2.new(0, 100, 0, 150)
+ItemESP.StudsOffset = Vector3.new(0, 1, 0)
+ItemESP.AlwaysOnTop = true
+ItemESP.StudsOffset = Vector3.new(0, 3, 0)
+ItemESPText = Instance.new("TextLabel", ItemESP)
+ItemESPText.BackgroundTransparency = 1
+ItemESPText.Size = UDim2.new(0, 100, 0, 100)
+ItemESPText.TextSize = _G.TextSize
+ItemESPText.Font = Enum.Font.SourceSansBold
+ItemESPText.TextColor3 = _G.ColorESP1
+ItemESPText.TextStrokeTransparency = 0
+ItemESPText.Text = v.Name
+end
+                end
+            end
+for i, v in pairs(game.Players:GetPlayers()) do
+        for t, g in pairs(v.Character:GetChildren()) do
+            if g:IsA("Tool") and g:FindFirstChild("Handle") and g.Handle:FindFirstChild("ItemESP") then
+                g.Handle.ItemESP:Destroy()
+            end
+        end
+for w, n in pairs(v.Backpack:GetChildren()) do
+    if n:IsA("Tool") and n:FindFirstChild("Handle") and n.Handle:FindFirstChild("ItemESP") then
+       n.Handle.ItemESP:Destroy()
+    end
+end
+end
+task.wait()
+end
+    end
+}):AddColorPicker("Color Esp Item", {
+     Default = Color3.new(255,255,255),
+     Callback = function(Value)
+_G.ColorESP1 = Value
+     end
+}):AddKeyPicker("ItemEsp", {
+   Default = "L",
+   Text = "Item Esp",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
+_G.DistanceEsp = false
+Esp1Group:AddToggle("Distance Esp", {
+    Text = "Distance Esp",
+    Default = false, 
+    Callback = function(Value) 
+_G.DistanceEsp = Value
+    end
+})
+
+_G.TextSize = 15
+Esp1Group:AddSlider("Size Text Esp", {
+    Text = "Size Text Esp",
+    Default = 15,
+    Min = 15,
+    Max = 40,
+    Rounding = 0,
+    Compact = true,
+    Callback = function(Value)
+_G.TextSize = Value
+for i, v in ipairs(game.Players:GetChildren()) do
+if v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") and v.Character.Head.GloveEsp.TextLabel.TextSize ~= Value then
+v.Character.Head.GloveEsp.TextLabel.TextSize = Value
+end
+end
+for i, v in ipairs(game.Workspace.Items:GetChildren()) do
+if v.ClassName == "Tool" and v:FindFirstChild("Handle") and v.Handle:FindFirstChild("ItemESP") and v.Handle.ItemESP:FindFirstChild("TextLabel") and v.Handle.ItemESP.TextLabel.TextSize ~= Value then
+v.Handle.ItemESP.TextLabel.TextSize = Value
+end
+end
+    end
+})
 
 local Anti1Group = Tabs.Tab1:AddLeftGroupbox("Anti")
 
