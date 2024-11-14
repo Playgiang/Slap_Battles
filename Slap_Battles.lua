@@ -2262,12 +2262,10 @@ task.wait(0.2)
 game.ReplicatedStorage.WarpHt:FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
 task.wait(0.15)
 if workspace.DEATHBARRIER.CanTouch == true then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), game:GetService("Workspace").DEATHBARRIER, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), game:GetService("Workspace").DEATHBARRIER, 1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DEATHBARRIER.CFrame
 else
 workspace.DEATHBARRIER.CanTouch = true
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), game:GetService("Workspace").DEATHBARRIER, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), game:GetService("Workspace").DEATHBARRIER, 1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").DEATHBARRIER.CFrame
 end
 wait(0.1)
 game:GetService("ReplicatedStorage").WLOC:FireServer()
@@ -2337,7 +2335,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("Torso") then
 game.Players.LocalPlayer.Character.Torso.Anchored = false
 end
 end
-task.wait(3.5)
+wait(5.5)
 until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 3335299217032061)
 else
 Notification("You don't have bus equipped, or you have owner badge", 5)
@@ -2383,7 +2381,7 @@ end
 })
 
 Badge2Group:AddButton({
-    Text = "Win Obby Psycho",
+    Text = "Voodoo + Fish + Trap Farm",
     Func = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
@@ -2891,7 +2889,7 @@ end
 
 Misc2Group:AddDropdown("Teleport Place", {
     Text = "Teleport",
-    Values = {"Arena", "Lobby", "Hunter Room", "Brazil", "Island Slapple", "Plate", "Cannon Island", "Equip Glovel", "Keypad", "Cube Of Death", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
+    Values = {"Arena", "Lobby", "Hunter Room", "Tournament", "Brazil", "Island Slapple", "Plate", "Cannon Island", "Equip Glovel", "Keypad", "Cube Of Death", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
     Default = "",
     Multi = false,
     Callback = function(Value)
@@ -3835,62 +3833,62 @@ end)
 end)
 
 Misc1Basic:AddButton("Free Emotes", function()
-Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
-Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
-Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
-Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
-Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
-L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
-Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
-Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
-Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
-Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
-game.Players.LocalPlayer.Chatted:connect(function(msg)
-if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
-Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
-Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
-Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
-Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
-L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
-Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
-Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
-Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
-Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
-if Floss.IsPlaying or Groove.IsPlaying or Headless.IsPlaying or Helicopter.IsPlaying or Kick.IsPlaying or L.IsPlaying or Laugh.IsPlaying or Parker.IsPlaying or Spasm.IsPlaying or Thriller.IsPlaying then
-Floss:Stop(); Groove:Stop(); Headless:Stop(); Helicopter:Stop(); Kick:Stop(); L:Stop(); Laugh:Stop(); Parker:Stop(); Spasm:Stop(); Thriller:Stop()
-end
-if string.lower(msg) == "/e floss" then
-Floss:Play()
+if LoadingScr then return end
+LoadingScr = true
+Anims = {
+    ["L"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["L"]),
+    ["Groove"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Groove"]),
+    ["Helicopter"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Helicopter"]),
+    ["Floss"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Floss"]),
+    ["Kick"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Kick"]),
+    ["Headless"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Headless"]),
+    ["Laugh"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Laugh"]),
+    ["Parker"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Parker"]),
+    ["Thriller"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Thriller"]),
+    ["Spasm"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Spasm"])
+}
+
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
+    for i, v in pairs(Anims) do
+        if v.IsPlaying then
+            v:Stop()
+        end
+    end
+task.wait()
+if string.lower(msg) == "/e l" then
+   Anims["L"]:Play()
 elseif string.lower(msg) == "/e groove" then
-Groove:Play()
-elseif string.lower(msg) == "/e headless" then
-Headless:Play()
+   Anims["Groove"]:Play()
 elseif string.lower(msg) == "/e helicopter" then
-Helicopter:Play()
+   Anims["Helicopter"]:Play()
+elseif string.lower(msg) == "/e floss" then
+   Anims["Floss"]:Play()
 elseif string.lower(msg) == "/e kick" then
-Kick:Play()
-elseif string.lower(msg) == "/e l" then
-L:Play()
+   Anims["Kick"]:Play()
+elseif string.lower(msg) == "/e headless" then
+   Anims["Headless"]:Play()
 elseif string.lower(msg) == "/e laugh" then
-Laugh:Play()
+   Anims["Laugh"]:Play()
+   game:GetService("ReplicatedStorage").AnimationSound:FireServer("LAUGH")
 elseif string.lower(msg) == "/e parker" then
-Parker:Play()
-elseif string.lower(msg) == "/e spasm" then
-Spasm:Play()
+   Anims["Parker"]:Play()
 elseif string.lower(msg) == "/e thriller" then
-Thriller:Play()
-end
-EP = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+   Anims["Thriller"]:Play()
+elseif string.lower(msg) == "/e spasm" then
+   Anims["Spasm"]:Play()
+else
+Notification("You chat wrong name emotes, Chat [ /e Emote Name ]", 5)
 end
 end)
-game:GetService("RunService").Heartbeat:Connect(function()
-if EP ~= nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Floss.IsPlaying or Groove.IsPlaying or Headless.IsPlaying or Helicopter.IsPlaying or Kick.IsPlaying or L.IsPlaying or Laugh.IsPlaying or Parker.IsPlaying or Spasm.IsPlaying or Thriller.IsPlaying then
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - EP).Magnitude
-if Magnitude > 1 then
-Floss:Stop(); Groove:Stop(); Headless:Stop(); Helicopter:Stop(); Kick:Stop(); L:Stop(); Laugh:Stop(); Parker:Stop(); Spasm:Stop(); Thriller:Stop()
-end
-end
+
+game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
+    if game.Players.LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
+        for i, v in pairs(Anims) do
+            if v.IsPlaying then
+                v:Stop()
+            end
+        end
+    end
 end)
 end)
 
@@ -8271,59 +8269,58 @@ fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.Clic
 end)
 
 Misc1Group:AddButton("Free Emotes", function()
-Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
-Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
-Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
-Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
-Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
-L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
-Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
-Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
-Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
-Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
-game.Players.LocalPlayer.Chatted:connect(function(msg)
-if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-Floss = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss, game.Players.LocalPlayer.Character.Humanoid)
-Groove = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove, game.Players.LocalPlayer.Character.Humanoid)
-Headless = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless, game.Players.LocalPlayer.Character.Humanoid)
-Helicopter = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter, game.Players.LocalPlayer.Character.Humanoid)
-Kick = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick, game.Players.LocalPlayer.Character.Humanoid)
-L = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L, game.Players.LocalPlayer.Character.Humanoid)
-Laugh = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh, game.Players.LocalPlayer.Character.Humanoid)
-Parker = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker, game.Players.LocalPlayer.Character.Humanoid)
-Spasm = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm, game.Players.LocalPlayer.Character.Humanoid)
-Thriller = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller, game.Players.LocalPlayer.Character.Humanoid)
-if string.lower(msg) == "/e floss" then
-Floss:Play()
-elseif string.lower(msg) == "/e groove" then
-Groove:Play()
-elseif string.lower(msg) == "/e headless" then
-Headless:Play()
-elseif string.lower(msg) == "/e helicopter" then
-Helicopter:Play()
-elseif string.lower(msg) == "/e kick" then
-Kick:Play()
-elseif string.lower(msg) == "/e l" then
-L:Play()
-elseif string.lower(msg) == "/e laugh" then
-Laugh:Play()
-elseif string.lower(msg) == "/e parker" then
-Parker:Play()
-elseif string.lower(msg) == "/e spasm" then
-Spasm:Play()
-elseif string.lower(msg) == "/e thriller" then
-Thriller:Play()
-end
-EP = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+local Anims = {
+    ["L"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["L"]),
+    ["Groove"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Groove"]),
+    ["Helicopter"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Helicopter"]),
+    ["Floss"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Floss"]),
+    ["Kick"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Kick"]),
+    ["Headless"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Headless"]),
+    ["Laugh"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Laugh"]),
+    ["Parker"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Parker"]),
+    ["Thriller"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Thriller"]),
+    ["Spasm"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Spasm"])
+}
+
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
+    for _, v in pairs(Anims) do
+        if v.IsPlaying then
+            v:Stop()
+        end
+    end
+task.wait()
+if string.lower(msg) == "/e l" or string.lower(msg) == "/e L" then
+   Anims["L"]:Play()
+elseif string.lower(msg) == "/e groove" or string.lower(msg) == "/e Groove" then
+   Anims["Groove"]:Play()
+elseif string.lower(msg) == "/e helicopter" or string.lower(msg) == "/e Helicopter" then
+   Anims["Helicopter"]:Play()
+elseif string.lower(msg) == "/e floss" or string.lower(msg) == "/e Floss" then
+   Anims["Floss"]:Play()
+elseif string.lower(msg) == "/e kick" or string.lower(msg) == "/e Kick" then
+   Anims["Kick"]:Play()
+elseif string.lower(msg) == "/e headless" or string.lower(msg) == "/e Headless" then
+   Anims["Headless"]:Play()
+elseif string.lower(msg) == "/e laugh" or string.lower(msg) == "/e Laugh" then
+   Anims["Laugh"]:Play()
+   game:GetService("ReplicatedStorage").AnimationSound:FireServer("LAUGH")
+elseif string.lower(msg) == "/e parker" or string.lower(msg) == "/e Parker" then
+   Anims["Parker"]:Play()
+elseif string.lower(msg) == "/e thriller" or string.lower(msg) == "/e Thriller" then
+   Anims["Thriller"]:Play()
+elseif string.lower(msg) == "/e spasm" or string.lower(msg) == "/e Spasm" then
+   Anims["Spasm"]:Play()
 end
 end)
-game:GetService("RunService").Heartbeat:Connect(function()
-if EP ~= nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and Floss.IsPlaying or Groove.IsPlaying or Headless.IsPlaying or Helicopter.IsPlaying or Kick.IsPlaying or L.IsPlaying or Laugh.IsPlaying or Parker.IsPlaying or Spasm.IsPlaying or Thriller.IsPlaying then
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - EP).Magnitude
-if Magnitude > 1 then
-Floss:Stop(); Groove:Stop(); Headless:Stop(); Helicopter:Stop(); Kick:Stop(); L:Stop(); Laugh:Stop(); Parker:Stop(); Spasm:Stop(); Thriller:Stop()
-end
-end
+
+game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
+    if game.Players.LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
+        for _, v in pairs(Anims) do
+            if v.IsPlaying then
+                v:Stop()
+            end
+        end
+    end
 end)
 end)
 
