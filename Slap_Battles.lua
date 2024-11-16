@@ -3286,6 +3286,19 @@ end
     end
 })
 
+Misc1Basic:AddToggle("Spam UTG run mode", {
+    Text = "Auto spam run mode (click to slide)",
+    Default = false,
+    Callback = function(Value)
+        _G.RunModeSpam = Value
+        repeat
+            task.wait()
+                game:GetService("ReplicatedStorage"):WaitForChild("UTGGeneric"):FireServer("enableRunMode")
+        until _G.RunModeSpam == false
+
+                
+})
+
  Misc1Basic:AddToggle("Auto Spam Ability", {
     Text = "Auto Spam Ability",
     Default = false, 
@@ -4863,6 +4876,23 @@ end
 end) 
 
 local Glove1Group = Tabs.Tab6:AddLeftGroupbox("Glove")
+
+
+
+
+
+
+
+if _G.TeleportOldPlace == "Yes" then
+    OLG = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    end
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerButton].Character.HumanoidRootPart.CFrame
+    wait(0.15)
+    game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+    wait(0.15)
+    if _G.TeleportOldPlace == "Yes" then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OLG
+    end
 
 Glove1Group:AddDropdown("Prop", {
     Text = "Prop Ability",
@@ -10013,6 +10043,7 @@ gloveHits = {
     ------------------------------------------------------------------------
     ["Poltergeist"] = game.ReplicatedStorage.UTGHit,
     ["Clock"] = game.ReplicatedStorage.UTGHit,
+    ["Untitled Tag Glove"] = game.ReplicatedStorage.UTGHit,
     ------------------------------------------------------------------------
     ["Kinetic"] = game.ReplicatedStorage.HtStun,
     ["Recall"] = game.ReplicatedStorage.HtStun,
