@@ -100,8 +100,8 @@ while ReplicaBallerFarm do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -109,13 +109,13 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(0.09)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Replica.ClickDetector)
 wait(0.25)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -131,7 +131,7 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.Baller.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Baller.ClickDetector)
 end
 end
 
@@ -145,13 +145,13 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 end
 wait(0.25)
 game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
-fireclickdetector(workspace.Lobby.Baller.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Baller.ClickDetector)
 wait(0.25)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -167,13 +167,13 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(0.09)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.Replica.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Replica.ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -189,7 +189,7 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.Blink.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Blink.ClickDetector)
 end
 end
 
@@ -651,7 +651,7 @@ end
 if _G.NotificationSound then
         local sound = Instance.new("Sound", workspace)
             sound.SoundId = "rbxassetid://4590662766"
-            sound.Volume = 2
+            sound.Volume = _G.VolumeTime or 2
             sound.PlayOnRemove = true
             sound:Destroy()
         end
@@ -685,8 +685,7 @@ local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Server")
 CanYouFps = InfoServer1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]", true)
 CanYouPing = InfoServer1Group:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]", true)
 ServerPlayer = InfoServer1Group:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]", true)
--- [[TimeServer = InfoServer1Group:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]", true)]]
-	-- Temporary Remove
+TimeServer = InfoServer1Group:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]", true)
 TimeNow = InfoServer1Group:AddLabel("Now Time [ "..os.date("%X").." ]", true)
 if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
 AlarmTime = InfoServer1Group:AddLabel("Good Morning [ "..tonumber(os.date("%H")).." Hour ]", true)
@@ -698,8 +697,6 @@ else
 AlarmTime = InfoServer1Group:AddLabel("Good Night [ "..tonumber(os.date("%H")).." Hour ]", true)
 end
 AgeAccYou = InfoServer1Group:AddLabel("You Account Age [ "..game.Players.LocalPlayer.AccountAge.." ]", true)
---[[ ViewAgeServer = InfoServer1Group:AddLabel("Server's Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]", true)]]
--- Temporary Remove
 if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
 ResetTime = InfoServer1Group:AddLabel("Time Spawn [ "..game.Players.RespawnTime.." ]", true)
 else
@@ -742,12 +739,12 @@ OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ MATERIALIZE ]", true)
 else
 OrbSpawn = InfoServer1Group:AddLabel("Spawn Orb [ No ]", true)
 end
+CheckNullShards = InfoServer1Group:AddLabel("Check Null Shard [ "..game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].NullShards.Value.." ]", true)
+CheckTournamentWins = InfoServer1Group:AddLabel("Check Tournament Win [ "..game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].TournamentWins.Value.." ]", true)
 CheckSlap = InfoServer1Group:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]", true)
 Glove = {}
 for i,v in pairs(game.Workspace.Lobby.GloveStands:GetChildren()) do
-if v.Name ~= "Unknown" then
 table.insert(Glove, v)
-end
 end
 InfoServer1Group:AddLabel("Much Glove [ "..#Glove.." ]", true)
 GloveCheck = InfoServer1Group:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]", true)
@@ -780,7 +777,6 @@ else
 AlarmTime:SetText("Good Night [ "..tonumber(os.date("%H")).." Hour ]", true)
 end
 AgeAccYou:SetText("You Account Age [ "..game.Players.LocalPlayer.AccountAge.." ]", true)
-ViewAgeServer:SetText("Server's Age [ "..game.Workspace.Lobby.ServerAge.Text.SurfaceGui.TextLabel.Text.." ]", true)
 if game.Players.LocalPlayer.Character.Humanoid.Health == 0 then
 ResetTime:SetText("Time Spawn [ "..game.Players.RespawnTime.." ]", true)
 else
@@ -823,6 +819,8 @@ OrbSpawn:SetText("Spawn Orb [ MATERIALIZE ]", true)
 else
 OrbSpawn:SetText("Spawn Orb [ No ]", true)
 end
+CheckNullShards:SetText("Check Null Shard [ "..game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].NullShards.Value.." ]", true)
+CheckTournamentWins:SetText("Check Tournament Win [ "..game.ReplicatedStorage.PlayerData[game.Players.LocalPlayer.Name].TournamentWins.Value.." ]", true)
 CheckSlap:SetText("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]", true)
 GloveCheck:SetText("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]", true)
 PlateTime:SetText("Plate Time [ "..game.Players.LocalPlayer.PlayerGui.PlateIndicator.TextLabel.Text.." ]", true)
@@ -842,7 +840,6 @@ end
 })
 
 local Script1Group = Tabs.Tab1:AddLeftGroupbox("Script Basic")
-local Script2Group = Tabs.Tab1:AddRightGroupbox("Script")
 
 Script1Group:AddButton({
     Text = "Execute | Ui Library",
@@ -864,6 +861,8 @@ Script1Group:AddButton({
 loadstring(game:HttpGet("https://gist.githubusercontent.com/lxnnydev/c533c374ca4c1dcef4e1e10e33fa4a0c/raw/03e74f184f801dad77d3ebe1e2f18c6ac87ca612/delta___IY.gistfile1.txt.lua",true))()
     end
 })
+
+local Script2Group = Tabs.Tab1:AddRightGroupbox("Script")
 
 Script2Group:AddButton({
     Text = "Position Gui",
@@ -1056,15 +1055,17 @@ Anti2Group:AddToggle("Anti Portal", {
     Callback = function(Value)
 _G.AntiPortal = Value
 if _G.AntiPortal == true then
-workspace.Lobby.Teleport2.CanTouch = false
-workspace.Lobby.Teleport3.CanTouch = false
-workspace.Lobby.Teleport4.CanTouch = false
-workspace.Lobby.Teleport6.CanTouch = false
+for i,v in pairs(workspace.Lobby.Portals:GetChildren()) do
+if v.Name ~= "NormalArena" and v:FindFirstChild("PortalTrigger") then
+v.PortalTrigger.CanTouch = false
+end
+end
 else
-workspace.Lobby.Teleport2.CanTouch = true
-workspace.Lobby.Teleport3.CanTouch = true
-workspace.Lobby.Teleport4.CanTouch = true
-workspace.Lobby.Teleport6.CanTouch = true
+for i,v in pairs(workspace.Lobby.Portals:GetChildren()) do
+if v.Name ~= "NormalArena" and v:FindFirstChild("PortalTrigger") then
+v.PortalTrigger.CanTouch = true
+end
+end
 end
     end
 })
@@ -1496,7 +1497,7 @@ Anti2Group:AddToggle("Anti Brazil", {
     Callback = function(Value)
 _G.AntiBrazil = Value
 while _G.AntiBrazil do
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+for i,v in pairs(game.workspace.Lobby.Decoration.brazil:GetChildren()) do
                   if v.CanTouch == true then
                      v.CanTouch = false
                  end
@@ -1504,7 +1505,7 @@ for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
 task.wait()
 end
 if _G.AntiBrazil == false then
-for i,v in pairs(game.Workspace.Lobby.brazil:GetChildren()) do
+for i,v in pairs(game.workspace.Lobby.Decoration.brazil:GetChildren()) do
                   if v.CanTouch == false then
                      v.CanTouch = true
                  end
@@ -2387,14 +2388,14 @@ Badge2Group:AddButton({
     Func = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ghost" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-fireclickdetector(workspace.Lobby["ZZZZZZZ"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["ZZZZZZZ"].ClickDetector)
 wait(0.2)
 game:GetService("ReplicatedStorage").ZZZZZZZSleep:FireServer()
-fireclickdetector(workspace.Lobby["Brick"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["Brick"].ClickDetector)
 wait(0.2)
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Teleport1.CFrame)
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Portals.NormalArena.PortalTrigger.CFrame)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.35)
@@ -2458,13 +2459,11 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Cloud" and game:GetServi
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,2,35)
 wait(0.3)
 game:GetService("ReplicatedStorage").CloudAbility:FireServer()
-fireclickdetector(workspace.Lobby.fish.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.fish.ClickDetector)
 wait(0.2)
-repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Portals.NormalArena.PortalTrigger.CFrame)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
@@ -2827,8 +2826,8 @@ Misc2Group:AddDropdown("GodMobe", {
     Callback = function(Value)
 if Value == "Godmode" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
 end
 repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -2851,8 +2850,8 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Orig
 elseif Value == "Godmode + Invisibility" then
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
 end
 repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -2866,9 +2865,9 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands[OGlove].ClickDetector)
 for i,v in pairs(game.LogService:GetChildren()) do
                         v.Parent = game.Players.LocalPlayer.Backpack
                 end
@@ -2891,7 +2890,7 @@ end
 
 Misc2Group:AddDropdown("Teleport Place", {
     Text = "Teleport",
-    Values = {"Arena", "Lobby", "Hunter Room", "Tournament", "Brazil", "Island Slapple", "Plate", "Cannon Island", "Equip Glovel", "Keypad", "Cube Of Death", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
+    Values = {"Arena", "Lobby", "Hunter Room", "Tournament", "Brazil", "Island Slapple", "Plate", "Cannon Island", "Keypad", "Cube Of Death", "Moai Island", "Default Arena", "Island 1", "Island 2", "Island 3"},
     Default = "",
     Multi = false,
     Callback = function(Value)
@@ -2902,7 +2901,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-800,328
 elseif Value == "Hunter Room" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.BountyHunterRoom.Union.CFrame * CFrame.new(0,5,0)
 elseif Value == "Brazil" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.Decoration.brazil.portal.CFrame
 elseif Value == "Island Slapple" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.island5.Union.CFrame * CFrame.new(0,3.25,0)
 elseif Value == "Plate" then
@@ -2915,12 +2914,6 @@ Notification("Tournament Island don't not spawn.", 5)
 end
 elseif Value == "Cannon Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,0,35)
-elseif Value == "Equip Glovel" then
-if game.Players.LocalPlayer.leaderstats.Glove.Value == "Extended" and game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.GlovelHoleInTheWall.GlovelHoleInTheWall.CFrame
-else
-Notification("You don't have Extended equipped.", 5)
-end
 elseif Value == "Keypad" then
 if not workspace:FindFirstChild("Keypad") then
 Notification("Server in don't have keypad.", 5)
@@ -3779,6 +3772,10 @@ while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Lawn
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer("lawnmower")
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Untitled Tag Glove" do
+game:GetService("ReplicatedStorage").UTGGeneric:FireServer("enableRunMode")
+task.wait()
+end
     end
 }):AddKeyPicker("SpamAbility", {
    Default = "B",
@@ -3928,19 +3925,19 @@ _G.GloveEquipHehe = Value
  Misc1Basic:AddButton("Equip Glove", function()
 if _G.GloveEquipHehe == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands[_G.EquipGlove].ClickDetector)
 else
 Notification("You aren't in the lobby.", 5)
 end
 elseif _G.GloveEquipHehe == "Tournament" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(game.Workspace.Lobby[_G.EquipGlove].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands[_G.EquipGlove].ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
@@ -3975,8 +3972,8 @@ if _G.AutoEnter == "Arena" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 0)
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 1)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
 end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
@@ -3984,8 +3981,8 @@ elseif _G.AutoEnter == "Arena Default" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport2, 0)
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport2, 1)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 0)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 1)
 end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
@@ -3994,6 +3991,11 @@ task.wait()
 end
     end
 })
+
+_G.SlapAuraCharacter = "HumanoidRootPart"
+_G.ReachSlapArua = 25
+_G.SlapAuraFriend = "Fight"
+_G.SlapAuraChoose = "Normal"
 
  Misc1Basic:AddSlider("Reach Aura", {
     Text = "Reach Slap Aura",
@@ -4123,6 +4125,8 @@ end
 })
 
 _G.ReachShukuchi = 50
+_G.ShukuchiFriend = "Fight"
+
  Misc1Basic:AddSlider("Reach Shukuchi", {
     Text = "Reach Shukuchi",
     Default = 50,
@@ -4583,6 +4587,7 @@ BodyGloveEspText = Instance.new("TextLabel", BodyGloveEsp)
 BodyGloveEspText.BackgroundTransparency = 1
 BodyGloveEspText.Size = UDim2.new(0, 100, 0, 100)
 BodyGloveEspText.TextSize = _G.TextSize
+BodyGloveEspText.Font = Enum.Font.SourceSansBold
 BodyGloveEspText.TextColor3 = _G.ColorESP
 BodyGloveEspText.TextStrokeTransparency = 0.5
 BodyGloveEspText.Text = "Body [ "..v.Name.." ]"
@@ -4608,6 +4613,7 @@ GhostGloveEspText = Instance.new("TextLabel", GhostGloveEsp)
 GhostGloveEspText.BackgroundTransparency = 1
 GhostGloveEspText.Size = UDim2.new(0, 100, 0, 100)
 GhostGloveEspText.TextSize = _G.TextSize
+GhostGloveEspText.Font = Enum.Font.SourceSansBold
 GhostGloveEspText.TextColor3 = _G.ColorESP
 GhostGloveEspText.TextStrokeTransparency = 0.5
 GhostGloveEspText.Text = "Ghost [ "..v.Name.." ]"
@@ -4754,7 +4760,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and game.Players
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.35)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-fireclickdetector(game.Workspace.Lobby["Error"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["Error"].ClickDetector)
 task.wait(8.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.07)
@@ -4770,13 +4776,13 @@ end):AddButton("Help Quake", function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerPut1].leaderstats.Glove.Value == "Berserk" then
 OGLSize = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.Size
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-fireclickdetector(game.Workspace.Lobby.woah.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.woah.ClickDetector)
 wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 task.wait(.2)
 game:GetService("ReplicatedStorage").VineThud:FireServer()
 task.wait(1)
-fireclickdetector(game.Workspace.Lobby["Home Run"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["Home Run"].ClickDetector)
 game.Players[_G.HelpPlayerGetQuake].Character.HumanoidRootPart.Size = Vector3.new(50,50,50)
 wait(0.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
@@ -4796,7 +4802,7 @@ wait(0.2)
 if 30 >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerPut1].Character.HumanoidRootPart.Position).Magnitude then
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.PlayerPut1].Character:WaitForChild("HumanoidRootPart"))
 end
-fireclickdetector(workspace.Lobby.Goofy.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Goofy.ClickDetector)
 wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.2)
@@ -4860,7 +4866,7 @@ end
 else
 Notification("You don't have Kinetic equipped, or you have to go Arena, or player have go to arena.", 5)
 end
-end) 
+end)
 
 local Glove1Group = Tabs.Tab6:AddLeftGroupbox("Glove")
 
@@ -5819,11 +5825,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Orig
 wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
-fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["rob"].ClickDetector)
 wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["bob"].ClickDetector)
 task.wait(0.08)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.3)
@@ -5841,11 +5847,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Orig
 wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
-fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["rob"].ClickDetector)
 wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["bob"].ClickDetector)
 task.wait(0.08)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.3)
@@ -5862,8 +5868,8 @@ wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.27)
@@ -5881,11 +5887,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
-fireclickdetector(workspace.Lobby["rob"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["rob"].ClickDetector)
 wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-fireclickdetector(workspace.Lobby["bob"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["bob"].ClickDetector)
 task.wait(0.08)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.3)
@@ -5902,8 +5908,8 @@ wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.27)
@@ -5932,13 +5938,13 @@ Notification("When will someone create a black hole [ BOB + ROB ].", 5)
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Default.ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
@@ -5957,8 +5963,8 @@ elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and g
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
@@ -5968,13 +5974,13 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blac
 end
 until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
-fireclickdetector(game.Workspace.Lobby.Default.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Default.ClickDetector)
 wait(0.07)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.05)
@@ -5991,8 +5997,8 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.2)
@@ -6264,11 +6270,11 @@ Glove2Group:AddDropdown("GloveFarm", {
     Callback = function(Value)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 if Value == "Baller" then
-fireclickdetector(workspace.Lobby["Baller"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["Baller"].ClickDetector)
 elseif Value == "Replica" then
-fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["Replica"].ClickDetector)
 elseif Value == "Blink" then
-fireclickdetector(workspace.Lobby["Blink"].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands["Blink"].ClickDetector)
 end
 else
 Notification("You aren't in the lobby.", 5)
@@ -6675,9 +6681,9 @@ end
 Glove2Group:AddButton("Infinite Invisibility", function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
+fireclickdetector(workspace.Lobby.GloveStands[OGlove].ClickDetector)
 task.wait(1)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v.Name ~= "Humanoid" then
@@ -7643,13 +7649,21 @@ if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:Fin
 v.Character.Head.GloveEsp.TextLabel.TextColor3 = _G.ColorESP
 end
 if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") then
-if _G.DistanceEsp == false then
+if _G.DistanceEsp == false and _G.NameEsp == false then
 if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.Glove.Value.." ]" then
 v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.Glove.Value.." ]"
 end
-elseif _G.DistanceEsp == true then
+elseif _G.DistanceEsp == true and _G.NameEsp == true then
+if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]\nName [ "..v.Name.." ]" then
+v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]\nName [ "..v.Name.." ]"
+end
+elseif _G.DistanceEsp == true and _G.NameEsp == false then
 if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]" then
 v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]"
+end
+elseif _G.DistanceEsp == false and _G.NameEsp == true then
+if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.Glove.Value.." ]\nName [ "..v.Name.." ]" then
+v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.Glove.Value.." ]\nName [ "..v.Name.." ]"
 end
 end
 end
@@ -7685,6 +7699,15 @@ _G.ColorESP = Value
    Text = "Glove Esp",
    Mode = Library.IsMobile and "Toggle" or "Hold",
    SyncToggleState = Library.IsMobile
+})
+
+_G.NameEsp = false
+Esp1Group:AddToggle("Name Esp", {
+    Text = "Name Player Esp",
+    Default = false, 
+    Callback = function(Value) 
+_G.NameEsp = Value
+    end
 })
 
 Esp1Group:AddToggle("Esp1", {
@@ -7783,11 +7806,11 @@ _G.DistanceEsp = Value
     end
 })
 
-_G.TextSize = 15
+_G.TextSize = 10
 Esp1Group:AddSlider("Size Text Esp", {
     Text = "Size Text Esp",
-    Default = 15,
-    Min = 15,
+    Default = 10,
+    Min = 10,
     Max = 40,
     Rounding = 0,
     Compact = true,
@@ -7941,7 +7964,7 @@ end)
 
 local Misc1Group = Tabs.Tab2:AddLeftGroupbox("Misc")
 
-CodeLab = Misc1Group:AddLabel("Code [ ??? ]")
+CodeLab = Misc1Group:AddLabel("Code [ ???? ]")
 
 Misc1Group:AddButton("Get Lab Code", function()
 if game.Workspace.Map.CodeBrick.SurfaceGui:FindFirstChild("IMGTemplate") then
@@ -8428,8 +8451,8 @@ Misc1Group:AddToggle("Anti Null", {
     Text = "Anti Null",
     Default = false, 
     Callback = function(Value) 
-AntiNull = Value
-while AntiNull do
+_G.AntiNull = Value
+while _G.AntiNull do
 for i,v in pairs(game.Workspace.Mobs:GetChildren()) do
 if v.Name == "Imp" and v:FindFirstChild("Body") then
 game:GetService("ReplicatedStorage").b:FireServer(v.Body)
@@ -8786,8 +8809,8 @@ Misc1Group:AddToggle("Auto Win", {
     Text = "Auto Win",
     Default = false, 
     Callback = function(Value)
-WinTeleport = Value
-while WinTeleport do
+_G.WinTeleport = Value
+while _G.WinTeleport do
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "Part" and v:FindFirstChild("TouchInterest") then
@@ -9483,7 +9506,9 @@ for i,v in ipairs(game.Workspace.DialoguePrompts:GetChildren()) do
             end
         end
 end
-end):AddButton("Get Key + Unlock oog", function()
+end)
+
+Misc1Group:AddButton("Teleport Key", function()
 if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 0 then
 game.Workspace.QuestStuff.Key.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 wait(0.35)
@@ -9493,7 +9518,10 @@ for i,v in ipairs(game.Workspace.QuestStuff:GetChildren()) do
                    fireclickdetector(v.ClickDetector, 1)
             end
         end
-wait(2.89)
+end
+end)
+
+Misc1Group:AddButton("GUnlock oog", function()
 if game.Workspace.Buildings:FindFirstChild("oog's cage") and game.Workspace.Buildings["oog's cage"]:FindFirstChild("Door") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Buildings["oog's cage"].Door.Door.CFrame * CFrame.new(-3,0,0)
 wait(0.35)
@@ -9503,17 +9531,6 @@ for i,v in ipairs(game.Workspace.Buildings["oog's cage"]:GetChildren()) do
                    fireclickdetector(v.ClickDetector, 1)
             end
         end
-end
-wait(2.5)
-if game.Workspace.NPCS:FindFirstChild("Pablo Pinkypoo") and game.Workspace.NPCS["Pablo Pinkypoo"]:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.NPCS["Pablo Pinkypoo"].HumanoidRootPart.CFrame * CFrame.new(0,0,5)
-wait(0.4)
-for i,v in ipairs(game.Workspace.DialoguePrompts:GetChildren()) do
-            if v.Name == "PabloPinkyPoo" and v:FindFirstChild("ProximityPrompt") then
-                fireproximityprompt(v.ProximityPrompt)
-            end
-        end
-end
 end
 end)
 
@@ -9532,6 +9549,19 @@ for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "BoxingGloves" and v:FindFirstChild("ClickDetector") then
 fireclickdetector(v.ClickDetector, 0)
 fireclickdetector(v.ClickDetector, 1)
+end
+end
+end
+end)
+
+Misc1Group:AddButton("Teleport Event Area", function()
+for i, v in ipairs(workspace.Signs:GetChildren()) do
+if v.Name == "Sign" and v:FindFirstChild("Text") and v.Text:FindFirstChild("ClickDetector") then
+if fireclickdetector then
+fireclickdetector(v.Text.ClickDetector, 0)
+fireclickdetector(v.Text.ClickDetector, 1)
+elseif not fireclickdetector then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Text.CFrame
 end
 end
 end
@@ -9571,16 +9601,15 @@ Tabs = {
 
 local Misc1Group = Tabs.Tab:AddLeftGroupbox("Get / Teleport")
 
-Misc1Group:AddButton("Get Glove", function()
+Misc1Group:AddButton("Teleport Glove", function()
+if fireclickdetector then
 if game.Workspace:FindFirstChild("Orb") then
 fireclickdetector(game.Workspace.Orb.ClickDetector, 0)
 fireclickdetector(game.Workspace.Orb.ClickDetector, 1)
 end
-end):AddButton("Teleport Glove", function()
+elseif not fireclickdetector then
+if game.Workspace:FindFirstChild("Orb") and game.Workspace.Orb:FindFirstChild("Meshes/rock chain glove_defaultglove_cell.001") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Orb["Meshes/rock chain glove_defaultglove_cell.001"].CFrame
-for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Shadow" then
-v:Destroy()
 end
 end
 end)
@@ -9758,6 +9787,28 @@ end)
 Misc1Group:AddButton("Teleport Door", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Furniture.finalDoor.Base.Base.CFrame
 end)
+elseif game.PlaceId == 115782629143468 then
+local Window = Library:CreateWindow({
+	Title = "Article Hub 🅰️ - TOH",
+	Center = true,
+    AutoShow = true,
+    Resizable = true,
+    ShowCustomCursor = true,
+    NotifySide = "Right",
+    TabPadding = 2,
+    MenuFadeTime = 0
+})
+
+Tabs = {
+	Tab = Window:AddTab("Misc", "rbxassetid://4370318685"),
+	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+}
+
+local Misc1Group = Tabs.Tab:AddLeftGroupbox("Misc")
+
+Misc1Group:AddButton("Teleport Badge", function()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-31, 187, 0)
+end)
 end
 
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
@@ -9790,6 +9841,18 @@ MenuGroup:AddToggle("NotifySound", {
     Default = true, 
     Callback = function(Value) 
 _G.NotificationSound = Value 
+    end
+})
+
+MenuGroup:AddSlider("Volume Notification", {
+    Text = "Volume Notification",
+    Default = 2,
+    Min = 2,
+    Max = 5,
+    Rounding = 1,
+    Compact = true,
+    Callback = function(Value)
+_G.VolumeTime = Value
     end
 })
 
@@ -10013,6 +10076,7 @@ gloveHits = {
     ------------------------------------------------------------------------
     ["Poltergeist"] = game.ReplicatedStorage.UTGHit,
     ["Clock"] = game.ReplicatedStorage.UTGHit,
+    ["Untitled Tag Glove"] = game.ReplicatedStorage.UTGHit,
     ------------------------------------------------------------------------
     ["Kinetic"] = game.ReplicatedStorage.HtStun,
     ["Recall"] = game.ReplicatedStorage.HtStun,
