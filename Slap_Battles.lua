@@ -14,12 +14,17 @@ local bypass;
             return
         elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.WalkSpeedChanged then
             return
+        elseif getnamecallmethod() == "FireServer" and method == game.ReplicatedStorage.GRAB then
+            return
         end
         return bypass(method, ...)
     end)
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Bypass Success",Icon = "rbxassetid://7733658504",Duration = 5})
 else
 game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "You cannot bypass, you must be careful",Icon = "rbxassetid://7733658504",Duration = 5})
+end
+if game.StarterPlayer.StarterPlayerScripts:FindFirstChild("ClientAnticheat") and game.StarterPlayer.StarterPlayerScripts.ClientAnticheat:FindFirstChild("AntiMobileExploits") then
+   game.StarterPlayer.StarterPlayerScripts.ClientAnticheat.AntiMobileExploits:Destroy()
 end
 
 ---Potion---
@@ -9080,11 +9085,11 @@ fireclickdetector(v.ClickDetector, 1)
                 end
 end)
 
-Misc1Group:AddButton("Teleport Fight Guide", function()
+Misc1Group:AddButton("Teleport Guide", function()
 if game.Workspace.VoidPart:FindFirstChild("Safe") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.VoidPart.Safe.CFrame * CFrame.new(0,25,0)
 end
-end):AddButton("Lever Start", function()
+end):AddButton("Safe", function()
 if game.Workspace.VoidPart:FindFirstChild("Safe") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.VoidPart.Safe.CFrame * CFrame.new(0,-40,0)
 end
@@ -9332,7 +9337,7 @@ end
    SyncToggleState = Library.IsMobile
 })
 
-Misc1Group:AddButton("Fight Potato", function()
+Misc2Group:AddButton("Fight Potato", function()
 if game.Workspace:FindFirstChild("PotatoLord") then
 for i,v in pairs(game.workspace:GetChildren()) do
 if v.Name == "PotatoLord" and v:FindFirstChild("HumanoidRootPart") then
@@ -9398,7 +9403,7 @@ end
     end
 })
 
-local Local1Group = Tabs.Tab3:AddLeftGroupbox("Speed")
+local Local1Group = Tabs.Tab2:AddLeftGroupbox("Speed")
 
 Local1Group:AddSlider("WalkSpeed", {
     Text = "Speed",
@@ -9438,7 +9443,7 @@ task.wait()
     end
 })
 
-local Local2Group = Tabs.Tab3:AddRightGroupbox("Jump")
+local Local2Group = Tabs.Tab2:AddRightGroupbox("Jump")
 
 Local2Group:AddSlider("JumpPower", {
     Text = "Jump",
