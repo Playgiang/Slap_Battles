@@ -2830,13 +2830,11 @@ Misc2Group:AddDropdown("GodMobe", {
     Multi = false,
     Callback = function(Value)
 if Value == "Godmode" then
-repeat task.wait() 
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
 end
-until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
-wait(0.3)
+repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v:IsA("Tool") and v.Name ~= "Radio" then
                         v.Parent = game.LogService
@@ -2860,12 +2858,7 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
 firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
 end
-repeat task.wait() 
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
-end
-until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
+repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                     if v:IsA("Tool") and v.Name ~= "Radio" then
                         v.Parent = game.LogService
@@ -3124,13 +3117,10 @@ while SlappleFarm do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Slapple" or v.Name == "GoldenSlapple" and v:FindFirstChild("Glove") and v.Glove:FindFirstChildWhichIsA("TouchTransmitter") then
-                    v.Glove.Transparency = 1
-                    if v:FindFirstChild("Glove") and v.Glove.Transparency == 1 then
                     v.Glove.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                 end
             end
         end
-    end
 task.wait()
 end
     end
@@ -4813,17 +4803,13 @@ fireclickdetector(workspace.Lobby.GloveStands["Error"].ClickDetector)
 task.wait(8.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.07)
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerRetroGo].Character.HumanoidRootPart.Position).Magnitude
-                        if 30 >= Magnitude then
 game.ReplicatedStorage.Errorhit:FireServer(game.Players[_G.PlayerPut1].Character:WaitForChild("Head"))
-                end
 else
 Notification("You have in Lobby | Player [ ".._G.PlayerPut1.." ] in arena, or You don't have Glitch equipped, or you have don't have 50K Slap", 5)
 end
 end
 end):AddButton("Help Quake", function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerPut1].leaderstats.Glove.Value == "Berserk" then
-OGLSize = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.Size
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
 fireclickdetector(workspace.Lobby.GloveStands.woah.ClickDetector)
 wait(4.2)
@@ -4835,9 +4821,7 @@ fireclickdetector(workspace.Lobby.GloveStands["Home Run"].ClickDetector)
 wait(0.4)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerButton].Character.HumanoidRootPart.CFrame
-wait(3)
-game.Players[_G.PlayerPut1].Character.HumanoidRootPart.Size = OGLSize
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 else
 Notification("You don't have Home Run equipped, or you have to go lobby, or player don't have Berserk equipped.", 5)
 end
@@ -4854,9 +4838,7 @@ fireclickdetector(workspace.Lobby.GloveStands.Goofy.ClickDetector)
 wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.2)
-if 30 >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerPut1].Character.HumanoidRootPart.Position).Magnitude then
-game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.PlayerPut1].Character:WaitForChild("HumanoidRootPart"))
-end
+game:GetService("ReplicatedStorage").GeneralHit:FireServer(game.Players[_G.PlayerPut1].Character:WaitForChild("HumanoidRootPart"))
 else
 Notification("You don't have Confusion equipped, or you have to go lobby.", 5)
 end
@@ -5547,10 +5529,7 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerButton].Character.HumanoidRootPart.CFrame
 wait(0.25)
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerButton].Character.HumanoidRootPart.Position).Magnitude
-if 30 >= Magnitude then
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.PlayerButton].Character:WaitForChild("HumanoidRootPart"))
-end
 wait(0.25)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 game.Players[_G.PlayerButton].Character.HumanoidRootPart.Size = OGLZ
@@ -5570,10 +5549,7 @@ OGLZ = Target.Character.HumanoidRootPart.Size
 Target.Character.HumanoidRootPart.Size = Vector3.new(20,20,20)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame
 wait(0.25)
-Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Target.Character.HumanoidRootPart.Position).Magnitude
-if 30 >= Magnitude then
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(Target.Character:WaitForChild("HumanoidRootPart"))
-end
 wait(0.22)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 Target.Character.HumanoidRootPart.Size = OGLZ
