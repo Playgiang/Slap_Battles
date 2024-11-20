@@ -3873,6 +3873,7 @@ end)
 Misc1Basic:AddButton("Free Emotes", function()
 if LoadingScr then return end
 LoadingScr = true
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
 Anims = {
     ["L"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["L"]),
     ["Groove"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Groove"]),
@@ -3885,14 +3886,13 @@ Anims = {
     ["Thriller"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Thriller"]),
     ["Spasm"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Spasm"])
 }
-
-game.Players.LocalPlayer.Chatted:Connect(function(msg)
-    for i, v in pairs(Anims) do
+for i, v in pairs(Anims) do
         if v.IsPlaying then
             v:Stop()
         end
     end
 task.wait()
+if string.sub(msg, 1, 3):lower() == "/e " then
 if string.lower(msg) == "/e l" then
    Anims["L"]:Play()
 elseif string.lower(msg) == "/e groove" then
@@ -3917,8 +3917,7 @@ elseif string.lower(msg) == "/e spasm" then
 else
 Notification("You chat wrong name emotes, Chat [ /e Emote Name ]", 5)
 end
-end)
-
+end
 game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
     if game.Players.LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
         for i, v in pairs(Anims) do
@@ -3927,6 +3926,7 @@ game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirect
             end
         end
     end
+end)
 end)
 end)
 
@@ -8264,7 +8264,10 @@ fireclickdetector(game.Workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.Clic
 end)
 
 Misc1Group:AddButton("Free Emotes", function()
-local Anims = {
+if LoadingScr then return end
+LoadingScr = true
+game.Players.LocalPlayer.Chatted:Connect(function(msg)
+Anims = {
     ["L"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["L"]),
     ["Groove"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Groove"]),
     ["Helicopter"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Helicopter"]),
@@ -8276,46 +8279,47 @@ local Anims = {
     ["Thriller"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Thriller"]),
     ["Spasm"] = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(game:GetService("ReplicatedStorage").AnimationPack["Spasm"])
 }
-
-game.Players.LocalPlayer.Chatted:Connect(function(msg)
-    for _, v in pairs(Anims) do
+for i, v in pairs(Anims) do
         if v.IsPlaying then
             v:Stop()
         end
     end
 task.wait()
-if string.lower(msg) == "/e l" or string.lower(msg) == "/e L" then
+if string.sub(msg, 1, 3):lower() == "/e " then
+if string.lower(msg) == "/e l" then
    Anims["L"]:Play()
-elseif string.lower(msg) == "/e groove" or string.lower(msg) == "/e Groove" then
+elseif string.lower(msg) == "/e groove" then
    Anims["Groove"]:Play()
-elseif string.lower(msg) == "/e helicopter" or string.lower(msg) == "/e Helicopter" then
+elseif string.lower(msg) == "/e helicopter" then
    Anims["Helicopter"]:Play()
-elseif string.lower(msg) == "/e floss" or string.lower(msg) == "/e Floss" then
+elseif string.lower(msg) == "/e floss" then
    Anims["Floss"]:Play()
-elseif string.lower(msg) == "/e kick" or string.lower(msg) == "/e Kick" then
+elseif string.lower(msg) == "/e kick" then
    Anims["Kick"]:Play()
-elseif string.lower(msg) == "/e headless" or string.lower(msg) == "/e Headless" then
+elseif string.lower(msg) == "/e headless" then
    Anims["Headless"]:Play()
-elseif string.lower(msg) == "/e laugh" or string.lower(msg) == "/e Laugh" then
+elseif string.lower(msg) == "/e laugh" then
    Anims["Laugh"]:Play()
    game:GetService("ReplicatedStorage").AnimationSound:FireServer("LAUGH")
-elseif string.lower(msg) == "/e parker" or string.lower(msg) == "/e Parker" then
+elseif string.lower(msg) == "/e parker" then
    Anims["Parker"]:Play()
-elseif string.lower(msg) == "/e thriller" or string.lower(msg) == "/e Thriller" then
+elseif string.lower(msg) == "/e thriller" then
    Anims["Thriller"]:Play()
-elseif string.lower(msg) == "/e spasm" or string.lower(msg) == "/e Spasm" then
+elseif string.lower(msg) == "/e spasm" then
    Anims["Spasm"]:Play()
+else
+Notification("You chat wrong name emotes, Chat [ /e Emote Name ]", 5)
 end
-end)
-
+end
 game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
     if game.Players.LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
-        for _, v in pairs(Anims) do
+        for i, v in pairs(Anims) do
             if v.IsPlaying then
                 v:Stop()
             end
         end
     end
+end)
 end)
 end)
 
