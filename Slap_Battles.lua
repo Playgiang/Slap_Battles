@@ -891,6 +891,13 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scrip
 })
 
 Script2Group:AddButton({
+    Text = "Dex V4",
+    Func = function()
+loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+    end
+})
+
+Script2Group:AddButton({
     Text = "Simple Spy",
     Func = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/RemoteSpy-V2.lua", true))()
@@ -3786,6 +3793,10 @@ while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Unti
 game:GetService("ReplicatedStorage").UTGGeneric:FireServer("enableRunMode")
 task.wait()
 end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Virus" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait()
+end
     end
 }):AddKeyPicker("SpamAbility", {
    Default = "B",
@@ -4041,8 +4052,8 @@ _G.SlapAuraChoose = "Normal"
     Default = 25,
     Min = 10,
     Max = 50,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.ReachSlapArua = Value
     end
@@ -4171,8 +4182,8 @@ _G.ShukuchiFriend = "Fight"
     Default = 50,
     Min = 1,
     Max = 130,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.ReachShukuchi = Value
     end
@@ -4236,8 +4247,8 @@ _G.ReachHitbox = 10
     Default = 10,
     Min = 10,
     Max = 30,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.ReachHitbox = Value
     end
@@ -4518,7 +4529,7 @@ end
 local Misc2Esp = TabBoxMisc1:AddTab("Esp") 
 
 Misc2Esp:AddToggle("Esp Glove & Ghost", {
-    Text = "Esp Glove & Ghost",
+    Text = "Esp Glove",
     Default = false, 
     Callback = function(Value) 
 _G.GloveESP = Value
@@ -4529,9 +4540,9 @@ v.Character.Head.GloveEsp:Destroy()
 end
 for i,f in pairs(game.Workspace:GetChildren()) do
 if f.Name == (v.Name.."_Body") then
-if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("BodyGloveEsp") and f.HumanoidRootPart.BodyGloveEsp:FindFirstChild("TextLabel") and f.HumanoidRootPart.BodyGloveEsp.TextLabel.TextColor3 ~= _G.ColorESP then
+if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("BodyGloveEsp") then
 f.HumanoidRootPart.BodyGloveEsp:Destroy()
-if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("EspBoxBody") and f.HumanoidRootPart.EspBoxBody.Color3 ~= _G.ColorESP then
+if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("EspBoxBody") then
 f.HumanoidRootPart.EspBoxBody:Destroy()
 end
 end
@@ -4539,9 +4550,9 @@ end
 end
 for i,t in pairs(game.Workspace:GetChildren()) do
 if t.Name == (v.Name.."_Ghost") then
-if t:FindFirstChild("RootPart") and t.RootPart:FindFirstChild("GhostGloveEsp") and t.RootPart.GhostGloveEsp:FindFirstChild("TextLabel") and t.RootPart.GhostGloveEsp.TextLabel.TextColor3 ~= _G.ColorESP then
+if t:FindFirstChild("RootPart") and t.RootPart:FindFirstChild("GhostGloveEsp") then
 t.RootPart.GhostGloveEsp:Destroy()
-if t:FindFirstChild("RootPart") and t.RootPart:FindFirstChild("EspBoxGhost") and t.RootPart.EspBoxGhost.Color3 ~= _G.ColorESP then
+if t:FindFirstChild("RootPart") and t.RootPart:FindFirstChild("EspBoxGhost") then
 t.RootPart.EspBoxGhost:Destroy()
 end
 end
@@ -4556,13 +4567,21 @@ if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:Fin
 v.Character.Head.GloveEsp.TextLabel.TextColor3 = _G.ColorESP
 end
 if v.Character.Head:FindFirstChild("GloveEsp") and v.Character.Head.GloveEsp:FindFirstChild("TextLabel") then
-if _G.DistanceEsp == false then
+if _G.DistanceEsp == false and _G.SlapEsp == false then
 if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.leaderstats.Glove.Value.." ]" then
 v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
 end
-elseif _G.DistanceEsp == true then
+elseif _G.DistanceEsp == true and _G.SlapEsp == true then
+if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.leaderstats.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]\nSlap [ "..v.leaderstats.Slaps.Value.." ]" then
+v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]\nSlap [ "..v.leaderstats.Slaps.Value.." ]"
+end
+elseif _G.DistanceEsp == true and _G.SlapEsp == false then
 if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.leaderstats.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]" then
 v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]\nDistance [ "..string.format("%.1f", (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude).." ]"
+end
+elseif _G.DistanceEsp == false and _G.SlapEsp == true then
+if v.Character.Head.GloveEsp.TextLabel.Text ~= "Glove [ "..v.leaderstats.Glove.Value.." ]\nSlap [ "..v.leaderstats.Slaps.Value.." ]" then
+v.Character.Head.GloveEsp.TextLabel.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]\nSlap [ "..v.leaderstats.Slaps.Value.." ]"
 end
 end
 end
@@ -4585,6 +4604,7 @@ GloveEspText.TextColor3 = _G.ColorESP
 GloveEspText.TextStrokeTransparency = 0.5
 GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
 end
+if _G.GhostEsp == true then
 for i,f in pairs(game.Workspace:GetChildren()) do
 if f.Name == (v.Name.."_Body") then
 if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("BodyGloveEsp") and f.HumanoidRootPart.BodyGloveEsp:FindFirstChild("TextLabel") and f.HumanoidRootPart.BodyGloveEsp.TextLabel.TextColor3 ~= _G.ColorESP then
@@ -4668,7 +4688,29 @@ EspBoxGhost.Transparency = 0.5
                    end
                 end
             end
-        end
+elseif _G.GhostEsp == false then
+for i,f in pairs(game.Workspace:GetChildren()) do
+if f.Name == (v.Name.."_Body") then
+if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("BodyGloveEsp") then
+f.HumanoidRootPart.BodyGloveEsp:Destroy()
+if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("EspBoxBody") then
+f.HumanoidRootPart.EspBoxBody:Destroy()
+end
+end
+end
+end
+for i,t in pairs(game.Workspace:GetChildren()) do
+if t.Name == (v.Name.."_Ghost") then
+if t:FindFirstChild("RootPart") and t.RootPart:FindFirstChild("GhostGloveEsp") then
+t.RootPart.GhostGloveEsp:Destroy()
+if t:FindFirstChild("RootPart") and t.RootPart:FindFirstChild("EspBoxGhost") then
+t.RootPart.EspBoxGhost:Destroy()
+end
+end
+end
+end
+end
+end
 task.wait()
 end
     end
@@ -4693,11 +4735,29 @@ _G.DistanceEsp = Value
     end
 })
 
-_G.TextSize = 15
+_G.SlapEsp = false
+Misc2Esp:AddToggle("Slap Esp", {
+    Text = "Slap Esp",
+    Default = false, 
+    Callback = function(Value) 
+_G.SlapEsp = Value
+    end
+})
+
+_G.GhostEsp = false
+Misc2Esp:AddToggle("Ghost Esp", {
+    Text = "Ghost Esp",
+    Default = false, 
+    Callback = function(Value) 
+_G.GhostEsp = Value
+    end
+})
+
+_G.TextSize = 10
 Misc2Esp:AddSlider("Size Text Esp", {
     Text = "Size Text Esp",
-    Default = 15,
-    Min = 15,
+    Default = 10,
+    Min = 10,
     Max = 40,
     Rounding = 0,
     Compact = true,
@@ -9974,6 +10034,7 @@ gloveHits = {
     ["Rougelike"] = game.ReplicatedStorage.GeneralHit,
     ["Lawnmower"] = game.ReplicatedStorage.GeneralHit,
     ["Equalizer"] = game.ReplicatedStorage.GeneralHit,
+    ["Virus"] = game.ReplicatedStorage.GeneralHit,
     ------------------------------------------------------------------------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
