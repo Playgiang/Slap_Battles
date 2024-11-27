@@ -2,8 +2,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-game:GetService("GuiService"):ClearError()
-
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 if hookmetamethod then
 local bypass;
@@ -1792,11 +1790,23 @@ if game.ReplicatedStorage:FindFirstChild("Assets") and game.ReplicatedStorage.As
 game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
 wait(1.5)
 if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") then
-fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+for i, v in pairs(workspace.Retro.Map.RetroObbyMap:GetChildren()) do
+if v.Name == "Model" and v:FindFirstChild("StaffApp") and v.StaffApp:FindFirstChild("Button") and v.StaffApp.Button:FindFirstChild("ClickDetector") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.StaffApp.Button.CFrame
+wait(0.3)
+fireclickdetector(v.StaffApp.Button.ClickDetector)
+end
+end
 end
 else
 if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") then
-fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+for i, v in pairs(workspace.Retro.Map.RetroObbyMap:GetChildren()) do
+if v.Name == "Model" and v:FindFirstChild("StaffApp") and v.StaffApp:FindFirstChild("Button") and v.StaffApp.Button:FindFirstChild("ClickDetector") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.StaffApp.Button.CFrame
+wait(0.3)
+fireclickdetector(v.StaffApp.Button.ClickDetector)
+end
+end
 end
 end
 end
@@ -2296,22 +2306,20 @@ Badge2Group:AddButton({
     Text = "Get Glove Plank",
     Func = function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Fort" and not game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872) then
-OldPo = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-25875, 3013, -662)
+OGL = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 97, 4)
+wait(0.2)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.3)
 game:GetService("ReplicatedStorage").Fortlol:FireServer()
-wait(1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldPo
-repeat task.wait()
-for i,v in pairs(game.Workspace:GetChildren()) do
-if v.Name == "Part" then
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
-end
-end
-until game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 4031317971987872)
+wait(3.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+wait(0.1)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(8, 106, -6)
+wait(0.5)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 else
-Notification("You don't have Fort equipped, or you have owner badge", 5)
+Notification("You don't have Fort equipped, or you have owner badge [ Don't Turn On Shiftlock Please ]", 5)
 end
     end
 })
@@ -2338,8 +2346,7 @@ wait(0.8)
 repeat task.wait()
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "BusModel" then
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 end
 if game.Players.LocalPlayer.Character:FindFirstChild("Torso") then
@@ -2380,17 +2387,23 @@ Badge2Group:AddButton({
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 5000 then
 Door = 0
 for i = 1, 10 do
+if Door ~= nil then
 Door = Door + 1
-if game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
+end
+if Door ~= nil and game:GetService("BadgeService"):UserHasBadgeAsync(game.Players.LocalPlayer.UserId, 2124847850) then
 Door = nil
+Notification("You have Owner Badge", 5)
 else
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.PocketDimension.Doors[Door].TouchInterest.Parent, 1)
+repeat task.wait()
+if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.PocketDimension.Doors[Door].CFrame
+end
+until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 wait(3.75)
 end
 end
 else
-Notification("You don't have 5000 slap, or you have Owner bagde", 5)
+Notification("You don't have 5000 slap", 5)
 end
     end
 })
@@ -2640,8 +2653,7 @@ _G.Giftfarm = Value
 while _G.Giftfarm do
 for i,v in pairs(game.Workspace:GetChildren()) do
                     if v.Name == "Gift" then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), v, 1)
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     end
                 end
 task.wait()
@@ -3023,8 +3035,24 @@ end
 })
 
 Misc2Group:AddButton("Teleport Player", function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut].Character.HumanoidRootPart.CFrame
+if game.Players[_G.PlayerPut].Character and game.Players[_G.PlayerPut].Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut].Character.HumanoidRootPart.CFrame
+end
 end)
+
+Misc2Group:AddToggle("Auto Teleport Player", {
+    Text = "Auto Teleport Player",
+    Default = false, 
+    Callback = function(Value) 
+_G.PlayerTele = Value
+while _G.PlayerTele do
+if game.Players[_G.PlayerPut].Character and game.Players[_G.PlayerPut].Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut].Character.HumanoidRootPart.CFrame
+end
+task.wait()
+end
+    end
+})
 
 Misc2Group:AddToggle("Auto View Player", {
     Text = "Auto View Player",
@@ -3119,8 +3147,8 @@ local Misc1Basic = TabBoxMisc1:AddTab("Misc")
     Text = "Autofarm Slapples",
     Default = false, 
     Callback = function(Value) 
-SlappleFarm = Value
-while SlappleFarm do
+_G.SlappleFarm = Value
+while _G.SlappleFarm do
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
 for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and game.Players.LocalPlayer.Character:FindFirstChild("entered") and v.Name == "Slapple" or v.Name == "GoldenSlapple" and v:FindFirstChild("Glove") and v.Glove:FindFirstChildWhichIsA("TouchTransmitter") then
@@ -3142,8 +3170,8 @@ end
     Text = "Autofarm Candy",
     Default = false, 
     Callback = function(Value) 
-CandyCornsFarm = Value
-while CandyCornsFarm do
+_G.CandyCornsFarm = Value
+while _G.CandyCornsFarm do
 for i, v in pairs(game.Workspace.CandyCorns:GetChildren()) do
                 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -3159,7 +3187,10 @@ end
    SyncToggleState = Library.IsMobile
 })
 
- Misc1Basic:AddButton("Auto Keypad", function()
+Misc1Basic:AddButton({
+    Text = "Auto Keypad",
+    DoubleClick = true,
+    Func = function()
 if not workspace:FindFirstChild("Keypad") then
 Notification("Server in don't have keypad, can have started serverhop", 5)
 task.wait(1.5)
@@ -3180,7 +3211,8 @@ end
 wait(1)
 fireclickdetector(workspace:WaitForChild("Keypad").Buttons:FindFirstChild("Enter").ClickDetector)
 end
-end)
+    end
+})
 
  Misc1Basic:AddToggle("Auto Code Pocket Keypad", {
     Text = "Auto Code Pocket Keypad",
@@ -3941,11 +3973,14 @@ end)
 end)
 end)
 
- Misc1Basic:AddButton("Destroy All Tycoon", function()
-for i,v in pairs(workspace:GetDescendants()) do
-if v.Name == "Destruct" and v:FindFirstChild("ClickDetector") then
-for i = 1,110 do
-fireclickdetector(v.ClickDetector)
+Misc1Basic:AddButton("Destroy All Tycoon", function()
+for i, v in pairs(game.Workspace:GetChildren()) do
+if string.find(v.Name, "ÅTycoon") and v:FindFirstChild("Destruct") then
+for a = 1, 200 do
+if v:FindFirstChild("Destruct") then
+fireclickdetector(v.Destruct.ClickDetector, 0)
+fireclickdetector(v.Destruct.ClickDetector, 1)
+end
 end
 end
 end
@@ -4528,7 +4563,8 @@ end
 
 local Misc2Esp = TabBoxMisc1:AddTab("Esp") 
 
-Misc2Esp:AddToggle("Esp Glove & Ghost", {
+_G.ColorESP = Color3.new(255,255,255)
+Misc2Esp:AddToggle("Esp Glove", {
     Text = "Esp Glove",
     Default = false, 
     Callback = function(Value) 
@@ -4603,6 +4639,19 @@ GloveEspText.TextSize = _G.TextSize
 GloveEspText.TextColor3 = _G.ColorESP
 GloveEspText.TextStrokeTransparency = 0.5
 GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
+end
+if _G.HighlightEsp == true then
+repeat wait() until v.Character
+if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.HumanoidRootPart:FindFirstChild("HighlightEsp") == nil then
+local HighlightEsp = Instance.new("Highlight", v.Character.HumanoidRootPart)
+HighlightEsp.Adornee = v.Character
+HighlightEsp.Name = "HighlightEsp"
+HighlightEsp.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+task.wait()
+end
+elseif _G.HighlightEsp == false then
+if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.HumanoidRootPart:FindFirstChild("HighlightEsp") then
+v.Character.HumanoidRootPart.HighlightEsp:Destroy()
 end
 if _G.GhostEsp == true then
 for i,f in pairs(game.Workspace:GetChildren()) do
@@ -4711,6 +4760,7 @@ end
 end
 end
 end
+end
 task.wait()
 end
     end
@@ -4721,7 +4771,7 @@ _G.ColorESP = Value
      end
 }):AddKeyPicker("EspGlove", {
    Default = "T",
-   Text = "Esp Glove & Ghost",
+   Text = "Esp Glove",
    Mode = Library.IsMobile and "Toggle" or "Hold",
    SyncToggleState = Library.IsMobile
 })
@@ -4750,6 +4800,15 @@ Misc2Esp:AddToggle("Ghost Esp", {
     Default = false, 
     Callback = function(Value) 
 _G.GhostEsp = Value
+    end
+})
+
+_G.HighlightEsp = false
+Misc2Esp:AddToggle("Highlight Esp", {
+    Text = "Highlight Esp",
+    Default = false, 
+    Callback = function(Value) 
+_G.HighlightEsp = Value
     end
 })
 
