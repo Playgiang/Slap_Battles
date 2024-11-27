@@ -878,6 +878,12 @@ Script2Group:AddButton({
     Text = "Dex V2",
     Func = function()
 loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+wait(2)
+repeat task.wait()
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Dex") and game.Players.LocalPlayer.PlayerGui.Dex.ResetOnSpawn == true then
+game.Players.LocalPlayer.PlayerGui.Dex.ResetOnSpawn = false
+end
+until game.Players.LocalPlayer.PlayerGui:FindFirstChild("Dex") and game.Players.LocalPlayer.PlayerGui.Dex.ResetOnSpawn == false
     end
 })
 
@@ -891,7 +897,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scrip
 Script2Group:AddButton({
     Text = "Dex V4",
     Func = function()
-loadstring(game:HttpGet("https://cdn.wearedevs.net/scripts/Dex%20Explorer.txt"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/refs/heads/main/Dex-V4-Mobile.lua"))()
     end
 })
 
@@ -1957,12 +1963,28 @@ end
 end
 ]])
 end
-if game:GetService("ReplicatedStorage").Assets.Retro then
-game.ReplicatedStorage.Assets.Retro.Parent = workspace
+if game.ReplicatedStorage:FindFirstChild("Assets") and game.ReplicatedStorage.Assets:FindFirstChild("Retro") then
+game.ReplicatedStorage.Assets.Retro.Parent = game.Workspace
 wait(1.5)
-fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") then
+for i, v in pairs(workspace.Retro.Map.RetroObbyMap:GetChildren()) do
+if v.Name == "Model" and v:FindFirstChild("StaffApp") and v.StaffApp:FindFirstChild("Button") and v.StaffApp.Button:FindFirstChild("ClickDetector") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.StaffApp.Button.CFrame
+wait(0.3)
+fireclickdetector(v.StaffApp.Button.ClickDetector)
+end
+end
+end
 else
-fireclickdetector(workspace.Retro.Map.RetroObbyMap:GetChildren()[5].StaffApp.Button.ClickDetector)
+if game.Workspace:FindFirstChild("Retro") and game.Workspace.Retro:FindFirstChild("Map") then
+for i, v in pairs(workspace.Retro.Map.RetroObbyMap:GetChildren()) do
+if v.Name == "Model" and v:FindFirstChild("StaffApp") and v.StaffApp:FindFirstChild("Button") and v.StaffApp.Button:FindFirstChild("ClickDetector") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.StaffApp.Button.CFrame
+wait(0.3)
+fireclickdetector(v.StaffApp.Button.ClickDetector)
+end
+end
+end
 end
     end
 })
