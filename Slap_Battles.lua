@@ -4596,6 +4596,9 @@ for i, v in ipairs(game.Players:GetChildren()) do
 if v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("GloveEsp") then
 v.Character.Head.GloveEsp:Destroy()
 end
+if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.HumanoidRootPart:FindFirstChild(v.Name) then
+v.Character.HumanoidRootPart[v.Name]:Destroy()
+end
 for i,f in pairs(game.Workspace:GetChildren()) do
 if f.Name == (v.Name.."_Body") then
 if f:FindFirstChild("HumanoidRootPart") and f.HumanoidRootPart:FindFirstChild("BodyGloveEsp") then
@@ -4663,17 +4666,16 @@ GloveEspText.TextStrokeTransparency = 0.5
 GloveEspText.Text = "Glove [ "..v.leaderstats.Glove.Value.." ]"
 end
 if _G.HighlightEsp == true then
-repeat wait() until v.Character
-if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.HumanoidRootPart:FindFirstChild("HighlightEsp") == nil then
+if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.HumanoidRootPart:FindFirstChild(v.Name) == nil then
 local HighlightEsp = Instance.new("Highlight", v.Character.HumanoidRootPart)
 HighlightEsp.Adornee = v.Character
-HighlightEsp.Name = "HighlightEsp"
+HighlightEsp.Name = v.Name
 HighlightEsp.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-task.wait()
 end
 elseif _G.HighlightEsp == false then
-if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.HumanoidRootPart:FindFirstChild("HighlightEsp") then
-v.Character.HumanoidRootPart.HighlightEsp:Destroy()
+if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.HumanoidRootPart:FindFirstChild(v.Name) then
+v.Character.HumanoidRootPart[v.Name]:Destroy()
+end
 end
 if _G.GhostEsp == true then
 for i,f in pairs(game.Workspace:GetChildren()) do
@@ -4758,7 +4760,6 @@ EspBoxGhost.ZIndex = 5
 EspBoxGhost.Transparency = 0.5
                    end
                 end
-            end
 elseif _G.GhostEsp == false then
 for i,f in pairs(game.Workspace:GetChildren()) do
 if f.Name == (v.Name.."_Body") then
@@ -9924,6 +9925,40 @@ local Misc1Group = Tabs.Tab:AddLeftGroupbox("Misc")
 Misc1Group:AddButton("Teleport Badge", function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-31, 187, 0)
 end)
+elseif game.PlaceId == 92516899071319 then
+local Window = Library:CreateWindow({
+	Title = "Article Hub 🅰️ - Sleep Map",
+	Center = true,
+    AutoShow = true,
+    Resizable = true,
+    ShowCustomCursor = true,
+    NotifySide = "Right",
+    TabPadding = 2,
+    MenuFadeTime = 0
+})
+
+Tabs = {
+	Tab = Window:AddTab("Misc", "rbxassetid://4370318685"),
+	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
+}
+
+local Misc1Group = Tabs.Tab:AddLeftGroupbox("Misc")
+
+Misc1Group:AddToggle("Auto Collect Pillow", {
+    Text = "Auto Collect Pillow",
+    Default = false, 
+    Callback = function(Value) 
+_G.AutoCollectPillow = Value
+while _G.AutoCollectPillow do
+for i,v in pairs(game.Workspace.map:GetChildren()) do
+	if v.Name == "Meshes/pillow1" and v:FindFirstChild("ClickDetector") then
+		fireclickdetector(v:FindFirstChild("ClickDetector"))
+		end
+	end
+task.wait()
+end
+    end
+})
 end
 
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
@@ -10003,12 +10038,83 @@ SaveManager:IgnoreThemeSettings()
 SaveManager:BuildConfigSection(Tabs["UI Settings"])
 ThemeManager:ApplyToTab(Tabs["UI Settings"])
 SaveManager:LoadAutoloadConfig()
-
+------------------------------------------------------------------------
+if _G.AutoInfoFeelback == true then
+if http and http.request then
+       local jsonData = {
+          ["embeds"] = {{
+             ["title"] = "Article Hub 🅰️ - Player UserScript",
+             ["description"] = "# Check Server",
+             ["color"] = 16711680,
+             ["fields"] = {
+                  {["name"] = "Ping", ["value"] = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), ["inline"] = true},
+                  {["name"] = "FPS", ["value"] = math.floor(workspace:GetRealPhysicsFPS()), ["inline"] = true},
+                  {["name"] = "Server Player", ["value"] = tostring(#game.Players:GetPlayers()).." / "..game.Players.MaxPlayers, ["inline"] = true},
+                  {["name"] = "Display Name", ["value"] = game.Players.LocalPlayer.DisplayName, ["inline"] = true},
+                  {["name"] = "User ID", ["value"] = game.Players.LocalPlayer.UserId, ["inline"] = true},
+                  {["name"] = "Account Age", ["value"] = game.Players.LocalPlayer.AccountAge.." Days", ["inline"] = true}
+                },
+            ["footer"] = {["text"] = os.date("%c")}
+          }}
+        }
+    local response = http.request({
+        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode(jsonData)
+    })
+    local jsonData = {
+          ["embeds"] = {{
+             ["title"] = "Check Game",
+             ["color"] = 16711680,
+             ["fields"] = {
+                  {["name"] = "Game Name", ["value"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, ["inline"] = true},
+                  {["name"] = "Game Id", ["value"] = game.GameId, ["inline"] = true},
+                  {["name"] = "Job Id", ["value"] = game.JobId, ["inline"] = true},
+                  {["name"] = "Game Place Id", ["value"] = game.PlaceId, ["inline"] = true}
+                },
+            ["footer"] = {["text"] = os.date("%c")}
+          }}
+        }
+    local response = http.request({
+        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode(jsonData)
+    })
+    local jsonData = {
+          ["embeds"] = {{
+             ["title"] = "Executor",
+             ["color"] = 16711680,
+             ["fields"] = {
+                  {["name"] = "Executor", ["value"] = identifyexecutor() or "Unknown", ["inline"] = true}
+                },
+            ["footer"] = {["text"] = os.date("%c")}
+          }}
+        }
+    local response = http.request({
+        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = game:GetService("HttpService"):JSONEncode(jsonData)
+    })
+Notification("Feelback Success", 2)
+else
+Notification("http not only executor", 2)
+end
+end
+------------------------------------------------------------------------
 gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
     ["Extended"] = game.ReplicatedStorage.b,
     ------------------------------------------------------------------------
-    ["T H I C K"] = game.ReplicatedStorage.GeneralHit,
+	["T H I C K"] = game.ReplicatedStorage.GeneralHit,
     ["Squid"] = game.ReplicatedStorage.GeneralHit,
     ["Gummy"] = game.ReplicatedStorage.GeneralHit,
     ["RNG"] = game.ReplicatedStorage.GeneralHit,
