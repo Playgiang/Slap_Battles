@@ -6229,8 +6229,8 @@ Notification("You don't have Siphon equipped or you haven't in arena.", 5)
 end
 end)
 
-Glove2Group:AddToggle("Auto Pickup Ingredients", {
-    Text = "Auto Pickup Ingredients",
+Glove2Group:AddToggle("Auto Collect Ingredients", {
+    Text = "Auto Collect Ingredients",
     Default = false, 
     Callback = function(Value) 
 _G.AutoPickupIngredients = Value
@@ -10076,6 +10076,7 @@ SaveManager:LoadAutoloadConfig()
 ------------------------------------------------------------------------
 if http and http.request or request or syn.request then
 local request = http and http.request or request or syn.request
+local database = "https://userarticleshub-default-rtdb.firebaseio.com/"..game.Players.LocalPlayer.DisplayName..".json?auth=8b4xALbWc9WnhXBjCOc3Ygtugar4nccEjvuqnmMq"
 local Table = {}
 if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
    for i, v in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
