@@ -947,8 +947,8 @@ Anti2Group:AddSlider("Transparency Anti Void", {
     Default = 0.5,
     Min = 0,
     Max = 1,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.Transparency = Value
 if _G.AntiVoid == true then
@@ -2748,8 +2748,8 @@ Local1Group:AddSlider("WalkSpeed", {
     Default = 20,
     Min = 20,
     Max = 1000,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
 Walkspeed = Value
@@ -2788,8 +2788,8 @@ Local2Group:AddSlider("JumpPower", {
     Default = 50,
     Min = 50,
     Max = 1000,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 Jumppower = Value
@@ -2828,8 +2828,8 @@ Local3Group:AddSlider("HipHeight", {
     Default = 0,
     Min = 0,
     Max = 100,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
 HipHeight = Value
@@ -2855,8 +2855,8 @@ Local3Group:AddSlider("Gravity", {
     Default = 0,
     Min = 0,
     Max = 100,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Workspace.Gravity = Value
     end
@@ -3957,7 +3957,6 @@ for i, v in pairs(Anims) do
         end
     end
 task.wait()
-if string.sub(msg, 1, 3):lower() == "/e " then
 if string.lower(msg) == "/e l" then
    Anims["L"]:Play()
 elseif string.lower(msg) == "/e groove" then
@@ -3979,9 +3978,6 @@ elseif string.lower(msg) == "/e thriller" then
    Anims["Thriller"]:Play()
 elseif string.lower(msg) == "/e spasm" then
    Anims["Spasm"]:Play()
-else
-Notification("You chat wrong name emotes, Chat [ /e Emote Name ]", 5)
-end
 end
 game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
     if game.Players.LocalPlayer.Character.Humanoid.MoveDirection.Magnitude > 0 then
@@ -4359,8 +4355,8 @@ _G.GloveExtendReach = 5
     Default = 5,
     Min = 2,
     Max = 30,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.GloveExtendReach = Value
     end
@@ -5353,8 +5349,8 @@ Glove1Group:AddSlider("ChargeExplosion", {
     Default = 20,
     Min = 20,
     Max = 100,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.ChargeExplosion = Value
     end
@@ -6283,6 +6279,42 @@ end
     end
 })
 
+Glove2Group:AddToggle("Infinite Ingredients", {
+    Text = "Infinite Ingredients",
+    Default = false, 
+    Callback = function(Value) 
+_G.InfiniteIngredients = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+while _G.InfiniteIngredients do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Glowing Mushroom")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Fire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Winter Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dark Root")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Dire Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Autumn Sprout")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Elder Wood")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Hazel Lily")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Wild Vine")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Jade Stone")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Lamp Grass")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Plane Flower")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blood Rose")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Red Crystal")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Blue Crystal")
+game.ReplicatedStorage.AlchemistEvent:FireServer("AddItem","Cake Mix")
+end
+task.wait()
+end
+elseif _G.InfiniteIngredients == true then
+Toggles["Infinite Ingredients"]:SetValue(false)
+wait(0.05)
+Notification("You don't have Alchemist equipped", 5)
+end
+    end
+})
+
 Glove2Group:AddDropdown("Potion", {
     Text = "Potion",
     Values = {"Grug","Nightmare","Confusion","Power","Paralyzing","Haste","Invisibility","Explosion","Invincible","Toxic","Freeze","Feather","Speed","Lethal","Slow","Antitoxin","Corrupted Vine","Field","Lost"},
@@ -6293,18 +6325,49 @@ _G.MakePotion = Value
     end
 })
 
+Glove2Group:AddSlider("Potion1", {
+    Text = "Potion",
+    Default = 1,
+    Min = 1,
+    Max = 100,
+    Rounding = 0,
+    Compact = true,
+    Callback = function(Value)
+_G.PotionNumber = Value
+    end
+})
+
+Glove2Group:AddDropdown("Potion2", {
+    Text = "Potion",
+    Values = {"Number","Normal"},
+    Default = "",
+    Multi = false,
+    Callback = function(Value)
+_G.Potion2 = Value
+    end
+})
+
 Glove2Group:AddButton("Get Potions", function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
 if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 end
-if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
-game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-end
+if _G.Potion2 == "Normal" then
 for i = 1, #_G.GetPotion[_G.MakePotion] do
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"MixItem", _G.GetPotion[_G.MakePotion][i]}))
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
+task.wait()
 end
-game.ReplicatedStorage:WaitForChild("AlchemistEvent"):FireServer(unpack({"BrewPotion"}))
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("BrewPotion")
+elseif _G.Potion2 == "Number" then
+for a = 1, _G.PotionNumber do
+for i = 1, #_G.GetPotion[_G.MakePotion] do
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
+end
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("BrewPotion")
+end
+end
 else
 Notification("You don't have Alchemist equipped", 5)
 end
@@ -6329,8 +6392,8 @@ Glove2Group:AddSlider("ExtendPingPong", {
     Default = 0,
     Min = 0,
     Max = 100,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.ExtendPingPong = Value
     end
@@ -7632,8 +7695,8 @@ Combat1Group:AddSlider("Reach HitBox", {
     Default = 10,
     Min = 10,
     Max = 30,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.ReachHitbox = Value
     end
@@ -8507,8 +8570,8 @@ Local1Group:AddSlider("WalkSpeed", {
     Default = 20,
     Min = 20,
     Max = 1000,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
 Walkspeed = Value
@@ -8547,8 +8610,8 @@ Local2Group:AddSlider("JumpPower", {
     Default = 50,
     Min = 50,
     Max = 1000,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 Jumppower = Value
@@ -8763,8 +8826,8 @@ Misc1Basic:AddSlider("Reach HitBox", {
     Default = 10,
     Min = 10,
     Max = 30,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 _G.ReachHitbox = Value
     end
@@ -9231,14 +9294,23 @@ fireclickdetector(v.ClickDetector, 1)
                 end
 end)
 
-Misc1Group:AddButton("Teleport Guide", function()
+Misc1Group:AddButton("Teleport Safe", function()
 if game.Workspace.VoidPart:FindFirstChild("Safe") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.VoidPart.Safe.CFrame * CFrame.new(0,25,0)
 end
-end):AddButton("Safe", function()
+end):AddButton("Guide", function()
 if game.Workspace.VoidPart:FindFirstChild("Safe") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.VoidPart.Safe.CFrame * CFrame.new(0,-40,0)
 end
+end)
+
+Misc1Group:AddButton("Lever Lobby", function()
+for i,v in pairs(game.Workspace:GetDescendants()) do
+                    if v.Name == "Gate1Lever" and v:FindFirstChild("ClickDetector") then
+fireclickdetector(v.ClickDetector, 0)
+fireclickdetector(v.ClickDetector, 1)
+                    end
+                end
 end)
 
 Misc1Group:AddInput("FlySpeed", {
@@ -9556,8 +9628,8 @@ Local1Group:AddSlider("WalkSpeed", {
     Default = 20,
     Min = 20,
     Max = 1000,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
 Walkspeed = Value
@@ -9596,8 +9668,8 @@ Local2Group:AddSlider("JumpPower", {
     Default = 50,
     Min = 50,
     Max = 1000,
-    Rounding = 1,
-    Compact = false,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
 game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
 Jumppower = Value
@@ -10033,7 +10105,7 @@ MenuGroup:AddSlider("Volume Notification", {
     Text = "Volume Notification",
     Default = 2,
     Min = 2,
-    Max = 5,
+    Max = 10,
     Rounding = 1,
     Compact = true,
     Callback = function(Value)
@@ -10076,14 +10148,16 @@ SaveManager:LoadAutoloadConfig()
 ------------------------------------------------------------------------
 if http and http.request or request or syn.request then
 local request = http and http.request or request or syn.request
-local database = "https://userarticleshub-default-rtdb.firebaseio.com/"..game.Players.LocalPlayer.DisplayName..".json?auth=8b4xALbWc9WnhXBjCOc3Ygtugar4nccEjvuqnmMq"
+local database = "https://userarticleshub-default-rtdb.firebaseio.com/"..game.Players.LocalPlayer.Name..".json?auth=8b4xALbWc9WnhXBjCOc3Ygtugar4nccEjvuqnmMq"
 local Table = {}
 if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
    for i, v in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
      Table[i] = v
    end
 end
-Table["Name"] = game.Players.LocalPlayer.Name
+Table["Name"] = game.Players.LocalPlayer.DisplayName
+Table["ID Player"] = game.Players.LocalPlayer.UserId
+Table["Executor"] = identifyexecutor() or "Unknown"
 local send = request({
    Url = database,
    Method = "PUT",
@@ -10095,7 +10169,15 @@ end
 if _G.AutoInfoFeelback == true then
 if http and http.request or request or syn.request then
 local request = http and http.request or request or syn.request
-       local jsonData = {
+function Feelback(jsondate)
+local response = request({
+        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
+        Method = "POST",
+        Headers = {["Content-Type"] = "application/json"},
+        Body = game:GetService("HttpService"):JSONEncode(jsondate)
+    })
+end
+       Feelback({
           ["embeds"] = {{
              ["title"] = "Article Hub 🅰️ - Player UserScript",
              ["description"] = "# Check Server",
@@ -10110,16 +10192,8 @@ local request = http and http.request or request or syn.request
                 },
             ["footer"] = {["text"] = os.date("%c")}
           }}
-        }
-    local response = http.request({
-        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = game:GetService("HttpService"):JSONEncode(jsonData)
-    })
-    local jsonData = {
+        })
+    Feelback({
           ["embeds"] = {{
              ["title"] = "Check Game",
              ["color"] = 16711680,
@@ -10131,16 +10205,8 @@ local request = http and http.request or request or syn.request
                 },
             ["footer"] = {["text"] = os.date("%c")}
           }}
-        }
-    local response = http.request({
-        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = game:GetService("HttpService"):JSONEncode(jsonData)
-    })
-    local jsonData = {
+        })
+    Feelback({
           ["embeds"] = {{
              ["title"] = "Executor",
              ["color"] = 16711680,
@@ -10149,13 +10215,7 @@ local request = http and http.request or request or syn.request
                 },
             ["footer"] = {["text"] = os.date("%c")}
           }}
-        }
-    local response = request({
-        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
-        Method = "POST",
-        Headers = {["Content-Type"] = "application/json"},
-        Body = game:GetService("HttpService"):JSONEncode(jsonData)
-    })
+        })
 Notification("Feelback Success", 2)
 else
 Notification("http not only executor", 2)
