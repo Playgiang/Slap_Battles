@@ -142,3 +142,7 @@ end)
 CreateabuttonSc("Weird Strict Dad 👨‍👦", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/scr/Weird_strict_Dad.lua"))()
 end)
+
+CreateabuttonSc("Slap Battles 👏", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/Slap_Battles.lua"))()
+end)
