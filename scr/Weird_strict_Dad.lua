@@ -1,5 +1,3 @@
-
-
 local repo = 'https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/'
 local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
 local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))()
@@ -7,7 +5,7 @@ local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
 --// Create Window \\--
 local Window = Library:CreateWindow({
-    Title = 'AmongUs x GiangMc Hub | Weird Strict Dad | ' .. identifyexecutor(),
+    Title = ' Article Hub 🅰️ | Weird Strict Dad | ' .. identifyexecutor(),
     Center = true,
     AutoShow = true,
     TabPadding = 8,
@@ -41,7 +39,7 @@ Main:AddToggle('Chaser', {
                 if momChase then
                     momChase:Destroy()
                 end
-                wait(0)
+                wait()
             end
         end
     end
