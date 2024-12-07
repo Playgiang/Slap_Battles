@@ -103,8 +103,8 @@ while ReplicaBallerFarm do
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -112,13 +112,13 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(0.09)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.GloveStands.Replica.ClickDetector)
+fireclickdetector(workspace.Lobby.Replica.ClickDetector)
 wait(0.25)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -134,7 +134,7 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.GloveStands.Baller.ClickDetector)
+fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 end
 end
 
@@ -148,13 +148,13 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OGL
 end
 wait(0.25)
 game:GetService("ReplicatedStorage").Blink:FireServer("OutOfBody", {["dir"] = Vector3.new(0, 0, 0),["ismoving"] = false,["mousebehavior"] = Enum.MouseBehavior.Default})
-fireclickdetector(workspace.Lobby.GloveStands.Baller.ClickDetector)
+fireclickdetector(workspace.Lobby.Baller.ClickDetector)
 wait(0.25)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -170,13 +170,13 @@ game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(0.09)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.GloveStands.Replica.ClickDetector)
+fireclickdetector(workspace.Lobby.Replica.ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport2.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.25)
@@ -192,7 +192,7 @@ game:GetService("ReplicatedStorage").Duplicate:FireServer()
 wait(20)
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.GloveStands.Blink.ClickDetector)
+fireclickdetector(workspace.Lobby.Blink.ClickDetector)
 end
 end
 
@@ -680,6 +680,7 @@ Tabs = {
     Tab4 = Window:AddTab("Local", "rbxassetid://4335489011"),
     Tab5 = Window:AddTab("Misc", "rbxassetid://4370318685"),
     Tab6 = Window:AddTab("Gloves Optional", "rbxassetid://7733955740"),
+    ["Update"] = Window:AddTab("Update", "rbxassetid://10723356210"),
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
@@ -747,7 +748,9 @@ CheckTournamentWins = InfoServer1Group:AddLabel("Check Tournament Win [ "..game.
 CheckSlap = InfoServer1Group:AddLabel("Check Slap [ "..game.Players.LocalPlayer.leaderstats.Slaps.Value.." ]", true)
 Glove = {}
 for i,v in pairs(game.Workspace.Lobby.GloveStands:GetChildren()) do
+if v.Name ~= "Unknown" then
 table.insert(Glove, v)
+end
 end
 InfoServer1Group:AddLabel("Much Glove [ "..#Glove.." ]", true)
 GloveCheck = InfoServer1Group:AddLabel("You're Using Glove [ "..game.Players.LocalPlayer.leaderstats.Glove.Value.." ]", true)
@@ -1071,17 +1074,15 @@ Anti2Group:AddToggle("Anti Portal", {
     Callback = function(Value)
 _G.AntiPortal = Value
 if _G.AntiPortal == true then
-for i,v in pairs(workspace.Lobby.Portals:GetChildren()) do
-if v.Name ~= "NormalArena" and v:FindFirstChild("PortalTrigger") then
-v.PortalTrigger.CanTouch = false
-end
-end
+workspace.Lobby.Teleport2.CanTouch = false
+workspace.Lobby.Teleport3.CanTouch = false
+workspace.Lobby.Teleport4.CanTouch = false
+workspace.Lobby.Teleport6.CanTouch = false
 else
-for i,v in pairs(workspace.Lobby.Portals:GetChildren()) do
-if v.Name ~= "NormalArena" and v:FindFirstChild("PortalTrigger") then
-v.PortalTrigger.CanTouch = true
-end
-end
+workspace.Lobby.Teleport2.CanTouch = true
+workspace.Lobby.Teleport3.CanTouch = true
+workspace.Lobby.Teleport4.CanTouch = true
+workspace.Lobby.Teleport6.CanTouch = true
 end
     end
 })
@@ -2442,7 +2443,7 @@ fireclickdetector(workspace.Lobby.GloveStands["Brick"].ClickDetector)
 wait(0.2)
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Portals.NormalArena.PortalTrigger.CFrame)
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Teleport1.CFrame)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.35)
@@ -2510,7 +2511,7 @@ fireclickdetector(workspace.Lobby.GloveStands.fish.ClickDetector)
 wait(0.2)
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Portals.NormalArena.PortalTrigger.CFrame)
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(workspace.Lobby.Teleport1.CFrame)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
@@ -2872,8 +2873,8 @@ Misc2Group:AddDropdown("GodMobe", {
     Callback = function(Value)
 if Value == "Godmode" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 1)
 end
 repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -2896,8 +2897,8 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Orig
 elseif Value == "Godmode + Invisibility" then
 if game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1, 1)
 end
 repeat task.wait() until game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") or game.Players.LocalPlayer.Backpack:FindFirstChildWhichIsA("Tool")
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
@@ -4034,13 +4035,13 @@ Notification("You aren't in the lobby.", 5)
 end
 elseif _G.GloveEquipHehe == "Tournament" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(workspace.Lobby.GloveStands[_G.EquipGlove].ClickDetector)
+fireclickdetector(workspace.Lobby[_G.EquipGlove].ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.3)
@@ -4075,8 +4076,8 @@ if _G.AutoEnter == "Arena" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.NormalArena.PortalTrigger, 0)
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.NormalArena.PortalTrigger, 1)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 0)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport1, 1)
 end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
@@ -4084,8 +4085,8 @@ elseif _G.AutoEnter == "Arena Default" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
 if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 0)
-firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 1)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport2, 0)
+firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Lobby.Teleport2, 1)
 end
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
@@ -4937,7 +4938,7 @@ if game.Players.LocalPlayer.leaderstats.Glove.Value == "Glitch" and game.Players
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.35)
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-fireclickdetector(workspace.Lobby.GloveStands["Error"].ClickDetector)
+fireclickdetector(workspace.Lobby["Error"].ClickDetector)
 task.wait(8.5)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.07)
@@ -4949,13 +4950,13 @@ end
 end):AddButton("Help Quake", function()
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Home Run" and game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players[_G.PlayerPut1].leaderstats.Glove.Value == "Berserk" then
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["start"] = true})
-fireclickdetector(workspace.Lobby.GloveStands.woah.ClickDetector)
+fireclickdetector(workspace.Lobby.woah.ClickDetector)
 wait(4.2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 task.wait(.2)
 game:GetService("ReplicatedStorage").VineThud:FireServer()
 task.wait(1)
-fireclickdetector(workspace.Lobby.GloveStands["Home Run"].ClickDetector)
+fireclickdetector(workspace.Lobby["Home Run"].ClickDetector)
 wait(0.4)
 game:GetService("ReplicatedStorage").HomeRun:FireServer({["finished"] = true})
 task.wait(0.12)
@@ -4972,7 +4973,7 @@ wait(0.2)
 if 30 >= (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - game.Players[_G.PlayerPut1].Character.HumanoidRootPart.Position).Magnitude then
 game:GetService("ReplicatedStorage"):WaitForChild("GeneralHit"):FireServer(game.Players[_G.PlayerPut1].Character:WaitForChild("HumanoidRootPart"))
 end
-fireclickdetector(workspace.Lobby.GloveStands.Goofy.ClickDetector)
+fireclickdetector(workspace.Lobby.Goofy.ClickDetector)
 wait(2)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut1].Character.HumanoidRootPart.CFrame
 wait(0.2)
@@ -5997,11 +5998,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Orig
 wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
-fireclickdetector(workspace.Lobby.GloveStands["rob"].ClickDetector)
+fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-fireclickdetector(workspace.Lobby.GloveStands["bob"].ClickDetector)
+fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 task.wait(0.08)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.3)
@@ -6019,11 +6020,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Orig
 wait(0.1)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
-fireclickdetector(workspace.Lobby.GloveStands["rob"].ClickDetector)
+fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-fireclickdetector(workspace.Lobby.GloveStands["bob"].ClickDetector)
+fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 task.wait(0.08)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.3)
@@ -6040,8 +6041,8 @@ wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.27)
@@ -6059,11 +6060,11 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
 wait(0.05)
-fireclickdetector(workspace.Lobby.GloveStands["rob"].ClickDetector)
+fireclickdetector(workspace.Lobby["rob"].ClickDetector)
 wait(0.3)
 game:GetService("ReplicatedStorage").rob:FireServer()
 wait(4.8)
-fireclickdetector(workspace.Lobby.GloveStands["bob"].ClickDetector)
+fireclickdetector(workspace.Lobby["bob"].ClickDetector)
 task.wait(0.08)
 game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
 wait(0.3)
@@ -6080,8 +6081,8 @@ wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.27)
@@ -6110,13 +6111,13 @@ Notification("When will someone create a black hole [ BOB + ROB ].", 5)
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") ~= nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
 game:GetService("Players").LocalPlayer.Reset:FireServer()
 wait(3.75)
-fireclickdetector(workspace.Lobby.GloveStands.Default.ClickDetector)
+fireclickdetector(workspace.Lobby.Default.ClickDetector)
 wait(0.5)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
@@ -6135,8 +6136,8 @@ elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and g
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.5)
@@ -6146,13 +6147,13 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blac
 end
 until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 elseif game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Glove.Value ~= "Default" then
-fireclickdetector(workspace.Lobby.GloveStands.Default.ClickDetector)
+fireclickdetector(workspace.Lobby.Default.ClickDetector)
 wait(0.07)
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.05)
@@ -6169,8 +6170,8 @@ if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 repeat task.wait() until game.Players.LocalPlayer.Character
 if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
 repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Portals.NormalArena.PortalTrigger.TouchInterest.Parent, 1)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
+firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
 until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 end
 wait(0.2)
@@ -6544,11 +6545,11 @@ Glove2Group:AddDropdown("GloveFarm", {
     Callback = function(Value)
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
 if Value == "Baller" then
-fireclickdetector(workspace.Lobby.GloveStands["Baller"].ClickDetector)
+fireclickdetector(workspace.Lobby["Baller"].ClickDetector)
 elseif Value == "Replica" then
-fireclickdetector(workspace.Lobby.GloveStands["Replica"].ClickDetector)
+fireclickdetector(workspace.Lobby["Replica"].ClickDetector)
 elseif Value == "Blink" then
-fireclickdetector(workspace.Lobby.GloveStands["Blink"].ClickDetector)
+fireclickdetector(workspace.Lobby["Blink"].ClickDetector)
 end
 else
 Notification("You aren't in the lobby.", 5)
@@ -6955,9 +6956,9 @@ end
 Glove2Group:AddButton("Infinite Invisibility", function()
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil and game.Players.LocalPlayer.leaderstats.Slaps.Value >= 666 then
 OGlove = game.Players.LocalPlayer.leaderstats.Glove.Value
-fireclickdetector(workspace.Lobby.GloveStands.Ghost.ClickDetector)
+fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
 game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
-fireclickdetector(workspace.Lobby.GloveStands[OGlove].ClickDetector)
+fireclickdetector(workspace.Lobby[OGlove].ClickDetector)
 task.wait(1)
 for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 if v.Name ~= "Humanoid" then
@@ -7184,6 +7185,7 @@ local Window = Library:CreateWindow({
     
 Tabs = {
     Tab = Window:AddTab("Misc", "rbxassetid://4370318685"),
+    ["Update"] = Window:AddTab("Update", "rbxassetid://7733955511"),
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
@@ -10068,6 +10070,14 @@ end
 })
 end
 
+local SlapBattlesUpGroup = Tabs["Update"]:AddLeftGroupbox("Slap Battles")
+
+SlapBattlesUpGroup:AddLabel("[ * ] Fix Equip Glove / All", true)
+SlapBattlesUpGroup:AddLabel("[ * ] Fix Enter Arena / All", true)
+SlapBattlesUpGroup:AddLabel("[ * ] Fix Anti Portal", true)
+
+local SlapRoyaleUpGroup = Tabs["Update"]:AddRightGroupbox("Slap Royale")
+
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
 local CreditsGroup = Tabs["UI Settings"]:AddRightGroupbox("Credits")
 
@@ -10134,8 +10144,88 @@ end):AddButton("Copy Link Zalo", function()
 end)
 MenuGroup:AddButton("Unload", function() Library:Unload() end)
 
-CreditsGroup:AddLabel("AmongUs - Python / Dex / Script")
-CreditsGroup:AddLabel("Giang Hub - Script / Dex")
+CreditsGroup:AddLabel("AmongUs - Python / Dex / Script / Python", true)
+CreditsGroup:AddLabel("Giang Hub - Script / Dex", true)
+CreditsGroup:AddDivider()
+CreditsGroup:AddLabel("Feedback error script or up to you, 3 time feedback to you", true)
+CreditsGroup:AddInput("Feedback", {
+    Default = "",
+    Numeric = false,
+    Text = "",
+    Placeholder = "Feedback",
+    Callback = function(Value)
+_G.Feedback = Value
+    end
+})
+
+_G.FeedbackSuccess = 0
+CreditsGroup:AddButton("Feedback", function()
+if _G.FeedbackSuccess == 3 then return end
+_G.FeedbackSuccess = _G.FeedbackSuccess + 1
+if http and http.request or request or syn.request then
+local request = http and http.request or request or syn.request
+function Feelback(jsondate)
+local response = request({
+        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
+        Method = "POST",
+        Headers = {["Content-Type"] = "application/json"},
+        Body = game:GetService("HttpService"):JSONEncode(jsondate)
+    })
+end
+Feelback({
+          ["embeds"] = {{
+             ["title"] = "Article Hub 🅰️ - Player Feedback",
+             ["description"] = "# Feedback",
+             ["color"] = 16711680,
+             ["fields"] = {
+             	{["name"] = "Feedback", ["value"] = "```".._G.Feedback.."```", ["inline"] = true}
+                },
+            ["footer"] = {["text"] = os.date("%c")}
+          }}
+        })
+       Feelback({
+          ["embeds"] = {{
+             ["description"] = "# Check Server",
+             ["color"] = 16711680,
+             ["fields"] = {
+                  {["name"] = "Ping", ["value"] = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), ["inline"] = true},
+                  {["name"] = "FPS", ["value"] = math.floor(workspace:GetRealPhysicsFPS()), ["inline"] = true},
+                  {["name"] = "Server Player", ["value"] = tostring(#game.Players:GetPlayers()).." / "..game.Players.MaxPlayers, ["inline"] = true},
+                  {["name"] = "Display Name", ["value"] = game.Players.LocalPlayer.DisplayName, ["inline"] = true},
+                  {["name"] = "User ID", ["value"] = game.Players.LocalPlayer.UserId, ["inline"] = true},
+                  {["name"] = "Account Age", ["value"] = game.Players.LocalPlayer.AccountAge.." Days", ["inline"] = true}
+                },
+            ["footer"] = {["text"] = os.date("%c")}
+          }}
+        })
+    Feelback({
+          ["embeds"] = {{
+             ["description"] = "# Check Game",
+             ["color"] = 16711680,
+             ["fields"] = {
+                  {["name"] = "Game Name", ["value"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, ["inline"] = true},
+                  {["name"] = "Game Id", ["value"] = game.GameId, ["inline"] = true},
+                  {["name"] = "Job Id", ["value"] = game.JobId, ["inline"] = true},
+                  {["name"] = "Game Place Id", ["value"] = game.PlaceId, ["inline"] = true}
+                },
+            ["footer"] = {["text"] = os.date("%c")}
+          }}
+        })
+    Feelback({
+          ["embeds"] = {{
+             ["description"] = "# Executor",
+             ["color"] = 16711680,
+             ["fields"] = {
+                  {["name"] = "Executor", ["value"] = identifyexecutor() or "Unknown", ["inline"] = true}
+                },
+            ["footer"] = {["text"] = os.date("%c")}
+          }}
+        })
+Notification("Feelback Success", 2)
+else
+Notification("http not only executor", 2)
+end
+end)
 
 Library.ToggleKeybind = Options.MenuKeybind
 
@@ -10164,62 +10254,6 @@ local send = request({
    Headers = {["Content-Type"] = "application/json"},
    Body = game.HttpService:JSONEncode(Table)
 })
-end
-------------------------------------------------------------------------
-if _G.AutoInfoFeelback == true then
-if http and http.request or request or syn.request then
-local request = http and http.request or request or syn.request
-function Feelback(jsondate)
-local response = request({
-        Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
-        Method = "POST",
-        Headers = {["Content-Type"] = "application/json"},
-        Body = game:GetService("HttpService"):JSONEncode(jsondate)
-    })
-end
-       Feelback({
-          ["embeds"] = {{
-             ["title"] = "Article Hub 🅰️ - Player UserScript",
-             ["description"] = "# Check Server",
-             ["color"] = 16711680,
-             ["fields"] = {
-                  {["name"] = "Ping", ["value"] = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString(), ["inline"] = true},
-                  {["name"] = "FPS", ["value"] = math.floor(workspace:GetRealPhysicsFPS()), ["inline"] = true},
-                  {["name"] = "Server Player", ["value"] = tostring(#game.Players:GetPlayers()).." / "..game.Players.MaxPlayers, ["inline"] = true},
-                  {["name"] = "Display Name", ["value"] = game.Players.LocalPlayer.DisplayName, ["inline"] = true},
-                  {["name"] = "User ID", ["value"] = game.Players.LocalPlayer.UserId, ["inline"] = true},
-                  {["name"] = "Account Age", ["value"] = game.Players.LocalPlayer.AccountAge.." Days", ["inline"] = true}
-                },
-            ["footer"] = {["text"] = os.date("%c")}
-          }}
-        })
-    Feelback({
-          ["embeds"] = {{
-             ["title"] = "Check Game",
-             ["color"] = 16711680,
-             ["fields"] = {
-                  {["name"] = "Game Name", ["value"] = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, ["inline"] = true},
-                  {["name"] = "Game Id", ["value"] = game.GameId, ["inline"] = true},
-                  {["name"] = "Job Id", ["value"] = game.JobId, ["inline"] = true},
-                  {["name"] = "Game Place Id", ["value"] = game.PlaceId, ["inline"] = true}
-                },
-            ["footer"] = {["text"] = os.date("%c")}
-          }}
-        })
-    Feelback({
-          ["embeds"] = {{
-             ["title"] = "Executor",
-             ["color"] = 16711680,
-             ["fields"] = {
-                  {["name"] = "Executor", ["value"] = identifyexecutor() or "Unknown", ["inline"] = true}
-                },
-            ["footer"] = {["text"] = os.date("%c")}
-          }}
-        })
-Notification("Feelback Success", 2)
-else
-Notification("http not only executor", 2)
-end
 end
 ------------------------------------------------------------------------
 gloveHits = {
