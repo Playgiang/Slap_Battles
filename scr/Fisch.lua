@@ -35,6 +35,7 @@ Tabs = {
 	Tab1 = Window:AddTab("Anti", "rbxassetid://7734056608"),
 	Tab2 = Window:AddTab("Teleport", "rbxassetid://10734933966"),
 	Tab3 = Window:AddTab("Shop", "rbxassetid://10734952273"),
+	Tab4 = Window:AddTab("Trade", "rbxassetid://10723396402"),
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
@@ -269,7 +270,7 @@ end
     end
 })
 
-local Shop1 = Tabs.Tab3:AddLeftGroupbox("Totem")
+local Shop1 = Tabs.Tab3:AddRightGroupbox("Totem")
 
 Shop1:AddDropdown("Select Totem", {
     Text = "Select Totem",
@@ -294,7 +295,7 @@ Shop1:AddInput("AmmountItem", {
 })
 
 Shop1:AddButton("Buy Totem", function()
-game:GetService("ReplicatedStorage")..events.purchase:FireServer(_G.SelectTotem, "Item", nil, _G.TotemAmmount)
+game:GetService("ReplicatedStorage").events.purchase:FireServer(_G.SelectTotem, "Item", nil, _G.TotemAmmount)
 end)
 
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
