@@ -146,3 +146,7 @@ end)
 CreateabuttonSc("Slap Battles 👏", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/Slap_Battles.lua"))()
 end)
+
+CreateabuttonSc("Slap Battles 👏", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/scr/Fisch.lua"))()
+end)
