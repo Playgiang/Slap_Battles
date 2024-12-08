@@ -2324,6 +2324,13 @@ do
             Toggle.Changed = Func;
             Func(Toggle.Value);
         end;
+        
+        function Toggle:SetText(Text)
+            if typeof(Text) == 'string' then
+                Toggle.Text = Text;
+                ToggleLabel.Text = Toggle.Text;
+            end
+        end;
 
         function Toggle:SetValue(Bool)
             Bool = (not not Bool);
@@ -2669,6 +2676,7 @@ do
             Multi = Info.Multi;
             Type = 'Dropdown';
             SpecialType = Info.SpecialType; -- can be either 'Player' or 'Team'
+            Visible = typeof(Info.Visible) ~= "boolean" and true or Info.Visible;
             Callback = Info.Callback or function(Value) end;
         };
 
@@ -2678,17 +2686,18 @@ do
         local RelativeOffset = 0;
 
         if not Info.Compact then
-            local DropdownLabel = Library:CreateLabel({
+            DropdownLabel = Library:CreateLabel({
                 Size = UDim2.new(1, 0, 0, 10);
                 TextSize = 14;
                 Text = Info.Text;
                 TextXAlignment = Enum.TextXAlignment.Left;
                 TextYAlignment = Enum.TextYAlignment.Bottom;
                 ZIndex = 5;
+                Visible = Dropdown.Visible;
                 Parent = Container;
             });
 
-            Groupbox:AddBlank(3);
+            CompactBlank = Groupbox:AddBlank(3, Dropdown.Visible);
         end
 
         for _, Element in next, Container:GetChildren() do
@@ -2702,6 +2711,7 @@ do
             BorderColor3 = Color3.new(0, 0, 0);
             Size = UDim2.new(1, -4, 0, 20);
             ZIndex = 5;
+            Visible = Dropdown.Visible;
             Parent = Container;
         });
 
@@ -3123,7 +3133,7 @@ do
             Dropdown:Display();
         end
 
-        Groupbox:AddBlank(Info.BlankSize or 5);
+        Blank = Groupbox:AddBlank(Info.BlankSize or 5, Dropdown.Visible);
         Groupbox:Resize();
 
         Options[Idx] = Dropdown;
