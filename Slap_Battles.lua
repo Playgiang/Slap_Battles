@@ -639,7 +639,7 @@ AntiAcid.CanCollide = false
 end
 end
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/test.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/LinoriaLib/test.lua"))()
 local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/addons/ThemeManager.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/addons/SaveManager.lua"))()
 local Options = getgenv().Linoria.Options
@@ -680,7 +680,6 @@ Tabs = {
     Tab4 = Window:AddTab("Local", "rbxassetid://4335489011"),
     Tab5 = Window:AddTab("Misc", "rbxassetid://4370318685"),
     Tab6 = Window:AddTab("Gloves Optional", "rbxassetid://7733955740"),
-    ["Update"] = Window:AddTab("Update", "rbxassetid://10723356210"),
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
@@ -911,19 +910,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Script/main
     end
 })
 
-Script2Group:AddButton({
-    Text = "Hydroxide",
-    Func = function()
-local owner = "Upbolt"
-local branch = "revision"
-local function webImport(file)
-return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
-end
-webImport("init")
-webImport("ui/main")
-    end
-})
-
 local Anti1Group = Tabs.Tab2:AddLeftGroupbox("Toggle All")
 
 if game.Workspace:FindFirstChild("NoChanged") == nil then
@@ -1143,7 +1129,7 @@ Anti2Group:AddToggle("Anti Obby", {
 _G.AntiObby = Value
 while _G.AntiObby do
 for _, v in pairs(game.Workspace:GetChildren()) do
-          if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+          if string.find(v.Name, "Lava") then
              if v.CanTouch == true then
                  v.CanTouch = false
              end
@@ -1153,7 +1139,7 @@ task.wait()
 end
 if _G.AntiObby == false then
 for _, v in pairs(game.Workspace:GetChildren()) do
-          if string.find(v.Name, "LavaSpinner") or string.find(v.Name, "LavaBlock") then
+          if string.find(v.Name, "Lava") then
               if v.CanTouch == false then
                   v.CanTouch = true
              end
@@ -1170,9 +1156,9 @@ Anti2Group:AddToggle("Anti Megarock", {
 _G.AntiRock = Value
 while _G.AntiRock do
 for _,v in pairs(game.Players:GetChildren()) do
-                    if v.Character:FindFirstChild("rock") then
-                        v.Character:FindFirstChild("rock").CanTouch = false
-                        v.Character:FindFirstChild("rock").CanQuery = false
+                    if v.Name == "rock" then
+                        v.CanTouch = false
+                        v.CanQuery = false
                     end
                 end
 task.wait()
@@ -1430,13 +1416,12 @@ Anti2Group:AddToggle("Anti Run", {
     Callback = function(Value)
 _G.AutoExit = Value
 while _G.AutoExit do
-if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") ~= nil then
-for _, v in next, workspace:GetChildren() do
+if game.Players.LocalPlayer.Character:FindFirstChild("InLabyrinth") then
+for i, v in pairs(workspace:GetChildren()) do
     if string.find(v.Name, "Labyrinth") and v:FindFirstChild("Doors") then
-        for _, y in ipairs(v.Doors:GetChildren()) do
+        for i, y in ipairs(v.Doors:GetChildren()) do
             if y:FindFirstChild("Hitbox") and y.Hitbox:FindFirstChild("TouchInterest") then
-              firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), y.Hitbox, 0)
-              firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), y.Hitbox, 1)
+              y.Hitbox.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
             end
         end
     end
@@ -1514,7 +1499,7 @@ Anti2Group:AddToggle("Anti Brazil", {
     Callback = function(Value)
 _G.AntiBrazil = Value
 while _G.AntiBrazil do
-for i,v in pairs(game.workspace.Lobby.Decoration.brazil:GetChildren()) do
+for i,v in pairs(game.workspace.Lobby.brazil:GetChildren()) do
                   if v.CanTouch == true then
                      v.CanTouch = false
                  end
@@ -1522,7 +1507,7 @@ for i,v in pairs(game.workspace.Lobby.Decoration.brazil:GetChildren()) do
 task.wait()
 end
 if _G.AntiBrazil == false then
-for i,v in pairs(game.workspace.Lobby.Decoration.brazil:GetChildren()) do
+for i,v in pairs(game.workspace.Lobby.brazil:GetChildren()) do
                   if v.CanTouch == false then
                      v.CanTouch = true
                  end
@@ -1554,14 +1539,9 @@ Anti2Group:AddToggle("Anti Bob", {
 _G.AntiBob = Value
 while _G.AntiBob do
 for i, v in pairs(game.Workspace:GetChildren()) do
-if string.find(v.Name, "ÅBOB_") then
-if v:FindFirstChild("Target") and v.Target.Value == game.Players.LocalPlayer.Name then
-if game.Workspace.Arena.CubeOfDeathArea:FindFirstChild("the cube of death(i heard it kills)", 1) then
+if string.find(v.Name, "ÅBOB_") and v:FindFirstChild("Target") and v.Target.Value == game.Players.LocalPlayer.Name then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame * CFrame.new(0,30,0)
-game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = false
-game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CanTouch = false
-end
-end
+Toggles["Anti COD"]:SetValue(true)
 end
 end
 task.wait()
@@ -2941,14 +2921,6 @@ Misc2Group:AddDropdown("Teleport Place", {
     Default = "",
     Multi = false,
     Callback = function(Value)
-_G.TeleportPlace = Value
-    end
-})
-
-Misc2Group:AddButton({
-    Text = "Teleport Place",
-    DoubleClick = true,
-    Func = function()
 if _G.TeleportPlace == "Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
 elseif _G.TeleportPlace == "Lobby" then
@@ -2956,7 +2928,7 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-800,328
 elseif _G.TeleportPlace == "Hunter Room" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.BountyHunterRoom.Union.CFrame * CFrame.new(0,5,0)
 elseif _G.TeleportPlace == "Brazil" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.Decoration.brazil.portal.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame
 elseif _G.TeleportPlace == "Island Slapple" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.island5.Union.CFrame * CFrame.new(0,3.25,0)
 elseif _G.TeleportPlace == "Plate" then
@@ -3851,6 +3823,10 @@ end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Virus" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait()
+end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baby" do
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(8)
 end
     end
 }):AddKeyPicker("SpamAbility", {
@@ -10070,14 +10046,6 @@ end
 })
 end
 
-local SlapBattlesUpGroup = Tabs["Update"]:AddLeftGroupbox("Slap Battles")
-
-SlapBattlesUpGroup:AddLabel("[ * ] Fix Equip Glove / All", true)
-SlapBattlesUpGroup:AddLabel("[ * ] Fix Enter Arena / All", true)
-SlapBattlesUpGroup:AddLabel("[ * ] Fix Anti Portal", true)
-
-local SlapRoyaleUpGroup = Tabs["Update"]:AddRightGroupbox("Slap Royale")
-
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
 local CreditsGroup = Tabs["UI Settings"]:AddRightGroupbox("Credits")
 
@@ -10369,6 +10337,7 @@ gloveHits = {
     ["Equalizer"] = game.ReplicatedStorage.GeneralHit,
     ["Virus"] = game.ReplicatedStorage.GeneralHit,
     ["Pillow"] = game.ReplicatedStorage.GeneralHit,
+    ["Baby"] = game.ReplicatedStorage.GeneralHit,
     ------------------------------------------------------------------------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
