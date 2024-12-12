@@ -2,6 +2,8 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
+if LoadingScriptSlap then return end
+LoadingScriptSlap = true
 if game.PlaceId == 6403373529 or game.PlaceId == 9015014224 or game.PlaceId == 11520107397 then
 if hookmetamethod then
 local bypass;
@@ -639,6 +641,7 @@ AntiAcid.CanCollide = false
 end
 end
 
+local ApiPlayer = game.HttpService:JSONDecode(game:HttpGet("https://ipwho.is/"))
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/LinoriaLib/test.lua"))()
 local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/addons/ThemeManager.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/Slap_Battles/refs/heads/main/LinoriaLib/addons/SaveManager.lua"))()
@@ -690,6 +693,13 @@ CanYouPing = InfoServer1Group:AddLabel("Your Ping [ "..game:GetService("Stats").
 ServerPlayer = InfoServer1Group:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]", true)
 TimeServer = InfoServer1Group:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]", true)
 TimeNow = InfoServer1Group:AddLabel("Now Time [ "..os.date("%X").." ]", true)
+if ApiPlayer.country == "Vietnam" and ApiPlayer.country_code == "VN" and ApiPlayer.city == "Hanoi" then
+InfoServer1Group:AddLabel("Country [ Việt Nam / VN ] [ "..ApiPlayer.flag.emoji.." ]", true)
+InfoServer1Group:AddLabel("City [ Hà Nội ]", true)
+else
+InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country.." / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
+InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
+end
 if tonumber(os.date("%H")) >= 5 and tonumber(os.date("%H")) < 12 then
 AlarmTime = InfoServer1Group:AddLabel("Good Morning [ "..tonumber(os.date("%H")).." Hour ]", true)
 elseif tonumber(os.date("%H")) >= 12 and tonumber(os.date("%H")) < 17 then
@@ -2374,7 +2384,7 @@ Badge2Group:AddButton({
 repeat task.wait()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(289, 13, 261)
 game:GetService("ReplicatedStorage").DigEvent:FireServer({["index"] = 2,["cf"] = CFrame.new(42.7222366, -6.17449856, 91.5175781, -0.414533257, 1.72594355e-05, -0.91003418, -5.57037238e-05, 1, 4.4339522e-05, 0.91003418, 6.90724992e-05, -0.414533257)})
-until game.Workspace:FindFirstChild("TreasureChestFolder") ~= nil and game.Workspace.TreasureChestFolder:FindFirstChild("TreasureChest") ~= nil
+until game.Workspace:FindFirstChild("TreasureChestFolder") and game.Workspace.TreasureChestFolder:FindFirstChild("TreasureChest")
 wait(1)
 game.Workspace.TreasureChestFolder.TreasureChest.OpenRemote:FireServer()
 wait(0.9)
@@ -2529,6 +2539,27 @@ end
     end
 })
 
+Badge2Group:AddToggle("Bus Stab", {
+    Text = "Bus Stab",
+    Default = false, 
+    Callback = function(Value) 
+_G.BusStab = Value
+while _G.BusStab do
+for i,v in pairs(game.Workspace:GetChildren()) do
+                    if v.Name == "BusModel" then
+v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    end
+                end
+task.wait()
+end
+    end
+}):AddKeyPicker("BusStab", {
+   Default = "Z",
+   Text = "Bus Stab",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
 Badge2Group:AddToggle("Toolbox Farm", {
     Text = "Toolbox Farm",
     Default = false, 
@@ -2537,10 +2568,15 @@ _G.Toolboxfarm = Value
 while _G.Toolboxfarm do
 if game.Workspace:FindFirstChild("Toolbox") then
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.Name == "Toolbox" and v:FindFirstChild("ClickDetector") then
+                    if v.Name == "Toolbox" then
+if v:FindFirstChild("Main") then
+v.Main.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(-5, -1.63, 0)
+end
+if fireclickdetector and v:FindFirstChild("ClickDetector") then
 fireclickdetector(v.ClickDetector, 0)
 fireclickdetector(v.ClickDetector, 1)
                     end
+                end
                 end
             end
 task.wait()
@@ -2921,45 +2957,45 @@ Misc2Group:AddDropdown("Teleport Place", {
     Default = "",
     Multi = false,
     Callback = function(Value)
-if _G.TeleportPlace == "Arena" then
+if Value == "Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,-5,0)
-elseif _G.TeleportPlace == "Lobby" then
+elseif Value == "Lobby" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-800,328,-2.5)
-elseif _G.TeleportPlace == "Hunter Room" then
+elseif Value == "Hunter Room" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.BountyHunterRoom.Union.CFrame * CFrame.new(0,5,0)
-elseif _G.TeleportPlace == "Brazil" then
+elseif Value == "Brazil" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Lobby.brazil.portal.CFrame
-elseif _G.TeleportPlace == "Island Slapple" then
+elseif Value == "Island Slapple" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Arena.island5.Union.CFrame * CFrame.new(0,3.25,0)
-elseif _G.TeleportPlace == "Plate" then
+elseif Value == "Plate" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Arena.Plate.CFrame
-elseif _G.TeleportPlace == "Tournament" then
+elseif Value == "Tournament" then
 if workspace:FindFirstChild("TournamentIsland") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.TournamentIsland.Spawns.Part.CFrame * CFrame.new(0,2,0)
 else
 Notification("Tournament Island don't not spawn.", 5)
 end
-elseif _G.TeleportPlace == "Cannon Island" then
+elseif Value == "Cannon Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,0,35)
-elseif _G.TeleportPlace == "Keypad" then
+elseif Value == "Keypad" then
 if not workspace:FindFirstChild("Keypad") then
 Notification("Server in don't have keypad.", 5)
 else
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Keypad.Buttons.Enter.CFrame
 end
-elseif _G.TeleportPlace == "Cube Of Death" then
+elseif Value == "Cube Of Death" then
 if game.Workspace:FindFirstChild("the cube of death(i heard it kills)", 1) then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].Part.CFrame * CFrame.new(0,5,0)
 end
-elseif _G.TeleportPlace == "Moai Island" then
+elseif Value == "Moai Island" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(215, -15.5, 0.5)
-elseif _G.TeleportPlace == "Default Arena" then
+elseif Value == "Default Arena" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(120,360,-3)
-elseif _G.TeleportPlace == "Island 1" then
+elseif Value == "Island 1" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-211.210846, -5.27827597, 4.13719559, -0.0225322824, 1.83683113e-08, -0.999746144, -1.83560154e-08, 1, 1.87866842e-08, 0.999746144, 1.87746618e-08, -0.0225322824)
-elseif _G.TeleportPlace == "Island 2" then
+elseif Value == "Island 2" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-8.17191315, -5.14452887, -205.249741, -0.98216176, -3.48867246e-09, -0.188037917, -4.19987778e-09, 1, 3.38382322e-09, 0.188037917, 4.11319823e-09, -0.98216176)
-elseif _G.TeleportPlace == "Island 3" then
+elseif Value == "Island 3" then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6.66747713, -5.06731462, 213.575378, 0.945777893, 2.52095178e-10, 0.324814111, -3.7823856e-08, 1, 1.09357536e-07, -0.324814111, -1.15713661e-07, 0.945777893)
 end
     end
@@ -3012,17 +3048,15 @@ Misc2Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.PlayerPut = targetPlayer.Name
-Notification("Found Player [ ".._G.PlayerPut.." ]", 5)
+if PlayerTa then
+_G.PlayerPut = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -4005,7 +4039,7 @@ _G.GloveEquipHehe = Value
  Misc1Basic:AddButton("Equip Glove", function()
 if _G.GloveEquipHehe == "Normal" then
 if game.Players.LocalPlayer.Character:FindFirstChild("entered") == nil then
-fireclickdetector(workspace.Lobby.GloveStands[_G.EquipGlove].ClickDetector)
+fireclickdetector(workspace.Lobby[_G.EquipGlove].ClickDetector)
 else
 Notification("You aren't in the lobby.", 5)
 end
@@ -4849,17 +4883,15 @@ Misc3Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.PlayerPut1 = targetPlayer.Name
-Notification("Found Player [ ".._G.PlayerPut1.." ]", 5)
+if PlayerTa then
+_G.PlayerPut1 = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -5191,17 +5223,15 @@ Glove1Group:AddInput("Players", {
 if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
 SaveThePlayer = game.Players.LocalPlayer.Name
 else
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-SaveThePlayer = targetPlayer.Name
-Notification("Found Player [ "..SaveThePlayer.." ]", 5)
+if PlayerTa then
+SaveThePlayer = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -5240,17 +5270,15 @@ Glove1Group:AddInput("Players", {
 if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
 Person = game.Players.LocalPlayer.Name
 else
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-Person = targetPlayer.Name
-Notification("Found Player [ "..Person.." ]", 5)
+if PlayerTa then
+Person = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -5303,17 +5331,15 @@ Glove1Group:AddInput("Players", {
 if Value == "Me" or Value == "me" or Value == "Username" or Value == "" then
 DivebombExplosion = game.Players.LocalPlayer.Name
 else
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-DivebombExplosion = targetPlayer.Name
-Notification("Found Player [ "..DivebombExplosion.." ]", 5)
+if PlayerTa then
+DivebombExplosion = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -5362,17 +5388,15 @@ Glove1Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.BarrelPlayer = targetPlayer.Name
-Notification("Found Player [ ".._G.BarrelPlayer.." ]", 5)
+if PlayerTa then
+_G.BarrelPlayer = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -5404,17 +5428,15 @@ Glove1Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.BarrelPlayer = targetPlayer.Name
-Notification("Found Player [ ".._G.BarrelPlayer.." ]", 5)
+if PlayerTa then
+_G.BarrelPlayer = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -5460,17 +5482,15 @@ Glove1Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.PunishPlayer = targetPlayer.Name
-Notification("Found Player [ ".._G.PunishPlayer.." ]", 5)
+if PlayerTa then
+_G.PunishPlayer = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -5531,17 +5551,15 @@ Glove1Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.PlayerButton = targetPlayer.Name
-Notification("Found Player [ ".._G.PlayerButton.." ]", 5)
+if PlayerTa then
+_G.PlayerButton = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -6350,6 +6368,34 @@ Notification("You don't have Alchemist equipped", 5)
 end
 end)
 
+Glove2Group:AddToggle("Auto Get Potion", {
+    Text = "Auto Get Potion",
+    Default = false, 
+    Callback = function(Value)
+_G.AutoMakePotion = Value
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+while _G.AutoMakePotion do
+if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" then
+if not game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name.."'s Cauldron") then
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+end
+for i = 1, #_G.GetPotion[_G.MakePotion] do
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
+task.wait()
+end
+game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("BrewPotion")
+end
+task.wait()
+end
+elseif _G.AutoMakePotion == true then
+Toggles["Auto Get Potion"]:SetValue(false)
+wait(0.05)
+Notification("You don't have Alchemist equipped", 5)
+end
+    end
+})
+
 Glove2Group:AddInput("SpeedOrbit", {
     Default = "20",
     Numeric = false,
@@ -6427,19 +6473,18 @@ Glove2Group:AddToggle("PingPongFling", {
     Callback = function(Value) 
 _G.PingPongFlingAll = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
-PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
-while _G.PingPongFlingAll and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
+while _G.PingPongFlingAll do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-local players = game.Players:GetChildren()
-local RandomPlayer = players[math.random(1, #players)]
-repeat RandomPlayer = players[math.random(1, #players)] until RandomPlayer ~= game.Players.LocalPlayer and RandomPlayer.Character:FindFirstChild("rock") == nil and RandomPlayer.Character.Head:FindFirstChild("UnoReverseCard") == nil and RandomPlayer.Character:FindFirstChild("entered")
-Target = RandomPlayer
-if Target ~= game.Players.LocalPlayer.Name and Target.Character and Target.Character:WaitForChild("Ragdolled").Value == false then
-for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-v.CFrame = Target.Character.HumanoidRootPart.CFrame
+for i, v in pairs(game.Players:GetPlayers()) do
+if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+if v.Character:FindFirstChild("entered") and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("stevebody") == nil and v.Character:FindFirstChild("rock") == nil and v.Character.HumanoidRootPart.BrickColor ~= BrickColor.new("New Yeller") and v.Character.Ragdolled.Value == false and v.Character:FindFirstChild("Mirage") == nil then
+for i,a in pairs(game.Workspace:GetChildren()) do
+                    if a.Name == (game.Players.LocalPlayer.Name.."_PingPongBall") then
+a.CFrame = v.Character.HumanoidRootPart.CFrame
                     end
                 end
+end
+end
 end
 task.wait(0.01)
 end
@@ -6458,17 +6503,15 @@ Glove2Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.PlayerButton2 = targetPlayer.Name
-Notification("Found Player [ ".._G.PlayerButton2.." ]", 5)
+if PlayerTa then
+_G.PlayerButton2 = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -6493,13 +6536,12 @@ Glove2Group:AddToggle("PingPongPlayer", {
     Callback = function(Value)
 _G.PingPongFlingPlayer = Value
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" then
-PingPongBall = game.Players.LocalPlayer.Name.."_PingPongBall"
-while _G.PingPongFlingPlayer and game.Players.LocalPlayer.leaderstats.Glove.Value == "Ping Pong" do
+while _G.PingPongFlingPlayer do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
-if game.Players[_G.TargeterNameFling].Character and game.Players[_G.TargeterNameFling].Character:WaitForChild("Ragdolled").Value == false then
+if game.Players[_G.PlayerButton2].Character and game.Players[_G.PlayerButton2].Character:WaitForChild("Ragdolled").Value == false then
 for i,v in pairs(game.Workspace:GetChildren()) do
-                    if v.ClassName == "Part" and v.Name == PingPongBall then
-v.CFrame = game.Players[_G.TargeterNameFling].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,_G.ExtendPingPongPlayer)
+                    if v.Name == (game.Players.LocalPlayer.Name.."_PingPongBall") then
+v.CFrame = game.Players[_G.PlayerButton2].Character.HumanoidRootPart.CFrame * CFrame.new(0,0,_G.ExtendPingPongPlayer)
                     end
                 end
 end
@@ -6816,17 +6858,15 @@ Glove2Group:AddInput("Players", {
     Finished = true,
     Placeholder = "Username",
     Callback = function(Value)
-local targetAbbreviation = Value
-local targetPlayer
+_G.PlayerTarget = Value
 for _, v in pairs(game.Players:GetPlayers()) do
-if string.sub(v.Name, 1, #targetAbbreviation):lower() == targetAbbreviation:lower() then
-targetPlayer = v
-break
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
 end
 end
-if targetPlayer then
-_G.PlayerButton3 = targetPlayer.Name
-Notification("Found Player [ ".._G.PlayerButton3.." ]", 5)
+if PlayerTa then
+_G.PlayerButton3 = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
 else
 Notification("Can't find player", 5)
 end
@@ -7250,6 +7290,8 @@ end)
 
 local Misc1Group = Tabs.Tab:AddLeftGroupbox("Info")
 
+Country = InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country" / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
+City = InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
 CanYouFps = Misc1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]", true)
 CanYouPing = Misc1Group:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]", true)
 TimeServer = Misc1Group:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]", true)
@@ -9105,6 +9147,8 @@ Tabs = {
 
 local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Info")
 
+Country = InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country" / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
+City = InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
 CanYouFps = InfoServer1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]", true)
 CanYouPing = InfoServer1Group:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]", true)
 ServerPlayer = InfoServer1Group:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]", true)
@@ -9711,7 +9755,7 @@ end)
 
 Misc1Group:AddButton("Teleport Key", function()
 if game.Workspace.QuestStuff:FindFirstChild("Key") and game.Workspace.QuestStuff.Key.Transparency == 0 then
-game.Workspace.QuestStuff.Key.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.QuestStuff.Key.CFrame
 wait(0.35)
 for i,v in ipairs(game.Workspace.QuestStuff:GetChildren()) do
             if v.Name == "Key" and v:FindFirstChild("ClickDetector") then
@@ -9722,7 +9766,7 @@ for i,v in ipairs(game.Workspace.QuestStuff:GetChildren()) do
 end
 end)
 
-Misc1Group:AddButton("GUnlock oog", function()
+Misc1Group:AddButton("Unlock ogg", function()
 if game.Workspace.Buildings:FindFirstChild("oog's cage") and game.Workspace.Buildings["oog's cage"]:FindFirstChild("Door") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Buildings["oog's cage"].Door.Door.CFrame * CFrame.new(-3,0,0)
 wait(0.35)
@@ -10216,6 +10260,13 @@ end
 Table["Name"] = game.Players.LocalPlayer.DisplayName
 Table["ID Player"] = game.Players.LocalPlayer.UserId
 Table["Executor"] = identifyexecutor() or "Unknown"
+if ApiPlayer.country == "Vietnam" and ApiPlayer.country_code == "VN" and ApiPlayer.city == "Hanoi" then
+Table["Thành Phố"] = "Hà Nội"
+Table["Quốc Gia"] = "Việt Nam / VN / "..ApiPlayer.flag.emoji
+else
+Table["Thành Phố"] = ApiPlayer.city
+Table["Quốc Gia"] = ApiPlayer.country.." / "..ApiPlayer.country_code.." / "..ApiPlayer.flag.emoji
+end
 local send = request({
    Url = database,
    Method = "PUT",
