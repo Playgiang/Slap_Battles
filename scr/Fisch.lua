@@ -35,7 +35,7 @@ Tabs = {
 	Tab1 = Window:AddTab("Anti", "rbxassetid://7734056608"),
 	Tab2 = Window:AddTab("Teleport", "rbxassetid://10734933966"),
 	Tab3 = Window:AddTab("Shop", "rbxassetid://10734952273"),
-	Tab4 = Window:AddTab("Trade", "rbxassetid://10723396402"),
+	Tab4 = Window:AddTab("Local", "rbxassetid://4335489011"),
 	["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://7733955511")
 }
 
@@ -85,37 +85,28 @@ end
     end
 })
 
-FischFarm:AddDropdown("AutoReel", {
-    Text = "Catch",
-    Values = {"Reel", "Perfect", "All"},
-    Default = "",
-    Multi = false,
+FischFarm:AddToggle("AutoCatchPerfect", {
+    Text = "Auto Catch Perfect",
+    Default = false,
     Callback = function(Value)
-_G.Catch = Value
+_G.AutoCatchPerfect = Value
+while _G.AutoCatchPerfect do
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
+game:GetService("ReplicatedStorage").events.reelfinished:FireServer(100, true)
+end
+task.wait()
+end
     end
 })
 
-FischFarm:AddToggle("AutoCatch", {
-    Text = "Auto Catch",
+FischFarm:AddToggle("AutoReel", {
+    Text = "Auto Reel",
     Default = false,
     Callback = function(Value)
-_G.AutoCatch = Value
-while _G.AutoCatch do
-if _G.Catch == "Reel" then
+_G.AutoReel = Value
+while _G.AutoReel do
 if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
 game:GetService("ReplicatedStorage").events.reelfinished:FireServer(100, false)
-end
-elseif _G.Catch == "Perfect" then
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
-game:GetService("ReplicatedStorage").events.reelfinished:FireServer(100, true)
-end
-elseif _G.Catch == "All" then
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
-game:GetService("ReplicatedStorage").events.reelfinished:FireServer(100, true)
-end
-if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
-game:GetService("ReplicatedStorage").events.reelfinished:FireServer(100, false)
-end
 end
 task.wait()
 end
@@ -138,17 +129,186 @@ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = _G.Position
 end
 end)
 
+MiscBox = Tabs.Tab:AddRightTabbox()
+local Misc = MiscBox:AddTab("Misc")
+
+Misc:AddInput("FlySpeed", {
+    Default = "50",
+    Numeric = true,
+    Text = "Fly Speed",
+    Placeholder = "UserFlySpeed",
+    Callback = function(Value)
+_G.SetSpeedFly = Value
+    end
+})
+
+_G.SetSpeedFly = 50
+Misc:AddToggle("Start Fly", {
+    Text = "Start Fly",
+    Default = false, 
+    Callback = function(Value) 
+_G.StartFly = Value
+if _G.StartFly == false then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler:Destroy()
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler:Destroy()
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
+while _G.StartFly do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+elseif game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") == nil then
+local bv = Instance.new("BodyVelocity")
+local bg = Instance.new("BodyGyro")
+
+bv.Name = "VelocityHandler"
+bv.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bv.MaxForce = Vector3.new(0,0,0)
+bv.Velocity = Vector3.new(0,0,0)
+
+bg.Name = "GyroHandler"
+bg.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bg.MaxTorque = Vector3.new(0,0,0)
+bg.P = 1000
+bg.D = 50
+end
+task.wait()
+end
+    end
+}):AddKeyPicker("Fly", {
+   Default = "R",
+   Text = "Fly",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
+Misc:AddToggle("Noclip1", {
+    Text = "Noclip Character",
+    Default = false,
+    Callback = function(Value)
+_G.Noclip = Value
+if _G.Noclip == false then
+if game.Players.LocalPlayer.Character ~= nil then
+for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("BasePart") and v.CanCollide == false and v.Name ~= "Humanoid" then
+					v.CanCollide = true
+				end
+			end
+end
+end
+while _G.Noclip do
+if game.Players.LocalPlayer.Character ~= nil then
+for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if v:IsA("BasePart") and v.CanCollide == true and v.Name ~= "Humanoid" then
+					v.CanCollide = false
+				end
+			end
+end
+task.wait()
+end
+    end
+}):AddKeyPicker("Noclip", {
+   Default = "T",
+   Text = "Noclip",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
+})
+
+local Player1 = MiscBox:AddTab("Player")
+
+Player1:AddInput("Players", {
+    Default = "",
+    Numeric = false,
+    Text = "",
+    Finished = true,
+    Placeholder = "Username",
+    Callback = function(Value)
+_G.PlayerTarget = Value
+for _, v in pairs(game.Players:GetPlayers()) do
+if string.sub(v.Name, 1, #_G.PlayerTarget):lower() == _G.PlayerTarget:lower() then
+PlayerTa = v
+end
+end
+if PlayerTa then
+_G.PlayerPut = PlayerTa.Name
+Notification("Found Player [ "..PlayerTa.Name.." ]", 5)
+else
+Notification("Can't find player", 5)
+end
+    end
+})
+
+Player1:AddButton("Teleport Player", function()
+if game.Players[_G.PlayerPut].Character and game.Players[_G.PlayerPut].Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut].Character.HumanoidRootPart.CFrame
+end
+end)
+
+Player1:AddToggle("Auto Teleport Player", {
+    Text = "Auto Teleport Player",
+    Default = false, 
+    Callback = function(Value) 
+_G.PlayerTele = Value
+while _G.PlayerTele do
+if game.Players[_G.PlayerPut].Character and game.Players[_G.PlayerPut].Character:FindFirstChild("HumanoidRootPart") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.PlayerPut].Character.HumanoidRootPart.CFrame
+end
+task.wait()
+end
+    end
+})
+
+Player1:AddToggle("Auto View Player", {
+    Text = "Auto View Player",
+    Default = false, 
+    Callback = function(Value) 
+_G.PlayerView = Value
+if _G.PlayerView == false then
+if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") then
+game.Workspace.CurrentCamera.CameraSubject = game.Players.LocalPlayer.Character:FindFirstChild("Humanoid")
+end
+end
+while _G.PlayerView do
+if game.Players[_G.PlayerPut].Character:FindFirstChild("Humanoid") then
+game.Workspace.CurrentCamera.CameraSubject = game.Players[_G.PlayerPut].Character:FindFirstChild("Humanoid")
+end
+task.wait()
+end
+    end
+})
+
 local Anti = Tabs.Tab1:AddLeftGroupbox("Anti")
 
 Anti:AddToggle("AntiWater", {
     Text = "Anti Water",
     Default = false,
     Callback = function(Value)
+_G.AntiWater = Value
+while _G.AntiWater do
 for i, v in pairs(workspace.zones.fishing:GetChildren()) do
-            if v.Name == "Ocean" then
+            if v.ClassName == "Part" then
                 v.CanCollide = Value
             end
         end
+task.wait()
+end
     end
 })
 
@@ -156,10 +316,14 @@ Anti:AddToggle("AntiOxygen", {
     Text = "Anti Oxygen",
     Default = false,
     Callback = function(Value)
-if Value then
-game.Players.LocalPlayer.Character.client.oxygen.Disabled = true
-else
-game.Players.LocalPlayer.Character.client.oxygen.Disabled = false
+_G.AntiOxygen = Value
+while _G.AntiOxygen do
+if game.Players.LocalPlayer.Character:FindFirstChild("client") and game.Players.LocalPlayer.Character.client:FindFirstChild("oxygen") then
+if game.Players.LocalPlayer.Character.client.oxygen.Disabled ~= Value then
+game.Players.LocalPlayer.Character.client.oxygen.Disabled = Value
+end
+end
+task.wait()
 end
     end
 })
@@ -201,7 +365,6 @@ Teleport:AddButton("Teleport Map", function()
 for i, v in pairs(workspace.world.spawns.TpSpots:GetChildren()) do
                 if v.Name == _G.MapTeleport and v:IsA("BasePart") then
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                    return
                 end
             end
 end)
@@ -227,7 +390,6 @@ Teleport1:AddButton("Teleport NPC", function()
 for i, v in pairs(game:GetService("Workspace").world.npcs:GetChildren()) do
                 if v.Name == _G.NPCTeleport and v:IsA("Model") and v:FindFirstChild("HumanoidRootPart") then
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-                    return
                 end
                 end
 end):AddButton("Return NPC", function()
@@ -235,7 +397,7 @@ NPC = {}
     for i, v in pairs(game:GetService("Workspace").world.npcs:GetChildren()) do
         table.insert(NPC, v.Name)
     end
-Options.NPC1:SetValue(NPC)
+NPC1:SetValue(NPC)
 end)
 
 local Shop = Tabs.Tab3:AddLeftGroupbox("Sell")
@@ -297,6 +459,127 @@ Shop1:AddInput("AmmountItem", {
 Shop1:AddButton("Buy Totem", function()
 game:GetService("ReplicatedStorage").events.purchase:FireServer(_G.SelectTotem, "Item", nil, _G.TotemAmmount)
 end)
+
+local Local1Group = Tabs.Tab4:AddLeftGroupbox("Speed")
+
+Local1Group:AddSlider("WalkSpeed", {
+    Text = "Speed",
+    Default = 20,
+    Min = 20,
+    Max = 1000,
+    Rounding = 0,
+    Compact = true,
+    Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+Walkspeed = Value
+    end
+})
+
+Local1Group:AddInput("WalkSpeed1", {
+    Default = "20",
+    Numeric = false,
+    Text = "Speed",
+    Placeholder = "UserSpeed",
+    Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+Walkspeed = Value
+    end
+})
+
+Local1Group:AddToggle("SetSpeed", {
+    Text = "Auto Set Speed",
+    Default = false, 
+    Callback = function(Value) 
+KeepWalkspeed = Value
+            while KeepWalkspeed do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= Walkspeed then
+                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Walkspeed
+                end
+task.wait()
+            end
+    end
+})
+
+local Local2Group = Tabs.Tab4:AddRightGroupbox("Jump")
+
+Local2Group:AddSlider("JumpPower", {
+    Text = "Jump",
+    Default = 50,
+    Min = 50,
+    Max = 1000,
+    Rounding = 0,
+    Compact = true,
+    Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+Jumppower = Value
+    end
+})
+
+Local2Group:AddInput("JumpPower1", {
+    Default = "50",
+    Numeric = true,
+    Text = "Jump",
+    Placeholder = "UserJump",
+    Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value
+Jumppower = Value
+    end
+})
+
+Local2Group:AddToggle("SetJump", {
+    Text = "Auto Set Jump",
+    Default = false, 
+    Callback = function(Value) 
+KeepJumppower = Value
+            while KeepJumppower do
+                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.JumpPower ~= Jumppower then
+                    game.Players.LocalPlayer.Character.Humanoid.JumpPower = Jumppower
+                end
+task.wait()
+            end
+    end
+})
+
+local Local3Group = Tabs.Tab4:AddLeftGroupbox("Remaining")
+
+Local3Group:AddSlider("HipHeight", {
+    Text = "Hip Height",
+    Default = 0,
+    Min = 0,
+    Max = 100,
+    Rounding = 0,
+    Compact = true,
+    Callback = function(Value)
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = Value
+HipHeight = Value
+    end
+})
+
+Local3Group:AddToggle("SetHipHeight", {
+    Text = "Auto Set Hip Height",
+    Default = false, 
+    Callback = function(Value) 
+KeepHipHeight = Value
+           while KeepHipHeight do
+              if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.HipHeight ~= HipHeight then
+                  game.Players.LocalPlayer.Character.Humanoid.HipHeight  = HipHeight
+              end
+task.wait()
+         end
+    end
+})
+
+Local3Group:AddSlider("Gravity", {
+    Text = "Gravity",
+    Default = 0,
+    Min = 0,
+    Max = 100,
+    Rounding = 0,
+    Compact = true,
+    Callback = function(Value)
+game.Workspace.Gravity = Value
+    end
+})
 
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
 local CreditsGroup = Tabs["UI Settings"]:AddRightGroupbox("Credits")
@@ -367,7 +650,7 @@ MenuGroup:AddButton("Unload", function() Library:Unload() end)
 CreditsGroup:AddLabel("AmongUs - Python / Dex / Script / Python", true)
 CreditsGroup:AddLabel("Giang Hub - Script / Dex", true)
 CreditsGroup:AddDivider()
-CreditsGroup:AddLabel("Feedback error script or up to you, 3 time feedback to you", true)
+CreditsGroup:AddLabel("Feedback error script or up to you, 3 time feedback to you, wait until notification feelback success", true)
 CreditsGroup:AddInput("Feedback", {
     Default = "",
     Numeric = false,
@@ -384,6 +667,7 @@ if _G.FeedbackSuccess == 3 then return end
 _G.FeedbackSuccess = _G.FeedbackSuccess + 1
 if http and http.request or request or syn.request then
 local request = http and http.request or request or syn.request
+Notification("Feelback Success", 2)
 function Feelback(jsondate)
 local response = request({
         Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
@@ -441,7 +725,6 @@ Feelback({
             ["footer"] = {["text"] = os.date("%c")}
           }}
         })
-Notification("Feelback Success", 2)
 else
 Notification("http not only executor", 2)
 end
@@ -455,23 +738,3 @@ SaveManager:IgnoreThemeSettings()
 SaveManager:BuildConfigSection(Tabs["UI Settings"])
 ThemeManager:ApplyToTab(Tabs["UI Settings"])
 SaveManager:LoadAutoloadConfig()
-------------------------------------------------------------------------
-if http and http.request or request or syn.request then
-local request = http and http.request or request or syn.request
-local database = "https://userarticleshub-default-rtdb.firebaseio.com/"..game.Players.LocalPlayer.Name..".json?auth=8b4xALbWc9WnhXBjCOc3Ygtugar4nccEjvuqnmMq"
-local Table = {}
-if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-   for i, v in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
-     Table[i] = v
-   end
-end
-Table["Name"] = game.Players.LocalPlayer.DisplayName
-Table["ID Player"] = game.Players.LocalPlayer.UserId
-Table["Executor"] = identifyexecutor() or "Unknown"
-local send = request({
-   Url = database,
-   Method = "PUT",
-   Headers = {["Content-Type"] = "application/json"},
-   Body = game.HttpService:JSONEncode(Table)
-})
-end
