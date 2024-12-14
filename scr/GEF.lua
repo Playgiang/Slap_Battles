@@ -88,7 +88,7 @@ stats:AddToggle("Stamina", {
 })
 
 Item:AddDropdown("Item", {
-     Values = {"Bat","Shotgun","Handgun","Crowbar","Food","Medkit"},
+     Values = {"Bat", "Shotgun", "Handgun", "Crowbar", "Food", "Medkit", "Shells", "Hammer", "Soda", "Money", "GPS"},
      Default = 1,
      Multi = false,
      Text = "Get Item",
