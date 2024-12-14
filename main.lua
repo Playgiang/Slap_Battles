@@ -135,8 +135,8 @@ UICorner.CornerRadius = UDim.new(0, 7)
 UICorner.Parent = TextButton
 end
 
-CreateabuttonSc("Islands 🌱", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/scr/Islands.lua"))()
+CreateabuttonSc("GEF 👹", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/scr/GEF.lua"))()
 end)
 
 CreateabuttonSc("Weird Strict Dad 👨‍👦", function()
