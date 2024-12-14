@@ -30,7 +30,7 @@ if _G.NotificationSound then
 
 local Window = Library:CreateWindow({
     Title = "Article Hub | Clound X | GEF",
-	   Center = true,
+    Center = true,
     AutoShow = true,
     Resizable = true,
     ShowCustomCursor = true,
