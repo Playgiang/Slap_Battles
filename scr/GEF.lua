@@ -220,12 +220,14 @@ LocalPlayer:AddToggle("Speed", {
     Default = false, 
     Callback = function(Value)
     speed = Value
+	task.spawn(function()
         while speed do
                 if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= _G.speed then
                     game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.speed
                 end
 task.wait()
             end
+				end)
     end
 })
 
