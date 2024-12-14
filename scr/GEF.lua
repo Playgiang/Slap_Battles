@@ -1,7 +1,8 @@
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/LinoriaLib/test.lua"))()
 local ThemeManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/LinoriaLib/addons/ThemeManager.lua"))()
 local SaveManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/Playgiang/GameScript/refs/heads/main/LinoriaLib/addons/SaveManager.lua"))()
-
+local Options = Library.Options
+local Toggles = Library.Toggles
 
 getgenv().config = {
 	AntiGef = false,
@@ -29,8 +30,8 @@ if _G.NotificationSound then
     end
 
 local Window = Library:CreateWindow({
-    Title = "Article Hub | Clound X | GEF",
-    Center = true,
+	Title = "Article Hub | Clound X | GEF",
+	Center = true,
     AutoShow = true,
     Resizable = true,
     ShowCustomCursor = true,
@@ -41,7 +42,7 @@ local Window = Library:CreateWindow({
 
 local Tabs = {
     Main = Window:AddTab("Main", "rbxassetid://93827038692127"),
-    Weapon = Window:AddTab("Weapon"),
+    Weapon = Window:AddTab("Weapon", "rbxassetid://119085118161125"),
     Misc = Window:AddTab("Misc", "rbxassetid://4483345998"),
     ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://132720500313615"),
 }
@@ -88,7 +89,7 @@ stats:AddToggle("Stamina", {
 })
 
 Item:AddDropdown("Item", {
-     Values = {"Bat", "Shotgun", "Handgun", "Crowbar", "Food", "Medkit", "Shells", "Hammer", "Soda", "Money", "GPS"},
+     Values = {"Bat","Shotgun","Handgun","Crowbar","Food","Medkit"},
      Default = 1,
      Multi = false,
      Text = "Get Item",
@@ -201,60 +202,73 @@ end
     end
 })
 
-_G.speed = 30
-
-LocalPlayer:AddSlider("Speed", {
-    Text = "Set Speed",
-    Default = 10,
-    Min = 0,
-    Max = 100,
-    Rounding = 1,
-    Compact = false,
+LocalPlayer:AddSlider("Speed Fly", {
+    Text = "Speed Fly",
+    Default = 50,
+    Min = 50,
+    Max = 250,
+    Rounding = 0,
+    Compact = true,
     Callback = function(Value)
-        _G.speed = Value
+_G.SetSpeedFly = Value
     end
 })
 
-LocalPlayer:AddToggle("Speed", {
-    Text = "Walkspeed Set Auto",
-    Default = false, 
+_G.SetSpeedFly = 20
+LocalPlayer:AddToggle("StFly", {
+    Text = "Fly",
+    Default = false,
     Callback = function(Value)
-    speed = Value
-	task.spawn(function()
-        while speed do
-                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.WalkSpeed ~= _G.speed then
-                    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.speed
-                end
+_G.StartFly = Value
+if _G.StartFly == false then
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler:Destroy()
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler:Destroy()
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = false
+end
+end
+while _G.StartFly do
+if game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.MaxForce = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.MaxTorque = Vector3.new(9e9,9e9,9e9)
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+game.Players.LocalPlayer.Character.HumanoidRootPart.GyroHandler.CFrame = Workspace.CurrentCamera.CoordinateFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = Vector3.new()
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity + game.Workspace.CurrentCamera.CFrame.RightVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().X * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z > 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+if require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z < 0 then
+game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity = game.Players.LocalPlayer.Character.HumanoidRootPart.VelocityHandler.Velocity - game.Workspace.CurrentCamera.CFrame.LookVector * (require(game.Players.LocalPlayer.PlayerScripts:WaitForChild("PlayerModule"):WaitForChild("ControlModule")):GetMoveVector().Z * _G.SetSpeedFly)
+end
+elseif game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid") and game.Players.LocalPlayer.Character.Humanoid.RootPart and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("VelocityHandler") == nil and game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("GyroHandler") == nil then
+local bv = Instance.new("BodyVelocity")
+local bg = Instance.new("BodyGyro")
+
+bv.Name = "VelocityHandler"
+bv.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bv.MaxForce = Vector3.new(0,0,0)
+bv.Velocity = Vector3.new(0,0,0)
+
+bg.Name = "GyroHandler"
+bg.Parent = game.Players.LocalPlayer.Character.HumanoidRootPart
+bg.MaxTorque = Vector3.new(0,0,0)
+bg.P = 1000
+bg.D = 50
+end
 task.wait()
-            end
-				end)
+end
     end
-})
-
-LocalPlayer:AddSlider("Jump", {
-    Text = "Set Jump Power",
-    Default = 10,
-    Min = 0,
-    Max = 100,
-    Rounding = 1,
-    Compact = false,
-    Callback = function(Value)
-        _G.jump = Value
-    end
-})
-
-LocalPlayer:AddToggle("Speed", {
-    Text = "Jump Power Auto",
-    Default = false, 
-    Callback = function(Value)
-    KeepJumppower = Value
-        while KeepJumppower do
-                if game.Players.LocalPlayer.Character:FindFirstChild("Humanoid") ~= nil and game.Players.LocalPlayer.Character.Humanoid.JumpPower ~= _G.jump then
-                    game.Players.LocalPlayer.Character.Humanoid.JumpPower = _G.jump
-                end
-task.wait()
-            end
-    end
+}):AddKeyPicker("Fly", {
+   Default = "R",
+   Text = "Fly",
+   Mode = Library.IsMobile and "Toggle" or "Hold",
+   SyncToggleState = Library.IsMobile
 })
 
 local MenuGroup = Tabs["UI Settings"]:AddLeftGroupbox("Menu")
