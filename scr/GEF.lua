@@ -76,7 +76,7 @@ stats:AddToggle("Stamina", {
 
 Item:AddDropdown("Item", {
     Values = {"Bat", "Shotgun", "Handgun", "Crowbar", "Food", "Medkit", "Shells", "Hammer", "Soda", "Money", "GPS"},
-    Default = nil,
+    Default = 0,
     Multi = false,
     Text = "Get Item",
     Callback = function(Value)
@@ -169,7 +169,7 @@ local Candycane = funstuff:AddButton({
 
 _G.speed = 30
 
-Misc2:AddSlider("Speed", {
+LocalPlayer:AddSlider("Speed", {
     Text = "Set Speed",
     Default = 10,
     Min = 0,
@@ -179,10 +179,12 @@ Misc2:AddSlider("Speed", {
 
     Callback = function(Value)
         _G.speed = Value
-    end
+    end,
+    
+    Visible = true
 })
 
-Misc2:AddToggle("Speed", {
+LocalPlayer:AddToggle("Speed", {
     Text = "Walkspeed Set Auto",
     Default = false, 
     Callback = function(Value)
@@ -196,7 +198,7 @@ task.wait()
     end
 })
 
-Misc2:AddSlider("Jump", {
+LocalPlayer:AddSlider("Jump", {
     Text = "Set Jump Power",
     Default = 10,
     Min = 0,
@@ -206,10 +208,12 @@ Misc2:AddSlider("Jump", {
 
     Callback = function(Value)
         _G.jump = Value
-    end
+    end,
+    
+    Visible = true
 })
 
-Misc2:AddToggle("Speed", {
+LocalPlayer:AddToggle("Speed", {
     Text = "Jump Power Auto",
     Default = false, 
     Callback = function(Value)
