@@ -29,7 +29,7 @@ local Window = Library:CreateWindow({
 local Tabs = {
     Main = Window:AddTab("Main", "rbxassetid://93827038692127"),
     Weapon = Window:AddTab("Weapon"),
-    Misc = Window:AddTab("Misc", "rbxassetid://4483345998")
+    Misc = Window:AddTab("Misc", "rbxassetid://4483345998"),
     ["UI Settings"] = Window:AddTab("UI Settings", "rbxassetid://132720500313615"),
 }
 
