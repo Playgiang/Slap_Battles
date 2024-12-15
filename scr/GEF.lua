@@ -77,7 +77,7 @@ end
 
 stats:AddToggle("Stamina", {
     Text = "Inf Max Stamina + Stamina Regen",
-    Default = true,
+    Default = false,
     Callback = function(Value)
     getgenv().config.stamina = Value
         while getgenv().config.stamina do
@@ -89,8 +89,8 @@ stats:AddToggle("Stamina", {
 })
 
 Item:AddDropdown("Item", {
-     Values = {"Bat","Shotgun","Handgun","Crowbar","Food","Medkit"},
-     Default = 1,
+     Values = {"Bat", "Shotgun", "Handgun", "Crowbar", "Food", "Medkit", "Shells", "Hammer", "Soda", "Money", "GPS"},
+     Default = 0,
      Multi = false,
      Text = "Get Item",
      Callback = function(Value)
