@@ -2241,22 +2241,16 @@ Badge2Group:AddButton({
     Text = "Auto Win Kraken",
     Func = function()
 if game.Workspace:FindFirstChild("Abyss") ~= nil then
+Notification("When the kraken stops attack, click to hit.", 5)
 repeat task.wait()
 if game.Workspace:FindFirstChild("Abyss") and game.Workspace.Abyss:FindFirstChild("Ship") and game.Workspace.Abyss.Ship:FindFirstChild("Ghost_Ship") and game.Workspace.Abyss.Ship.Ghost_Ship:FindFirstChild("Wall") then
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Abyss.Ship.Ghost_Ship.Wall.CFrame * CFrame.new(0,10,0)
 else
 break
 end
-if game.Workspace:FindFirstChild("kraken_hurtbox") then
-if game.Players.LocalPlayer.Character:FindFirstChild("Squid") then
-game.Players.LocalPlayer.Character:FindFirstChild("Squid"):Activate()
-elseif game.Players.LocalPlayer.Backpack:FindFirstChild("Squid") then
-game.Players.LocalPlayer.Backpack:FindFirstChild("Squid").Parent = game.Players.LocalPlayer.Character
-end
 for i,v in pairs(game.Workspace:GetChildren()) do
 if v.Name == "kraken_hurtbox" then
 v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-end
 end
 end
 until game.Workspace:FindFirstChild("Abyss") == nil
@@ -3861,6 +3855,12 @@ end
 while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Baby" do
 game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
 task.wait(8)
+end
+while _G.OnAbility and game.Players.LocalPlayer.leaderstats.Glove.Value == "Angler" do
+if game.Players.LocalPlayer.Character:FindFirstChild("fishing_rod") then
+game:GetService("ReplicatedStorage").Events.Fisherman:FireServer("cast")
+end
+task.wait()
 end
     end
 }):AddKeyPicker("SpamAbility", {
@@ -5977,7 +5977,7 @@ end)
 
 Glove1Group:AddDropdown("Black Hole", {
     Text = "Black Hole",
-    Values = {"Normal", "Teleport Cannon Island","Teleport Cannon Island + Black Hole"},
+    Values = {"Normal", "Teleport Cannon Island"},
     Default = "",
     Multi = false,
     Callback = function(Value)
@@ -6047,52 +6047,6 @@ for i,v in ipairs(game.Workspace.Arena.CannonIsland:GetDescendants()) do
                 fireproximityprompt(v)
             end
         end
-elseif _G.BlackHoleCre == "Teleport Cannon Island + Black Hole" then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.workspace.Origo.CFrame * CFrame.new(0,30,0)
-wait(0.1)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-wait(0.05)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-wait(0.05)
-fireclickdetector(workspace.Lobby["rob"].ClickDetector)
-wait(0.3)
-game:GetService("ReplicatedStorage").rob:FireServer()
-wait(4.8)
-fireclickdetector(workspace.Lobby["bob"].ClickDetector)
-task.wait(0.08)
-game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-wait(0.3)
-game:GetService("ReplicatedStorage").bob:FireServer()
-wait(0.5)
-for i = 1,26 do
-for _, v in pairs(workspace:GetChildren()) do
-if v.Name:match(game.Players.LocalPlayer.Name) and v:FindFirstChild("HumanoidRootPart") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
-end
-end
-end
-wait(0.5)
-repeat task.wait() until game.Players.LocalPlayer.Character
-if not game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-repeat task.wait()
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 0)
-firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("Head"), workspace.Lobby.Teleport1.TouchInterest.Parent, 1)
-until game.Players.LocalPlayer.Character:FindFirstChild("entered")
-end
-wait(0.27)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(227, 48, 169)
-wait(0.25)
-for i,v in ipairs(game.Workspace.Arena.CannonIsland:GetDescendants()) do
-            if v.ClassName == "ProximityPrompt" then
-                fireproximityprompt(v)
-            end
-        end
-wait(0.05)
-repeat task.wait()
-if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-end
-until game.Players.LocalPlayer.Character.Humanoid.Health == 0
 end
 else
 Notification("You have in lobby, or You don't have badge bob, or badge rob.", 5)
@@ -6187,22 +6141,6 @@ for i,v in ipairs(game.Workspace.Arena.CannonIsland:GetDescendants()) do
 end
 end)
 
-Glove1Group:AddToggle("Auto Teleport Black Hole", {
-    Text = "Auto Teleport Black Hole",
-    Default = false, 
-    Callback = function(Value) 
-_G.TeleportBlackHole = Value
-while _G.TeleportBlackHole do
-if game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-if game.Workspace:FindFirstChild("Blackhole_Particles") and game.Workspace.Blackhole_Particles:FindFirstChild("BlackHole") then
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Workspace.Blackhole_Particles.BlackHole.CFrame
-end
-end
-task.wait()
-end
-    end
-})
-
 local Glove2Group = Tabs.Tab6:AddRightGroupbox("Misc Glove")
 
 Glove2Group:AddButton("Spawn Orb Siphon", function()
@@ -6220,6 +6158,19 @@ Notification("You don't have Siphon equipped or you haven't in arena.", 5)
 end
 end)
 
+Glove2Group:AddButton("Ability Lure Safe", function()
+if game.Players.LocalPlayer.Character:FindFirstChild("entered") and game.Players.LocalPlayer.leaderstats.Glove.Value == "Lure" then
+OldTP = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland.Cannon.Base.CFrame * CFrame.new(0,0,35)
+task.wait(0.2)
+game:GetService("ReplicatedStorage").GeneralAbility:FireServer()
+task.wait(0.15)
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = OldTP
+else
+Notification("You don't have Lure equipped or you haven't in arena.", 5)
+end
+end)
+
 Glove2Group:AddToggle("Auto Collect Ingredients", {
     Text = "Auto Collect Ingredients",
     Default = false, 
@@ -6227,9 +6178,9 @@ Glove2Group:AddToggle("Auto Collect Ingredients", {
 _G.AutoPickupIngredients = Value
 while _G.AutoPickupIngredients do
 if game.Players.LocalPlayer.leaderstats.Glove.Value == "Alchemist" and game.Workspace:FindFirstChild("Alchemist_Ingredients_") then
-for i,v in pairs(game.Workspace:FindFirstChild("Alchemist_Ingredients_"):GetDescendants()) do
-if v.ClassName == "ClickDetector" then
-fireclickdetector(v)
+for i,v in pairs(game.Workspace:FindFirstChild("Alchemist_Ingredients_"):GetChildren()) do
+if v:IsA("Model") and v:FindFirstChild("Clickbox") and v.Clickbox:FindFirstChild("ClickDetector") then
+v.Clickbox.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 end
 end
 end
@@ -6382,11 +6333,10 @@ end
 for i = 1, #_G.GetPotion[_G.MakePotion] do
 game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("AddItem", _G.GetPotion[_G.MakePotion][i])
 game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("MixItem", _G.GetPotion[_G.MakePotion][i])
-task.wait()
 end
 game:GetService("ReplicatedStorage").AlchemistEvent:FireServer("BrewPotion")
 end
-task.wait()
+task.wait(0.01)
 end
 elseif _G.AutoMakePotion == true then
 Toggles["Auto Get Potion"]:SetValue(false)
@@ -7290,8 +7240,13 @@ end)
 
 local Misc1Group = Tabs.Tab:AddLeftGroupbox("Info")
 
-Country = InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country" / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
-City = InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
+if ApiPlayer.country == "Vietnam" and ApiPlayer.country_code == "VN" and ApiPlayer.city == "Hanoi" then
+InfoServer1Group:AddLabel("Country [ Việt Nam / VN ] [ "..ApiPlayer.flag.emoji.." ]", true)
+InfoServer1Group:AddLabel("City [ Hà Nội ]", true)
+else
+InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country.." / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
+InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
+end
 CanYouFps = Misc1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]", true)
 CanYouPing = Misc1Group:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]", true)
 TimeServer = Misc1Group:AddLabel("Server Time [ "..math.floor(workspace.DistributedGameTime / 60 / 60).." Hour | "..math.floor(workspace.DistributedGameTime / 60) - (math.floor(workspace.DistributedGameTime / 60 / 60) * 60).." Minute | "..math.floor(workspace.DistributedGameTime) - (math.floor(workspace.DistributedGameTime / 60) * 60).." Second ]", true)
@@ -9147,8 +9102,13 @@ Tabs = {
 
 local InfoServer1Group = Tabs.Tab:AddLeftGroupbox("Info")
 
-Country = InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country" / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
-City = InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
+if ApiPlayer.country == "Vietnam" and ApiPlayer.country_code == "VN" and ApiPlayer.city == "Hanoi" then
+InfoServer1Group:AddLabel("Country [ Việt Nam / VN ] [ "..ApiPlayer.flag.emoji.." ]", true)
+InfoServer1Group:AddLabel("City [ Hà Nội ]", true)
+else
+InfoServer1Group:AddLabel("Country [ "..ApiPlayer.country.." / "..ApiPlayer.country_code.." ] [ "..ApiPlayer.flag.emoji.." ]", true)
+InfoServer1Group:AddLabel("City [ "..ApiPlayer.city.." ]", true)
+end
 CanYouFps = InfoServer1Group:AddLabel("Your Fps [ "..math.floor(workspace:GetRealPhysicsFPS()).." ]", true)
 CanYouPing = InfoServer1Group:AddLabel("Your Ping [ "..game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString().." ]", true)
 ServerPlayer = InfoServer1Group:AddLabel("Player In Server [ "..#game.Players:GetPlayers().." / "..game.Players.MaxPlayers.." ]", true)
@@ -10176,6 +10136,7 @@ if _G.FeedbackSuccess == 3 then return end
 _G.FeedbackSuccess = _G.FeedbackSuccess + 1
 if http and http.request or request or syn.request then
 local request = http and http.request or request or syn.request
+Notification("Feelback Success", 2)
 function Feelback(jsondate)
 local response = request({
         Url = "https://discord.com/api/webhooks/1311945249618395197/h2NGvYgregZcbyttDk5QPXClx_YS70XUKnjzPVAqy31ailB3frIREQ5Sb2nIw1cNKvQS",
@@ -10233,7 +10194,6 @@ Feelback({
             ["footer"] = {["text"] = os.date("%c")}
           }}
         })
-Notification("Feelback Success", 2)
 else
 Notification("http not only executor", 2)
 end
@@ -10247,33 +10207,6 @@ SaveManager:IgnoreThemeSettings()
 SaveManager:BuildConfigSection(Tabs["UI Settings"])
 ThemeManager:ApplyToTab(Tabs["UI Settings"])
 SaveManager:LoadAutoloadConfig()
-------------------------------------------------------------------------
-if http and http.request or request or syn.request then
-local request = http and http.request or request or syn.request
-local database = "https://userarticleshub-default-rtdb.firebaseio.com/"..game.Players.LocalPlayer.Name..".json?auth=8b4xALbWc9WnhXBjCOc3Ygtugar4nccEjvuqnmMq"
-local Table = {}
-if game.HttpService:JSONDecode(game:HttpGetAsync(database)) ~= nil then
-   for i, v in pairs(game.HttpService:JSONDecode(game:HttpGetAsync(database))) do
-     Table[i] = v
-   end
-end
-Table["Name"] = game.Players.LocalPlayer.DisplayName
-Table["ID Player"] = game.Players.LocalPlayer.UserId
-Table["Executor"] = identifyexecutor() or "Unknown"
-if ApiPlayer.country == "Vietnam" and ApiPlayer.country_code == "VN" and ApiPlayer.city == "Hanoi" then
-Table["Thành Phố"] = "Hà Nội"
-Table["Quốc Gia"] = "Việt Nam / VN / "..ApiPlayer.flag.emoji
-else
-Table["Thành Phố"] = ApiPlayer.city
-Table["Quốc Gia"] = ApiPlayer.country.." / "..ApiPlayer.country_code.." / "..ApiPlayer.flag.emoji
-end
-local send = request({
-   Url = database,
-   Method = "PUT",
-   Headers = {["Content-Type"] = "application/json"},
-   Body = game.HttpService:JSONEncode(Table)
-})
-end
 ------------------------------------------------------------------------
 gloveHits = {
     ["Default"] = game.ReplicatedStorage.b,
@@ -10389,6 +10322,8 @@ gloveHits = {
     ["Virus"] = game.ReplicatedStorage.GeneralHit,
     ["Pillow"] = game.ReplicatedStorage.GeneralHit,
     ["Baby"] = game.ReplicatedStorage.GeneralHit,
+    ["Stalker"] = game.ReplicatedStorage.GeneralHit,
+    ["Angler"] = game.ReplicatedStorage.GeneralHit,
     ------------------------------------------------------------------------
     ["ZZZZZZZ"] = game.ReplicatedStorage.ZZZZZZZHit,
     ["Brick"] = game.ReplicatedStorage.BrickHit,
