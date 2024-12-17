@@ -55,6 +55,18 @@ end
     end
 })
 
+FischFarm:AddSlider("Auto cast Power", {
+    Text = "Throwing Power",
+    Default = 100,
+    Min = 1,
+    Max = 100,
+    Rounding = 0,
+    Compact = true,
+    Callback = function(Value)
+_G.castpower = Value
+    end
+})
+
 FischFarm:AddToggle("ThrowRod", {
     Text = "Auto Throw Rod",
     Default = false,
@@ -62,7 +74,7 @@ FischFarm:AddToggle("ThrowRod", {
 _G.AutoThrowRod = Value
 while _G.AutoThrowRod do
 if game.Players.LocalPlayer.Character:FindFirstChild(game:GetService("ReplicatedStorage").playerstats[game.Players.LocalPlayer.Name].Stats.rod.Value) then
-game.Players.LocalPlayer.Character:FindFirstChild(game:GetService("ReplicatedStorage").playerstats[game.Players.LocalPlayer.Name].Stats.rod.Value).events.cast:FireServer(100)
+game.Players.LocalPlayer.Character:FindFirstChild(game:GetService("ReplicatedStorage").playerstats[game.Players.LocalPlayer.Name].Stats.rod.Value).events.cast:FireServer(_G.castpower)
 end
 task.wait()
 end
@@ -79,6 +91,33 @@ if game.Players.LocalPlayer.PlayerGui:FindFirstChild("shakeui") and game.Players
 game.Players.LocalPlayer.PlayerGui.shakeui.safezone.button.Size = UDim2.new(1001, 0, 1001, 0)
 game:GetService("VirtualUser"):Button1Down(Vector2.new(1, 1))
 game:GetService("VirtualUser"):Button1Up(Vector2.new(1, 1))
+end
+task.wait()
+end
+    end
+})
+
+FischFarm:AddToggle("Chance for perfect or normal1", {
+    Text = "Chance for normal or perfect",
+    Default = false,
+    Callback = function(Value)
+_G.normalorperfect1 = Value
+while _G.normalorperfect1 do
+local chance = math.random(1, 100)
+if chance > 85 then
+    local idkwhattonamethis = true
+    print(idkwhattonamethis)
+    if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
+    game:GetService("ReplicatedStorage").events.reelfinished:FireServer(100, true)
+    end
+elseif chance < 85 then
+    local idkwhattonamethis = false
+    print(idkwhattonamethis)
+    if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
+    game:GetService("ReplicatedStorage").events.reelfinished:FireServer(100, false)
+    end
+end
+if game.Players.LocalPlayer.PlayerGui:FindFirstChild("reel") then
 end
 task.wait()
 end
@@ -432,7 +471,7 @@ end
     end
 })
 
-local Shop1 = Tabs.Tab3:AddRightGroupbox("Totem")
+local Shop1 = Tabs.Tab3:AddRightGroupbox("Buy")
 
 Shop1:AddDropdown("Select Totem", {
     Text = "Select Totem",
